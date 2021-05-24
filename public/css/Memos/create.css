@@ -1,0 +1,26 @@
+.section_area{
+	width: 100%;
+}
+
+.fix {
+  position: fixed;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.prettyprint ol.linenums > li {
+	list-style-type: decimal;
+}
+.sectionimage{
+	width: 70%;
+	display: block;
+	margin: 0 auto;
+}
+.confirmImage{
+	height: 100%;
+	width: auto;
+	margin: 0 auto;
+	display: block;
+}

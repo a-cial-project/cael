@@ -1,0 +1,15 @@
+.comment{
+	width: 60%;
+	margin: 0 auto;
+}
+.section{
+	width: 85%;
+	margin: 0 auto;
+	display: flex;
+}
+.user{
+	text-align: center;
+}
+.comment{
+	text-align: center;
+}

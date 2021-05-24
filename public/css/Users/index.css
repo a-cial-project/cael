@@ -1,0 +1,28 @@
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 auto;
+}
+
+#search_all{
+	width: 100%;
+}
+
+.result {
+	width: 30%;
+	height: 350px;
+	border: 1px solid #111;
+}
+
+.result p {
+	text-align: center;
+	font-size: 20px;
+}
+.result img{
+	width: 80%;
+	display: block;
+	margin: 0 auto;
+}
+.hidden{
+	display: none;
+}
