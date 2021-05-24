@@ -21,6 +21,11 @@
   <div id="search_all">
   </div>
 
+  <a href="{{ route('sport.create') }}" class="row offset-4 col-4 mb-3 btn btn-primary">スポーツ仲間を探す</a>
+  <a href="{{ route('engineer.create') }}" class="row offset-4 col-4 mb-3 btn btn-primary">開発仲間を探す</a>
+  <a href="{{ route('memo.create') }}" class="row offset-4 col-4 btn mb-3 btn-primary">備忘録を追加</a>
+  <a href="{{ route('question.create') }}" class="row offset-4 col-4 mb-3 btn btn-primary">質問をする</a>
+
 </div>
 
 <script type="module">
