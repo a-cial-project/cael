@@ -45,5 +45,7 @@ Route::group(['middleware' => 'auth'], function() {
   Route::post('memosearch', 'Memo\MemoController@search')->name('memos.search');
   Route::post('/deletecontent', 'Memo\MemoController@deletecontent')->name('memos.deletecontent');
   Route::post('/memostock', 'Memo\MemoStockController@memostock')->name('memos.memostock');
+  // 質問機能
+  Route::resource('question', 'Question\QuestionController')->only(['show', 'create', 'store', 'edit', 'update']);
 });
 
