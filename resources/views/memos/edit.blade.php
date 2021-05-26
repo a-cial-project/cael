@@ -23,7 +23,7 @@
         </select>
         <input type="text" name="new_category" id="category" placeholder="新しいカテゴリーを追加" class="row offset-4 col-4 mb-5">
         <select class="row offset-4 col-4 mb-5" name="status">
-          <option selected value="privacy">非公開</option>
+          <option value="privacy">非公開</option>
           <option value="relase">公開</option>
         </select>
 

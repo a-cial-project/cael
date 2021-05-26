@@ -89,4 +89,57 @@ class SportController extends Controller
 			return false;
 		}
 	}
+
+	public function edit($id)
+	{
+		$sport = Sport::find($id);
+		$categories = SportCategory::all();
+		return view('sports.edit',['sport' => $sport, 'categories' => $categories]);
+	}
+
+	public function update(Request $request)
+	{
+		// validation
+    $rules = [
+      'name' => ['required'],
+      'content' => ['required'],
+      'date' => ['required', 'after:"now"'],
+      'limit' => ['required', 'after:"now"']
+    ];
+    $this->validate($request, $rules);
+    // ここまで追加
+
+		try{
+			if(!is_null($request->new_category)){
+				$category = SportCategory::where('name', $request->new_category)->first();
+				if(!isset($category)){
+					$sport_category = new SportCategory;
+					$sport_category->name = $request->new_category;
+					$sport_category->save();
+			  }
+			}
+			$sport = Sport::find($request->id);
+			$sport->name = $request->name;
+			if(isset($category)){
+				$sport->sport_category_id = $category->id;
+			}elseif(isset($sport_category)){
+				$sport->sport_category_id = $sport_category->id;
+			}elseif(is_null($request->new_category)){
+				$sport->sport_category_id = $request->category_id;
+			}
+			$sport->content = $request->content;
+			$sport->date = $request->date;
+			$sport->limit = $request->limit;
+			$sport->status = $request->status;
+			$sport->save();
+
+			$result = $this->favoritecheck('App\Model\Sports\SportFavorite', 'sport_id', $request->id);
+			$count = $this->favoritecount('App\Model\Sports\SportFavorite', 'sport_id', $request->id);
+			$sportcomments = SportComment::where('sport_id', $request->id)->get();
+			return view('sports.show',['sport' => $sport, 'sportcomments' => $sportcomments, 'result' => $result, 'count' => $count]);
+		} catch (Throwable $e) {
+			report($e);
+			return false;
+		}
+	}
 }

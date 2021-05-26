@@ -4,10 +4,18 @@
 
 const editContent = document.querySelectorAll('.content');
 
-for (var i = 0; i < editContent.length; i++) {
+for (let i = 0; i < editContent.length; i++) {
   if (editContent[i].classList.contains('code') == true) {
-    var stayValue = editContent[i].name;
-    CKEDITOR.replace(editContent[i]);
+    const stayValue = editContent[i].name;
+    CKEDITOR.replace(editContent[i], {
+      startupMode: 'source'
+    });
+    CKEDITOR.instances[stayValue].setData(editContent[i].value);
+  }else if(editContent[i].classList.contains('content') == true){
+    const stayValue = editContent[i].name;
+    CKEDITOR.replace(editContent[i], {
+      startupMode: 'wysiwyg'
+    });
     CKEDITOR.instances[stayValue].setData(editContent[i].value);
   }
 
@@ -183,11 +191,16 @@ function newContent(sectionPlace, contentPlace, addElement) {
     var newContent = document.createElement('textarea');
     newContent.classList = 'row col-12 content code';
     newContent.setAttribute("name", 'section' + '[' + [sectionPlace] + ']' + '[' + [Number(contentPlace)] + '][section_id][' + '][section_code]');
-    CKEDITOR.replace(newContent);
+    CKEDITOR.replace(newContent, {
+      startupMode: 'source'
+    });
   } else if (addElement == 'blog') {
     var newContent = document.createElement('textarea');
     newContent.classList = 'row col-12 content blog';
     newContent.setAttribute("name", 'section' + '[' + [sectionPlace] + ']' + '[' + [Number(contentPlace)] + '][section_id][' + '][section_content]');
+    CKEDITOR.replace(newContent, {
+      startupMode: 'wysiwyg'
+    });
   }
 
   newContent.setAttribute("data-sectioncount", sectionPlace);
@@ -206,11 +219,19 @@ function addContent(sectionPlace, contentPlace, addElement) {
       CKEDITOR.instances[sectionput[i].name].destroy();
       sectionput[i].setAttribute("name", 'section' + '[' + [sectionPlace] + ']' + '[' + [i + 2] + ']' + '[section_id][' + [sectionput[i].dataset.id] + '][section_code]');
       sectionput[i].setAttribute("data-contentcount", i + 2);
-      CKEDITOR.replace(sectionput[i]);
+      CKEDITOR.replace(sectionput[i], {
+        startupMode: 'source'
+      });
       CKEDITOR.instances[sectionput[i].name].setData(ckValue);
     }else if(sectionput[i].classList.contains('blog') == true){
+      let ckValue = CKEDITOR.instances[sectionput[i].name].getData();
+      CKEDITOR.instances[sectionput[i].name].destroy();
       sectionput[i].setAttribute("name", 'section' + '[' + [sectionPlace] + ']' + '[' + [i + 2] + ']' + '[section_id][' + [sectionput[i].dataset.id] + '][section_content]');
       sectionput[i].setAttribute("data-contentcount", i + 2);
+      CKEDITOR.replace(sectionput[i], {
+        startupMode: 'wysiwyg'
+      });
+      CKEDITOR.instances[sectionput[i].name].setData(ckValue);
     }
     let addBtn = sectionput[i].previousElementSibling;
     addBtn.children[0].setAttribute("data-content-place", i + 2);
@@ -229,12 +250,17 @@ function addContent(sectionPlace, contentPlace, addElement) {
     newContent.classList = 'row col-12 content code';
     newContent.setAttribute("name", 'section' + '[' + [sectionPlace] + ']' + '[' + [Number(contentPlace)] + '][section_id][]' + '[section_code]');
     sectionArray.splice(Number(contentPlace)-1, 0, newContent);
-    CKEDITOR.replace(newContent);
+    CKEDITOR.replace(newContent, {
+      startupMode: 'source'
+    });
   }else if(addElement == 'blog'){
     var newContent = document.createElement('textarea');
     newContent.classList = 'row col-12 content blog';
     newContent.setAttribute("name", 'section' + '[' + [sectionPlace] + ']' + '[' + [Number(contentPlace)] + '][section_id][]' + '[section_content]');
     sectionArray.splice(Number(contentPlace)-1, 0, newContent);
+    CKEDITOR.replace(newContent, {
+      startupMode: 'wysiwyg'
+    });
   }
   newContent.setAttribute("data-sectioncount", sectionPlace);
   newContent.setAttribute("data-contentcount", contentPlace);
@@ -266,10 +292,17 @@ function deleteContent(editContent){
       CKEDITOR.instances[sectionput[i].name].destroy();
       sectionput[i].setAttribute("name", 'section' + '[' + [sectioncount] + ']' + '[' + [i] + ']' + '[section_id][' + [sectionput[i].dataset.id] + '][section_code]');
       sectionput[i].setAttribute("data-contentcount", i);
-      CKEDITOR.replace(sectionput[i]);
+      CKEDITOR.replace(sectionput[i], {
+        startupMode: 'source'
+      });
     }else if(sectionput[i].classList.contains('blog') == true){
+      const ckValue = CKEDITOR.instances[sectionput[i].name].getData();
+      CKEDITOR.instances[sectionput[i].name].destroy();
       sectionput[i].setAttribute("name", 'section' + '[' + [sectioncount] + ']' + '[' + [i] + ']' + '[section_id][' + [sectionput[i].dataset.id] + '][section_content]');
       sectionput[i].setAttribute("data-contentcount", i);
+      CKEDITOR.replace(sectionput[i], {
+        startupMode: 'wysiwyg'
+      });
     }
     let addBtn = sectionput[i].previousElementSibling;
     addBtn.children[0].setAttribute("data-content-place", i);
@@ -310,7 +343,7 @@ confirmBtn.addEventListener('click', function (e) {
         }else if(contentValue[a].classList.contains('blog') == true){
           const confirmContent = document.createElement('div');
           confirmContent.className = 'confirmContent';
-          confirmContent.innerHTML = h(contentValue[a].value);
+          confirmContent.innerHTML = CKEDITOR.instances[contentValue[a].name].getData();
           confirmArea.appendChild(confirmContent);
         }else if(contentValue[a].classList.contains('image') == true){
           const image = new Image();
@@ -351,7 +384,7 @@ function validation() {
     if (checkValue[i].classList.contains('code') == true) {
       const checkCkValue = CKEDITOR.instances[checkValue[i].name].getData();
 
-      if (checkCkValue.length <= 61) {
+      if (checkCkValue.length <= 0) {
         const errArray = document.createElement('h4');
         errArray.innerHTML = 'コードが入っていません。↓';
         errArray.className = 'error';
@@ -359,7 +392,8 @@ function validation() {
         errCount++;
       }
     } else if (checkValue[i].classList.contains('blog') == true) {
-      if (checkValue[i].value.length < 1) {
+      const checkCkValue = CKEDITOR.instances[checkValue[i].name].getData();
+      if (checkCkValue.length < 61) {
         const _errArray = document.createElement('h4');
 
         _errArray.innerHTML = '内容が入っていません。↓';

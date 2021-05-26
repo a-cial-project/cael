@@ -6,6 +6,9 @@
 
 @section('content')
 <div class="container">
+  @if(Auth::id() == $sport->user_id)
+    <a href="{{ route('sport.edit', ['sport' => $sport->id]) }}" class="row offset-4 col-4 mb-3 btn btn-primary">編集する</a>
+  @endif
   <h3 class="my-5">{{ $sport->name }}</h3>
   <!-- data属性にsport_idを持たせてjsに送る -->
   <div class="favorite" name="sport_id" data-id='{{ $sport->id }}' data-url='/sportfavorite'>

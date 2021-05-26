@@ -8,7 +8,9 @@
 @section('content')
 
 <div class="container">
-  <a href="{{ route('memo.edit', ['memo' => $memo->id]) }}" class="btn btn-primary col-2">編集する</a>
+  @if(Auth::id() == $memo->user_id)
+    <a href="{{ route('memo.edit', ['memo' => $memo->id]) }}" class="btn btn-primary col-2">編集する</a>
+  @endif
   <h2 class="row" style="text-align: center;">{{ $memo->name }}</h2>
 
   <div class="favorite" name="memo_id" data-id='{{ $memo->id }}' data-url='/memostock'>
@@ -25,13 +27,13 @@
     <div class="row"><h3>{{ $section->title }}</h3></div>
 
     @foreach($section->section_contents->sortBy('order') as $content)
-      <div class="row">
+      <div class="">
         @if(isset($content->code))
           <pre class="prettyprint linenums">
 {!! \App\Model\Memos\Memo::escape(e($content->code)) !!}
           </pre>
         @elseif(isset($content->content))
-          <p>{!! nl2br(e($content->content)) !!}</p>
+          <p>{!! $content->content !!}</p>
         @endif
       </div>
     @endforeach

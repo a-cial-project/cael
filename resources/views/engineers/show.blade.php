@@ -3,9 +3,11 @@
 </head>
 
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
+  @if(Auth::id() == $engineer->user_id)
+    <a href="{{ route('engineer.edit', ['engineer' => $engineer->id]) }}" class="row offset-4 col-4 mb-3 btn btn-primary">編集する</a>
+  @endif
   <h3 class="my-5">{{ $engineer->name }}</h3>
   <div class="favorite" name="engineer_id" data-id='{{ $engineer->id }}' data-url='/engineerfavorite'>
   	@if(!is_null($result))

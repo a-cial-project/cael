@@ -11,6 +11,6 @@ $factory->define(Engineer::class, function (Faker $faker) {
       'name' => $faker->lastName,
       'engineer_category_id' => 1,
       'content' => $faker->realText(20),
-      'start' => $faker->dateTimeBetween('1day', '2month')->format('Y-m-d H:i'),
+      'start' => $faker->dateTimeBetween('1day', '2month')->format('Y-m-d'),
     ];
 });

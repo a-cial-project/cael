@@ -11,7 +11,7 @@ $factory->define(Sport::class, function (Faker $faker) {
       'name' => $faker->lastName,
       'sport_category_id' => 1,
       'content' => $faker->realText(20),
-      'date' => $faker->dateTimeBetween('1day', '2month')->format('Y-m-d H:i'),
-      'limit' => $faker->dateTimeBetween('1day', '2month')->format('Y-m-d H:i'),
+      'date' => $faker->dateTimeBetween('1day', '2month')->format('Y-m-d'),
+      'limit' => $faker->dateTimeBetween('1day', '2month')->format('Y-m-d'),
     ];
 });
