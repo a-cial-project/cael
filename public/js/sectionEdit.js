@@ -101,8 +101,17 @@ var editContent = document.querySelectorAll('.content');
 for (var i = 0; i < editContent.length; i++) {
   if (editContent[i].classList.contains('code') == true) {
     var stayValue = editContent[i].name;
-    CKEDITOR.replace(editContent[i]);
+    CKEDITOR.replace(editContent[i], {
+      startupMode: 'source'
+    });
     CKEDITOR.instances[stayValue].setData(editContent[i].value);
+  } else if (editContent[i].classList.contains('content') == true) {
+    var _stayValue = editContent[i].name;
+    CKEDITOR.replace(editContent[i], {
+      startupMode: 'wysiwyg'
+    });
+
+    CKEDITOR.instances[_stayValue].setData(editContent[i].value);
   }
 
   addBtn(editContent[i]);
@@ -286,11 +295,16 @@ function newContent(sectionPlace, contentPlace, addElement) {
     var newContent = document.createElement('textarea');
     newContent.classList = 'row col-12 content code';
     newContent.setAttribute("name", 'section' + '[' + [sectionPlace] + ']' + '[' + [Number(contentPlace)] + '][section_id][' + '][section_code]');
-    CKEDITOR.replace(newContent);
+    CKEDITOR.replace(newContent, {
+      startupMode: 'source'
+    });
   } else if (addElement == 'blog') {
     var newContent = document.createElement('textarea');
     newContent.classList = 'row col-12 content blog';
     newContent.setAttribute("name", 'section' + '[' + [sectionPlace] + ']' + '[' + [Number(contentPlace)] + '][section_id][' + '][section_content]');
+    CKEDITOR.replace(newContent, {
+      startupMode: 'wysiwyg'
+    });
   }
 
   newContent.setAttribute("data-sectioncount", sectionPlace);
@@ -314,13 +328,25 @@ function addContent(sectionPlace, contentPlace, addElement) {
 
       sectionput[_i3].setAttribute("data-contentcount", _i3 + 2);
 
-      CKEDITOR.replace(sectionput[_i3]);
+      CKEDITOR.replace(sectionput[_i3], {
+        startupMode: 'source'
+      });
 
       CKEDITOR.instances[sectionput[_i3].name].setData(ckValue);
     } else if (sectionput[_i3].classList.contains('blog') == true) {
+      var _ckValue = CKEDITOR.instances[sectionput[_i3].name].getData();
+
+      CKEDITOR.instances[sectionput[_i3].name].destroy();
+
       sectionput[_i3].setAttribute("name", 'section' + '[' + [sectionPlace] + ']' + '[' + [_i3 + 2] + ']' + '[section_id][' + [sectionput[_i3].dataset.id] + '][section_content]');
 
       sectionput[_i3].setAttribute("data-contentcount", _i3 + 2);
+
+      CKEDITOR.replace(sectionput[_i3], {
+        startupMode: 'wysiwyg'
+      });
+
+      CKEDITOR.instances[sectionput[_i3].name].setData(_ckValue);
     }
 
     var _addBtn = sectionput[_i3].previousElementSibling;
@@ -341,12 +367,17 @@ function addContent(sectionPlace, contentPlace, addElement) {
     newContent.classList = 'row col-12 content code';
     newContent.setAttribute("name", 'section' + '[' + [sectionPlace] + ']' + '[' + [Number(contentPlace)] + '][section_id][]' + '[section_code]');
     sectionArray.splice(Number(contentPlace) - 1, 0, newContent);
-    CKEDITOR.replace(newContent);
+    CKEDITOR.replace(newContent, {
+      startupMode: 'source'
+    });
   } else if (addElement == 'blog') {
     var newContent = document.createElement('textarea');
     newContent.classList = 'row col-12 content blog';
     newContent.setAttribute("name", 'section' + '[' + [sectionPlace] + ']' + '[' + [Number(contentPlace)] + '][section_id][]' + '[section_content]');
     sectionArray.splice(Number(contentPlace) - 1, 0, newContent);
+    CKEDITOR.replace(newContent, {
+      startupMode: 'wysiwyg'
+    });
   }
 
   newContent.setAttribute("data-sectioncount", sectionPlace);
@@ -383,11 +414,21 @@ function deleteContent(editContent) {
 
       sectionput[_i4].setAttribute("data-contentcount", _i4);
 
-      CKEDITOR.replace(sectionput[_i4]);
+      CKEDITOR.replace(sectionput[_i4], {
+        startupMode: 'source'
+      });
     } else if (sectionput[_i4].classList.contains('blog') == true) {
+      var _ckValue2 = CKEDITOR.instances[sectionput[_i4].name].getData();
+
+      CKEDITOR.instances[sectionput[_i4].name].destroy();
+
       sectionput[_i4].setAttribute("name", 'section' + '[' + [sectioncount] + ']' + '[' + [_i4] + ']' + '[section_id][' + [sectionput[_i4].dataset.id] + '][section_content]');
 
       sectionput[_i4].setAttribute("data-contentcount", _i4);
+
+      CKEDITOR.replace(sectionput[_i4], {
+        startupMode: 'wysiwyg'
+      });
     }
 
     var _addBtn2 = sectionput[_i4].previousElementSibling;
@@ -433,7 +474,7 @@ confirmBtn.addEventListener('click', function (e) {
         } else if (contentValue[a].classList.contains('blog') == true) {
           var confirmContent = document.createElement('div');
           confirmContent.className = 'confirmContent';
-          confirmContent.innerHTML = h(contentValue[a].value);
+          confirmContent.innerHTML = CKEDITOR.instances[contentValue[a].name].getData();
           confirmArea.appendChild(confirmContent);
         } else if (contentValue[a].classList.contains('image') == true) {
           (function () {
@@ -475,7 +516,7 @@ function validation() {
     if (checkValue[_i6].classList.contains('code') == true) {
       var checkCkValue = CKEDITOR.instances[checkValue[_i6].name].getData();
 
-      if (checkCkValue.length <= 61) {
+      if (checkCkValue.length <= 0) {
         var errArray = document.createElement('h4');
         errArray.innerHTML = 'コードが入っていません。↓';
         errArray.className = 'error';
@@ -485,7 +526,9 @@ function validation() {
         errCount++;
       }
     } else if (checkValue[_i6].classList.contains('blog') == true) {
-      if (checkValue[_i6].value.length < 1) {
+      var _checkCkValue = CKEDITOR.instances[checkValue[_i6].name].getData();
+
+      if (_checkCkValue.length < 61) {
         var _errArray = document.createElement('h4');
 
         _errArray.innerHTML = '内容が入っていません。↓';

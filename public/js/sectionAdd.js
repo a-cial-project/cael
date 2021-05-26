@@ -128,7 +128,9 @@ window.addEventListener('DOMContentLoaded', function () {
     inputCode.name = 'section' + '[' + [section_place] + ']' + '[' + [count] + ']' + '[section_code][]';
     inputCode.placeholder = 'コードを書いてください';
     codeParent.appendChild(inputCode);
-    CKEDITOR.replace(inputCode); // コンテンツごとの間に追加するためのボタン
+    CKEDITOR.replace(inputCode, {
+      startupMode: 'source'
+    }); // コンテンツごとの間に追加するためのボタン
 
     var addContent = document.createElement('h2');
     addContent.innerHTML = '＋';
@@ -168,11 +170,14 @@ window.addEventListener('DOMContentLoaded', function () {
     inputBlog.name = 'section' + '[' + [section_place] + ']' + '[' + [count] + ']' + '[section_content][]';
     inputBlog.placeholder = '文を書いてください';
     codeParent.appendChild(inputBlog);
+    CKEDITOR.replace(inputBlog, {
+      startupMode: 'wysiwyg'
+    });
     var addContent = document.createElement('h2');
     addContent.innerHTML = '＋';
     addContent.className = 'addContent';
     addContent.dataset.count = [count];
-    addContent.dataset.kind = "section_code";
+    addContent.dataset.kind = "section_content";
     addContent.dataset.place = [section_place];
     codeParent.appendChild(addContent);
     lastcontent();
@@ -306,7 +311,7 @@ window.addEventListener('DOMContentLoaded', function () {
           } else if (sectionName.name == content + '[section_content][]') {
             var confirmContent = document.createElement('div');
             confirmContent.className = 'confirmContent';
-            confirmContent.innerHTML = h(document.getElementsByName(content + '[section_content][]')[0].value);
+            confirmContent.innerHTML = CKEDITOR.instances[content + '[section_content][]'].getData();
             confirmSection.appendChild(confirmContent);
           } else if (sectionName.name == content + '[section_image][]') {
             (function () {
@@ -406,7 +411,8 @@ function judgeContent(selectcontent, count, section_place, addContent) {
     buttonCode.dataset.kind = "section_code";
     buttonContent.dataset.kind = "section_content";
     buttonImage.dataset.kind = "section_image";
-    selectcontent.after(btnArea);
+    var codeBody = selectcontent.nextElementSibling;
+    codeBody.after(btnArea);
   } else {
     console.log(selectcontent.classList);
     buttonCode.dataset.kind = "section_code";
@@ -455,6 +461,10 @@ function deletecontent(deletecontent) {
     CKEDITOR.instances[remove].destroy();
   }
 
+  if (kind == "section_content") {
+    CKEDITOR.instances[remove].destroy();
+  }
+
   if (kind == "section_image") {
     removeContent.nextSibling.nextSibling.remove();
   }
@@ -474,14 +484,23 @@ function deletecontent(deletecontent) {
       var ckValue = CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_code][]'].getData();
       CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_code][]'].destroy();
       remainContent[i - 1].setAttribute("name", 'section' + '[' + [place] + ']' + '[' + [i] + ']' + '[section_code][]');
-      var newEditor = CKEDITOR.replace(remainContent[i - 1]);
+      var newEditor = CKEDITOR.replace(remainContent[i - 1], {
+        startupMode: 'source'
+      });
       console.log(remainContent[i - 1]);
       CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i] + ']' + '[section_code][]'].setData(ckValue);
       deleteBtn[i - 1].setAttribute("data-count", [i]);
       addContent[i - 1].setAttribute("data-count", [i]);
       console.log(remainContent[i - 1]);
     } else if (remainContent[i - 1].classList.contains('content') == true) {
+      var ckValue = CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_content][]'].getData();
+      CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_content][]'].destroy();
       remainContent[i - 1].setAttribute("name", 'section' + '[' + [place] + ']' + '[' + [i] + ']' + '[section_content][]');
+      var newEditor = CKEDITOR.replace(remainContent[i - 1], {
+        startupMode: 'wysiwyg'
+      });
+      console.log(remainContent[i - 1]);
+      CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i] + ']' + '[section_content][]'].setData(ckValue);
       deleteBtn[i - 1].setAttribute("data-count", [i]);
       addContent[i - 1].setAttribute("data-count", [i]);
       console.log(remainContent[i - 1]);
@@ -526,7 +545,8 @@ function addcontent(addcontent) {
       ckValues.push({
         area: remainContent[i],
         value: ckValue,
-        ckPlace: i + 2
+        ckPlace: i + 2,
+        content: 'code'
       });
       console.log(remainContent[i]); // CKEDITOR.replace(remainContent[i]);
       // CKEDITOR.instances['section'+'[' + [place] + ']' + '[' + [i+2] + ']' + '[section_code][]'].setData(ckValue);
@@ -534,8 +554,25 @@ function addcontent(addcontent) {
       deleteBtn[i].setAttribute("data-count", [i + 2]);
       addBtn[i].setAttribute("data-count", [i + 2]);
     } else if (remainContent[i].classList.contains('content') == true) {
-      console.log(remainContent[i]);
+      var ckValue = CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_content][]'].getData();
+      console.log(ckValue); // ckValues.push(ckValue);
+
+      CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_content][]'].destroy(); // remainContent[i].remove();
+      // var inputCode = document.createElement('textarea');
+      // inputCode.className = 'col-12 mb-5 code arr';
+      // inputCode.name = 'section'+ '[' + [section_place] + ']' + '[' + [count] + ']' + '[section_content][]';
+      // inputCode.placeholder = 'コードを書いてください';
+
       remainContent[i].setAttribute("name", 'section' + '[' + [place] + ']' + '[' + [i + 2] + ']' + '[section_content][]');
+      ckValues.push({
+        area: remainContent[i],
+        value: ckValue,
+        ckPlace: i + 2,
+        content: 'content'
+      });
+      console.log(remainContent[i]); // CKEDITOR.replace(remainContent[i]);
+      // CKEDITOR.instances['section'+'[' + [place] + ']' + '[' + [i+2] + ']' + '[section_code][]'].setData(ckValue);
+
       deleteBtn[i].setAttribute("data-count", [i + 2]);
       addBtn[i].setAttribute("data-count", [i + 2]);
     } else {
@@ -545,10 +582,21 @@ function addcontent(addcontent) {
     }
   }
 
+  console.log(ckValues);
+
   if (ckValues.length >= 1) {
     for (var _i = 0; _i <= ckValues.length - 1; _i++) {
-      CKEDITOR.replace(ckValues[_i].area);
-      CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [ckValues[_i].ckPlace] + ']' + '[section_code][]'].setData(ckValue[_i].value);
+      if (ckValues[_i].content == 'code') {
+        CKEDITOR.replace(ckValues[_i].area, {
+          startupMode: 'source'
+        });
+        CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [ckValues[_i].ckPlace] + ']' + '[section_code][]'].setData(ckValues[_i].value);
+      } else if (ckValues[_i].content == 'content') {
+        CKEDITOR.replace(ckValues[_i].area, {
+          startupMode: 'wysiwyg'
+        });
+        CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [ckValues[_i].ckPlace] + ']' + '[section_content][]'].setData(ckValues[_i].value);
+      }
     }
   }
 
@@ -563,7 +611,9 @@ function addcontent(addcontent) {
     newCode.placeholder = 'コードを書いてください';
     divArray.splice(Number(count), 0, newCode);
     sectionPlace[Number(place)].insertBefore(newCode, mark.nextSibling);
-    CKEDITOR.replace(newCode);
+    CKEDITOR.replace(newCode, {
+      startupMode: 'source'
+    });
     var deleteContent = document.createElement('h2');
     deleteContent.innerHTML = '×';
     deleteContent.className = 'deleteContent';
@@ -600,6 +650,9 @@ function addcontent(addcontent) {
     newContent.placeholder = '文を書いてください';
     divArray.splice(Number(count), 0, newContent);
     sectionPlace[Number(place)].insertBefore(newContent, mark.nextSibling);
+    CKEDITOR.replace(newContent, {
+      startupMode: 'wysiwyg'
+    });
     var deleteContent = document.createElement('h2');
     deleteContent.innerHTML = '×';
     deleteContent.className = 'deleteContent';
@@ -701,7 +754,7 @@ function validation() {
     if (checkValue[i].classList.contains('code') == true) {
       var checkCkValue = CKEDITOR.instances[checkValue[i].name].getData();
 
-      if (checkCkValue.length <= 61) {
+      if (checkCkValue.length <= 0) {
         var errArray = document.createElement('h4');
         errArray.innerHTML = 'コードが入っていません。↓';
         errArray.className = 'error';
@@ -709,7 +762,9 @@ function validation() {
         errCount++;
       }
     } else if (checkValue[i].classList.contains('content') == true) {
-      if (checkValue[i].value.length < 1) {
+      var checkCkContent = CKEDITOR.instances[checkValue[i].name].getData();
+
+      if (checkCkContent.length < 1) {
         var _errArray = document.createElement('h4');
 
         _errArray.innerHTML = '内容が入っていません。↓';

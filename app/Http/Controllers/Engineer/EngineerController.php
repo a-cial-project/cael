@@ -97,4 +97,58 @@ class EngineerController extends Controller
 			return false;
 		}
 	}
+
+	public function edit($id)
+	{
+		$engineer = Engineer::find($id);
+		$categories = EngineerCategory::all();
+		return view('engineers.edit',['engineer' => $engineer, 'categories' => $categories]);
+	}
+
+	public function update(Request $request)
+	{
+    // validation ここから追加
+    $rules = [
+    	'name' => ['required'],
+      'content' => ['required'],
+      'date' => ['required', 'after:"now"'],
+    ];
+    $this->validate($request, $rules);
+    // ここまで追加
+
+		try{
+			$engineer = Engineer::find($request->id);
+			if(!is_null($request->new_category)){
+				$category = EngineerCategory::where('name', $request->new_category)->first();
+				if(!isset($category)){
+					$engineer_category = new EngineerCategory;
+					$engineer_category->name = $request->new_category;
+					$engineer_category->save();
+			  }
+			}
+
+			if(isset($category)){
+				$engineer->engineer_category_id = $category->id;
+			}elseif(isset($sport_category)){
+				$engineer->engineer_category_id = $engineer_category->id;
+			}elseif(is_null($request->new_category)){
+				$engineer->engineer_category_id = $request->category_id;
+			}
+      $engineer->name = $request->name;
+			$engineer->content = $request->content;
+			$engineer->start = $request->date;
+			$engineer->git_hub_url = $request->git_hub_url;
+			$engineer->status = $request->status;
+			$engineer->save();
+
+			$engineer = Engineer::find($engineer->id);
+			$result = $this->favoritecheck('App\Model\Engineers\EngineerFavorite', 'engineer_id', $engineer->id);
+	    $count = $this->favoritecount('App\Model\Engineers\EngineerFavorite', 'engineer_id', $engineer->id);
+			$engineercomments = EngineerComment::where('engineer_id', $engineer->id)->get();
+			return view('engineers.show',['engineer' => $engineer, 'engineercomments' => $engineercomments, 'result' => $result, 'count' => $count]);
+		} catch (Throwable $e) {
+			report($e);
+			return false;
+		}
+	}
 }

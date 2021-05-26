@@ -31,12 +31,12 @@ Route::group(['middleware' => 'auth'], function() {
   // パスワード変更処理
   Route::post('/updatepassword', 'UserController@updatepassword')->name('users.updatepassword');
   // スポーツ仲間募集機能
-  Route::resource('sport', 'Sport\SportController')->only(['show', 'create', 'store', 'update']);
+  Route::resource('sport', 'Sport\SportController')->only(['show', 'create', 'store', 'edit', 'update']);
   Route::post('sportsearch', 'Sport\SportController@search')->name('search');
   Route::resource('sportcomment', 'Sport\SportCommentController')->only(['store']);
   Route::resource('sportfavorite', 'Sport\SportFavoriteController')->only(['store']);
   // エンジニア仲間募集機能
-  Route::resource('engineer', 'Engineer\EngineerController')->only(['index', 'show', 'create', 'store', 'update']);
+  Route::resource('engineer', 'Engineer\EngineerController')->only(['index', 'show', 'create', 'store', 'edit', 'update']);
   Route::post('engineersearch', 'Engineer\EngineerController@search')->name('search');
   Route::resource('engineercomment', 'Engineer\EngineerCommentController')->only(['store']);
   Route::resource('engineerfavorite', 'Engineer\EngineerFavoriteController')->only(['store']);
