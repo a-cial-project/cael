@@ -125,7 +125,7 @@ window.addEventListener('DOMContentLoaded', function () {
     var codeParent = document.getElementsByClassName('section_area')[section_place];
     var inputCode = document.createElement('textarea');
     inputCode.className = 'col-12 mb-5 code arr';
-    inputCode.name = 'section' + '[' + [section_place] + ']' + '[' + [count] + ']' + '[section_code][]';
+    inputCode.name = 'section' + '[' + [section_place] + ']' + '[' + [count] + ']' + '[section_code]';
     inputCode.placeholder = 'コードを書いてください';
     codeParent.appendChild(inputCode);
     CKEDITOR.replace(inputCode, {
@@ -167,7 +167,7 @@ window.addEventListener('DOMContentLoaded', function () {
     var codeParent = document.getElementsByClassName('section_area')[section_place];
     var inputBlog = document.createElement('textarea');
     inputBlog.className = 'col-12 mb-5 content arr';
-    inputBlog.name = 'section' + '[' + [section_place] + ']' + '[' + [count] + ']' + '[section_content][]';
+    inputBlog.name = 'section' + '[' + [section_place] + ']' + '[' + [count] + ']' + '[section_content]';
     inputBlog.placeholder = '文を書いてください';
     codeParent.appendChild(inputBlog);
     CKEDITOR.replace(inputBlog, {
@@ -208,7 +208,7 @@ window.addEventListener('DOMContentLoaded', function () {
     var inputImage = document.createElement('input');
     inputImage.type = 'file';
     inputImage.className = 'col-12 mb-5 image arr';
-    inputImage.name = 'section' + '[' + [section_place] + ']' + '[' + [count] + ']' + '[section_image][]';
+    inputImage.name = 'section' + '[' + [section_place] + ']' + '[' + [count] + ']' + '[section_image]';
     inputImage.placeholder = '文を書いてください';
     codeParent.appendChild(inputImage);
 
@@ -301,23 +301,23 @@ window.addEventListener('DOMContentLoaded', function () {
           console.log(sectionName.name);
           var content = "section" + '[' + [i] + ']' + '[' + [a] + ']';
 
-          if (sectionName.name == content + '[section_code][]') {
+          if (sectionName.name == content + '[section_code]') {
             var confirmCode = document.createElement('pre');
             confirmCode.className = 'prettyprint linenums';
-            var confirmCkEditorValue = h(CKEDITOR.instances[content + '[section_code][]'].getData());
+            var confirmCkEditorValue = h(CKEDITOR.instances[content + '[section_code]'].getData());
             confirmCode.innerHTML = confirmCkEditorValue;
             confirmSection.appendChild(confirmCode);
             prettyPrint();
-          } else if (sectionName.name == content + '[section_content][]') {
+          } else if (sectionName.name == content + '[section_content]') {
             var confirmContent = document.createElement('div');
             confirmContent.className = 'confirmContent';
-            confirmContent.innerHTML = CKEDITOR.instances[content + '[section_content][]'].getData();
+            confirmContent.innerHTML = CKEDITOR.instances[content + '[section_content]'].getData();
             confirmSection.appendChild(confirmContent);
-          } else if (sectionName.name == content + '[section_image][]') {
+          } else if (sectionName.name == content + '[section_image]') {
             (function () {
               var image = new Image();
               image.className = 'confirmImage';
-              var confirmImage = document.getElementsByName(content + '[section_image][]')[0].files[0];
+              var confirmImage = document.getElementsByName(content + '[section_image]')[0].files[0];
               var reader = new FileReader();
 
               reader.onload = function () {
@@ -335,7 +335,7 @@ window.addEventListener('DOMContentLoaded', function () {
       add_btn.classList.toggle('hidden');
       submitarea.classList.toggle('hidden');
       confirm.classList.toggle('hidden');
-      input.classList.toggle('hidden'); // console.log(CKEDITOR.instances["section"+'['+[0]+']'+'['+[1]+']'+'[section_code][]'].getData());
+      input.classList.toggle('hidden'); // console.log(CKEDITOR.instances["section"+'['+[0]+']'+'['+[1]+']'+'[section_code]'].getData());
     }
   });
   returnBtn.addEventListener('click', function (e) {
@@ -452,7 +452,7 @@ function deletecontent(deletecontent) {
   var count = deletecontent.dataset.count;
   var kind = deletecontent.dataset.kind;
   var place = deletecontent.dataset.place;
-  var remove = 'section' + '[' + [place] + ']' + '[' + [count] + ']' + '[' + [kind] + '][]';
+  var remove = 'section' + '[' + [place] + ']' + '[' + [count] + ']' + '[' + [kind] + ']';
   var removeContent = document.getElementsByName(remove)[0];
   console.log(removeContent);
   console.log(removeContent.nextSibling);
@@ -481,31 +481,31 @@ function deletecontent(deletecontent) {
     console.log(remainContent[i - 1]);
 
     if (remainContent[i - 1].classList.contains('code') == true) {
-      var ckValue = CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_code][]'].getData();
-      CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_code][]'].destroy();
-      remainContent[i - 1].setAttribute("name", 'section' + '[' + [place] + ']' + '[' + [i] + ']' + '[section_code][]');
+      var ckValue = CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_code]'].getData();
+      CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_code]'].destroy();
+      remainContent[i - 1].setAttribute("name", 'section' + '[' + [place] + ']' + '[' + [i] + ']' + '[section_code]');
       var newEditor = CKEDITOR.replace(remainContent[i - 1], {
         startupMode: 'source'
       });
       console.log(remainContent[i - 1]);
-      CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i] + ']' + '[section_code][]'].setData(ckValue);
+      CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i] + ']' + '[section_code]'].setData(ckValue);
       deleteBtn[i - 1].setAttribute("data-count", [i]);
       addContent[i - 1].setAttribute("data-count", [i]);
       console.log(remainContent[i - 1]);
     } else if (remainContent[i - 1].classList.contains('content') == true) {
-      var ckValue = CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_content][]'].getData();
-      CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_content][]'].destroy();
-      remainContent[i - 1].setAttribute("name", 'section' + '[' + [place] + ']' + '[' + [i] + ']' + '[section_content][]');
+      var ckValue = CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_content]'].getData();
+      CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_content]'].destroy();
+      remainContent[i - 1].setAttribute("name", 'section' + '[' + [place] + ']' + '[' + [i] + ']' + '[section_content]');
       var newEditor = CKEDITOR.replace(remainContent[i - 1], {
         startupMode: 'wysiwyg'
       });
       console.log(remainContent[i - 1]);
-      CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i] + ']' + '[section_content][]'].setData(ckValue);
+      CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i] + ']' + '[section_content]'].setData(ckValue);
       deleteBtn[i - 1].setAttribute("data-count", [i]);
       addContent[i - 1].setAttribute("data-count", [i]);
       console.log(remainContent[i - 1]);
     } else {
-      remainContent[i - 1].setAttribute("name", 'section' + '[' + [place] + ']' + '[' + [i] + ']' + '[section_image][]');
+      remainContent[i - 1].setAttribute("name", 'section' + '[' + [place] + ']' + '[' + [i] + ']' + '[section_image]');
       deleteBtn[i - 1].setAttribute("data-count", [i]);
       addContent[i - 1].setAttribute("data-count", [i]);
       console.log(remainContent[i - 1]);
@@ -532,16 +532,16 @@ function addcontent(addcontent) {
 
   for (var i = Number(count); i < remainContent.length; i++) {
     if (remainContent[i].classList.contains('code') == true) {
-      var ckValue = CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_code][]'].getData();
+      var ckValue = CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_code]'].getData();
       console.log(ckValue); // ckValues.push(ckValue);
 
-      CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_code][]'].destroy(); // remainContent[i].remove();
+      CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_code]'].destroy(); // remainContent[i].remove();
       // var inputCode = document.createElement('textarea');
       // inputCode.className = 'col-12 mb-5 code arr';
-      // inputCode.name = 'section'+ '[' + [section_place] + ']' + '[' + [count] + ']' + '[section_code][]';
+      // inputCode.name = 'section'+ '[' + [section_place] + ']' + '[' + [count] + ']' + '[section_code]';
       // inputCode.placeholder = 'コードを書いてください';
 
-      remainContent[i].setAttribute("name", 'section' + '[' + [place] + ']' + '[' + [i + 2] + ']' + '[section_code][]');
+      remainContent[i].setAttribute("name", 'section' + '[' + [place] + ']' + '[' + [i + 2] + ']' + '[section_code]');
       ckValues.push({
         area: remainContent[i],
         value: ckValue,
@@ -549,21 +549,21 @@ function addcontent(addcontent) {
         content: 'code'
       });
       console.log(remainContent[i]); // CKEDITOR.replace(remainContent[i]);
-      // CKEDITOR.instances['section'+'[' + [place] + ']' + '[' + [i+2] + ']' + '[section_code][]'].setData(ckValue);
+      // CKEDITOR.instances['section'+'[' + [place] + ']' + '[' + [i+2] + ']' + '[section_code]'].setData(ckValue);
 
       deleteBtn[i].setAttribute("data-count", [i + 2]);
       addBtn[i].setAttribute("data-count", [i + 2]);
     } else if (remainContent[i].classList.contains('content') == true) {
-      var ckValue = CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_content][]'].getData();
+      var ckValue = CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_content]'].getData();
       console.log(ckValue); // ckValues.push(ckValue);
 
-      CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_content][]'].destroy(); // remainContent[i].remove();
+      CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [i + 1] + ']' + '[section_content]'].destroy(); // remainContent[i].remove();
       // var inputCode = document.createElement('textarea');
       // inputCode.className = 'col-12 mb-5 code arr';
-      // inputCode.name = 'section'+ '[' + [section_place] + ']' + '[' + [count] + ']' + '[section_content][]';
+      // inputCode.name = 'section'+ '[' + [section_place] + ']' + '[' + [count] + ']' + '[section_content]';
       // inputCode.placeholder = 'コードを書いてください';
 
-      remainContent[i].setAttribute("name", 'section' + '[' + [place] + ']' + '[' + [i + 2] + ']' + '[section_content][]');
+      remainContent[i].setAttribute("name", 'section' + '[' + [place] + ']' + '[' + [i + 2] + ']' + '[section_content]');
       ckValues.push({
         area: remainContent[i],
         value: ckValue,
@@ -571,12 +571,12 @@ function addcontent(addcontent) {
         content: 'content'
       });
       console.log(remainContent[i]); // CKEDITOR.replace(remainContent[i]);
-      // CKEDITOR.instances['section'+'[' + [place] + ']' + '[' + [i+2] + ']' + '[section_code][]'].setData(ckValue);
+      // CKEDITOR.instances['section'+'[' + [place] + ']' + '[' + [i+2] + ']' + '[section_code]'].setData(ckValue);
 
       deleteBtn[i].setAttribute("data-count", [i + 2]);
       addBtn[i].setAttribute("data-count", [i + 2]);
     } else {
-      remainContent[i].setAttribute("name", 'section' + '[' + [place] + ']' + '[' + [i + 2] + ']' + '[section_image][]');
+      remainContent[i].setAttribute("name", 'section' + '[' + [place] + ']' + '[' + [i + 2] + ']' + '[section_image]');
       deleteBtn[i].setAttribute("data-count", [i + 2]);
       addBtn[i].setAttribute("data-count", [i + 2]);
     }
@@ -590,12 +590,12 @@ function addcontent(addcontent) {
         CKEDITOR.replace(ckValues[_i].area, {
           startupMode: 'source'
         });
-        CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [ckValues[_i].ckPlace] + ']' + '[section_code][]'].setData(ckValues[_i].value);
+        CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [ckValues[_i].ckPlace] + ']' + '[section_code]'].setData(ckValues[_i].value);
       } else if (ckValues[_i].content == 'content') {
         CKEDITOR.replace(ckValues[_i].area, {
           startupMode: 'wysiwyg'
         });
-        CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [ckValues[_i].ckPlace] + ']' + '[section_content][]'].setData(ckValues[_i].value);
+        CKEDITOR.instances['section' + '[' + [place] + ']' + '[' + [ckValues[_i].ckPlace] + ']' + '[section_content]'].setData(ckValues[_i].value);
       }
     }
   }
@@ -607,7 +607,7 @@ function addcontent(addcontent) {
   if (kind == "section_code") {
     var newCode = document.createElement('textarea');
     newCode.className = 'col-12 mb-5 code arr';
-    newCode.name = 'section' + '[' + [place] + ']' + '[' + [Number(count) + 1] + ']' + '[section_code][]';
+    newCode.name = 'section' + '[' + [place] + ']' + '[' + [Number(count) + 1] + ']' + '[section_code]';
     newCode.placeholder = 'コードを書いてください';
     divArray.splice(Number(count), 0, newCode);
     sectionPlace[Number(place)].insertBefore(newCode, mark.nextSibling);
@@ -646,7 +646,7 @@ function addcontent(addcontent) {
     var newContent = document.createElement('textarea');
     console.log(newContent);
     newContent.className = 'col-12 mb-5 content arr';
-    newContent.name = 'section' + '[' + [place] + ']' + '[' + [Number(count) + 1] + ']' + '[section_content][]';
+    newContent.name = 'section' + '[' + [place] + ']' + '[' + [Number(count) + 1] + ']' + '[section_content]';
     newContent.placeholder = '文を書いてください';
     divArray.splice(Number(count), 0, newContent);
     sectionPlace[Number(place)].insertBefore(newContent, mark.nextSibling);
@@ -685,7 +685,7 @@ function addcontent(addcontent) {
     var newImage = document.createElement('input');
     newImage.type = 'file';
     newImage.className = 'col-12 mb-5 image arr';
-    newImage.name = 'section' + '[' + [place] + ']' + '[' + [Number(count) + 1] + ']' + '[section_image][]';
+    newImage.name = 'section' + '[' + [place] + ']' + '[' + [Number(count) + 1] + ']' + '[section_image]';
     newImage.placeholder = '文を書いてください';
     sectionPlace[Number(place)].insertBefore(newImage, mark.nextSibling);
 

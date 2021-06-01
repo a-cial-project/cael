@@ -1,5 +1,5 @@
 <head>
-  <link rel="stylesheet" href="{{ asset('css/Memos/create.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/Memos/edit.css') }}">
 </head>
 @extends('layouts.app')
 
@@ -7,7 +7,7 @@
 
   <div class="container">
   	<h3 style="text-align: center;" class="mb-5">投稿してたくさんの仲間を呼ぼう！</h3>
-    <form action="{{ route('memo.update', ['memo' => $memo->id])}}" method="post" name="my_form">
+    <form action="{{ route('memo.update', ['memo' => $memo->id])}}" enctype="multipart/form-data" method="post" name="my_form">
       <div class="input">
       @method('put')
       @csrf
@@ -30,14 +30,21 @@
         <!-- section部分 -->
         <div class="section_create_form">
           @foreach($memo->sections as $sectioncount => $section)
+          <?php $contentcount = 0; ?>
           <input type="text" name="section_id[{{ $section->id }}]sectiontitle[]" placeholder="セクションのタイトル" class="row offset-4 col-4 mb-5 sectiontitle" value="{{ $section->title }}">
             <div class="sectionput" >
-              @foreach($section->section_contents->sortBy('order') as $contentcount => $content)
+              @foreach($section->section_contents->sortBy('order') as $content)
+              <?php $contentcount++; ?>
                 <div class="parentcontent mb-5">
                   @if(isset($content->code))
-                    <textarea name="section[{{$sectioncount+1}}][{{$contentcount+1}}][section_id][{{$content->id}}][section_code]" data-id="{{$content->id}}" data-sectioncount={{$sectioncount+1}} data-contentcount={{$contentcount+1}} class="row col-12 content code">{{ $content->code }}</textarea>
+                    <textarea name="section[{{$sectioncount+1}}][{{$contentcount}}][section_id][{{$content->id}}][section_code]" data-id="{{$content->id}}" data-sectioncount={{$sectioncount+1}} data-contentcount={{$contentcount}} class="row col-12 content code">{{ $content->code }}</textarea>
                   @elseif(isset($content->content))
-                    <textarea name="section[{{$sectioncount+1}}][{{$contentcount+1}}][section_id][{{$content->id}}][section_content]" data-id="{{$content->id}}" data-sectioncount={{$sectioncount+1}} data-contentcount={{$contentcount+1}} class="row col-12 content blog">{{ $content->content }}</textarea>
+                    <textarea name="section[{{$sectioncount+1}}][{{$contentcount}}][section_id][{{$content->id}}][section_content]" data-id="{{$content->id}}" data-sectioncount={{$sectioncount+1}} data-contentcount={{$contentcount}} class="row col-12 content blog">{{ $content->content }}</textarea>
+                  @elseif(isset($content->image))
+                    <div class="content image-parent">
+                      <label class="input-label"><p>{{ $content->image }}</p><input type="file" class="image" name="section[{{$sectioncount+1}}][{{$contentcount}}][section_id][{{$content->id}}][section_image]" data-id="{{$content->id}}" data-sectioncount={{$sectioncount+1}} data-contentcount={{$contentcount}} value="{{ $content->image }}"></label>
+                      <img class="confirmImage" src="{{ $content->image }}" style="width: 80%; display: block; margin: 0 auto;">
+                    </div>
                   @endif
                 </div>
               @endforeach
