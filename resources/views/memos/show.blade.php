@@ -33,7 +33,9 @@
 {!! \App\Model\Memos\Memo::escape(e($content->code)) !!}
           </pre>
         @elseif(isset($content->content))
-          <p>{!! $content->content !!}</p>
+          <div>{!! $content->content !!}</div>
+        @else
+          <img src="{{ $content->image }}" style="width: 80%; display: block; margin: 0 auto;">
         @endif
       </div>
     @endforeach

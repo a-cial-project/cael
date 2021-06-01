@@ -1,0 +1,52 @@
+.section_area{
+	width: 100%;
+}
+
+.fix {
+  position: fixed;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.prettyprint ol.linenums > li {
+	list-style-type: decimal;
+}
+.sectionimage{
+	width: 70%;
+	display: block;
+	margin: 0 auto;
+}
+.confirmImage{
+	height: 100%;
+	width: auto;
+	margin: 0 auto;
+	display: block;
+}
+
+input[type="file"] {
+   display: none;
+}
+label {
+   background: #ddd;
+   padding: 10px 30px;
+   border-radius: 10px;
+   display: inline-block;
+   position: relative;
+}
+label::after {
+   /*content: "選択されていません";*/
+   font-size: 14px;
+   height: 20px;
+   line-height: 20px;
+   position: absolute;
+   right: -140px;
+   top: calc(50% - 10px);
+}
+label.changed::after {
+   content: "";
+}
+.filename {
+   font-size: 12px;
+}
