@@ -13,6 +13,11 @@ class Engineer extends Model
 
   public function engineer_favorites()
   {
-    return $this->hasMany('App\Model\Engineers\EngineersFavorite');
+    return $this->hasMany('App\Model\Engineers\EngineerFavorite');
+  }
+
+  public function engineer_category()
+  {
+    return $this->belongsTo('App\Model\Engineers\EngineerCategory');
   }
 }

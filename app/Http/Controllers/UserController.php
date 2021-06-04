@@ -3,8 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Auth;
 use App\Model\User;
+use App\Model\Memos\Memo;
+use App\Model\Memos\MemoStock;
+use App\Model\Engineers\Engineer;
+use App\Model\Engineers\EngineerFavorite;
+use App\Model\Sports\Sport;
+use App\Model\Sports\SportFavorite;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -34,7 +41,10 @@ class UserController extends Controller
   public function show($id)
   {
   	$user = User::find($id);
-    return view('users.show',['user' => $user]);
+    $memo = MemoStock::where('user_id', $id)->count();
+    $engineer = EngineerFavorite::where('user_id', $id)->count();
+    $sport = SportFavorite::where('user_id', $id)->count();
+    return view('users.show',['user' => $user, 'memo' => $memo, 'engineer' => $engineer, 'sport' => $sport]);
   }
 
   public function create()
@@ -113,5 +123,35 @@ class UserController extends Controller
     }
     $error_now = '現在のパスワードが一致しません。';
     return view('users.editpassword',['error_now' => $error_now]);
+  }
+
+  public function usergenre($user, $genre)
+  {
+  $favorite = [];
+  switch ($genre) {
+    case 'memos':
+      $favorite[] = "memo_stocks";
+      $favorite[] = "memo_id";
+      $items = Memo::select()
+               ->join($favorite[0], $genre.'.id', '=', $favorite[0].'.'.$favorite[1])
+               ->where($favorite[0].'.user_id', '=', $user)->get();
+      break;
+    case 'engineers':
+      $favorite[] = "engineer_favorites";
+      $favorite[] = "engineer_id";
+      $items = Engineer::select()
+               ->join($favorite[0], $genre.'.id', '=', $favorite[0].'.'.$favorite[1])
+               ->where($favorite[0].'.user_id', '=', $user)->get();
+      break;
+    case 'sports':
+      $favorite[] = "sport_favorites";
+      $favorite[] = "sport_id";
+      $items = Sport::select()
+               ->join($favorite[0], $genre.'.id', '=', $favorite[0].'.'.$favorite[1])
+               ->where($favorite[0].'.user_id', '=', $user)->get();
+      break;
+  }
+
+    return view('users.favorite',['items' => $items, 'genre' => $genre]);
   }
 }
