@@ -100,6 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var token = document.getElementById('csrf_token').getAttribute('content'); // (2) 送信ボタンがクリックされたら処理を実行するようにイベントリスナーに登録
 
   var submitBtn = document.getElementById("submit");
+  var image = document.getElementById("image");
 
   submitBtn.onclick = function (e) {
     e.preventDefault(); // (3) 通信メソッドと取得するデータのURLを指定
@@ -115,33 +116,73 @@ document.addEventListener('DOMContentLoaded', function () {
   }; // (7) 通信完了したらレスポンスからJSONデータを取得してコンソール出力
 
 
+  image.addEventListener('change', function (e) {
+    e.preventDefault(); // (3) 通信メソッドと取得するデータのURLを指定
+
+    xhr.open('post', '/message');
+    xhr.setRequestHeader('X-CSRF-Token', token); // 追加
+
+    fd.append('room_id', room_id.value);
+    fd.append('content', this.files[0]);
+    xhr.send(fd);
+  }, false);
   window.Echo.channel("cael").listen("MessageSent", function (e) {
     document.getElementById("message").value = '';
     var position = document.getElementById('all_message');
-    console.log(e.message.user_id == document.getElementById('user_id').value);
-    console.log(e.message.user_id);
-    console.log(document.getElementById('user_id').value);
 
     if (e.message.room_id == room_id.value) {
       if (e.message.user_id == document.getElementById('user_id').value) {
         var newMessage = document.createElement('div');
         newMessage.className = 'row my_message';
-        var messageP = document.createElement('p');
-        messageP.innerHTML = e.message.message;
-        newMessage.appendChild(messageP);
-        position.appendChild(newMessage);
+
+        if (e.message.message != null) {
+          var messageP = document.createElement('p');
+          messageP.innerHTML = e.message.message;
+          newMessage.appendChild(messageP);
+          position.appendChild(newMessage);
+        } else if (e.message.content != null) {
+          var imgParent = document.createElement('div');
+          imgParent.className = "image_parent";
+
+          var _image = new Image();
+
+          _image.className = 'content';
+          _image.src = e.message.content;
+          console.log(_image);
+          newMessage.appendChild(imgParent);
+          imgParent.appendChild(_image);
+          position.appendChild(newMessage);
+          console.log(newMessage);
+        }
       } else {
         var _newMessage = document.createElement('div');
 
         _newMessage.className = 'row other_message';
 
-        var _messageP = document.createElement('p');
+        if (e.message.message != null) {
+          var _messageP = document.createElement('p');
 
-        _messageP.innerHTML = e.message.message;
+          _messageP.innerHTML = e.message.message;
 
-        _newMessage.appendChild(_messageP);
+          _newMessage.appendChild(_messageP);
 
-        position.appendChild(_newMessage);
+          position.appendChild(_newMessage);
+        } else if (e.message.content != null) {
+          var _imgParent = document.createElement('div');
+
+          _imgParent.className = "image_parent";
+
+          var _image2 = new Image();
+
+          _image2.className = 'content';
+          _image2.src = e.message.content;
+
+          _newMessage.appendChild(_imgParent);
+
+          _imgParent.appendChild(_image2);
+
+          position.appendChild(_newMessage);
+        }
       }
     }
   });

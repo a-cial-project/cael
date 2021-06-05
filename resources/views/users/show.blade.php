@@ -12,10 +12,14 @@
   @endif
 
   @if(Auth::user()->id != $user->id)
-    <form action="{{ route('room.create')}}" method="get">
-      <input type="hidden" name="user" value="{{ $user->id }}">
-      <button type="submit" class="btn btn-primary row offset-2 col-8">チャットする</button>
-    </form>
+    @if(App\Model\Chats\Room::roomCheck($user->id))
+      <a href="{{ route('room.show', ['room' => App\Model\Chats\Room::roomCheck($user->id)]) }}" class="btn btn-primary row offset-2 col-8">チャットする</a>
+    @else
+      <form action="{{ route('room.create')}}" method="get">
+        <input type="hidden" name="user" value="{{ $user->id }}">
+        <button type="submit" class="btn btn-primary row offset-2 col-8">チャットを始める</button>
+      </form>
+    @endif
   @endif
 
   <h3>{{ $user->name }}さんのお気に入り</h3>
