@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
       factory(User::class, 11)->create();
 
       DB::table('users')->insert([
-      #'id' => '12',
+      'id' => '12',
       'name' => 'アーシャル',
       'birth' => '2000-01-01',
       'join' => '2020-01-01',
