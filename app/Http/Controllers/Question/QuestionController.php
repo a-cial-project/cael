@@ -14,6 +14,7 @@ class QuestionController extends Controller
 
     public function index(){
         $questions = Question::all();
-        return view("questions/index");
+        // キーがviewページで変数名として使用できる
+        return view("questions/index",["questions" => $questions,]);
     }
 }
