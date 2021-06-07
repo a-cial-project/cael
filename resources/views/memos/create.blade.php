@@ -7,7 +7,7 @@
 @section('content')
 
   <div class="container">
-  	<h3 style="text-align: center;" class="mb-5">投稿してたくさんの仲間を呼ぼう！</h3>
+  	<h3 style="text-align: center;" class="mb-5">投稿して知識を共有しよう！</h3>
     <form action="{{ route('memo.store')}}" enctype="multipart/form-data" method="post" name="my_form">
       <div class="input">
       @csrf

@@ -24,6 +24,8 @@ Route::group(['middleware' => 'auth'], function() {
   Route::get('/', 'HomeController@index')->name('home');
   // 社員閲覧機能
   Route::resource('user','UserController')->only(['show', 'edit', 'update']);
+  // ユーザーお気に入り一覧
+  Route::get('/user/{user}/{genre}', 'UserController@usergenre')->name('users.genre');
   // 社員検索機能
   Route::post('/usersearch', 'UserController@usersearch')->name('users.usersearch');
   // パスワード変更画面
@@ -47,5 +49,8 @@ Route::group(['middleware' => 'auth'], function() {
   Route::post('/memostock', 'Memo\MemoStockController@memostock')->name('memos.memostock');
   // 質問機能
   Route::resource('question', 'Question\QuestionController')->only(['show', 'create', 'store', 'edit', 'update']);
+  // チャット機能
+  Route::resource('room', 'Chat\RoomController')->only(['show', 'create']);
+  Route::resource('message', 'Chat\MessageController')->only(['store']);
 });
 

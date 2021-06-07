@@ -6,7 +6,7 @@
 @section('content')
 
   <div class="container">
-  	<h3 style="text-align: center;" class="mb-5">投稿してたくさんの仲間を呼ぼう！</h3>
+  	<h3 style="text-align: center;" class="mb-5">編集してアップデートさせる</h3>
     <form action="{{ route('memo.update', ['memo' => $memo->id])}}" enctype="multipart/form-data" method="post" name="my_form">
       <div class="input">
       @method('put')

@@ -77,7 +77,6 @@ class MemoController extends Controller
 					}elseif(isset($content['section_code'])){
 						$section_content->code = $content['section_code'];
 					}elseif(isset($content['section_image'])){
-						dd($content);
 						$path = Storage::disk('s3')->putFile('/memo', $content['section_image'], 'public');
 						$section_content->image = Storage::disk('s3')->url($path);
 					}
@@ -85,7 +84,7 @@ class MemoController extends Controller
 				}
 
 			}
-			return view('home');
+			return redirect('/');
 
 		}catch (Throwable $e){
 			report($e);
@@ -139,7 +138,7 @@ class MemoController extends Controller
 					$editContent->save();
 				}
 			}
-			return view('home');
+			return redirect('/');
 		}catch (Throwable $e){
 			report($e);
 			return false;

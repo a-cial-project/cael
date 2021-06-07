@@ -19,8 +19,11 @@
 	margin: 0 auto;
 }
 .confirmImage{
-	height: 100%;
+	/*height: 100%;
 	width: auto;
 	margin: 0 auto;
-	display: block;
+	display: block;*/
+	width: 80%;
+    display: block;
+    margin: 0 auto;
 }

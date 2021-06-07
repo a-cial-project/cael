@@ -22,6 +22,7 @@ class Memo extends Model
     return $this->belongsTo('App\Model\Memos\MemoCategory');
   }
 
+
   static function escape($code)
   {
     $pattern = '/{/';

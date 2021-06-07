@@ -16,15 +16,28 @@ class UsersTableSeeder extends Seeder
       factory(User::class, 11)->create();
 
       DB::table('users')->insert([
-      'id' => '12',
-      'name' => 'アーシャル',
-      'birth' => '2000-01-01',
-      'join' => '2020-01-01',
-      'email' => 'a-cial@co.jp',
-      'nickname' => 'AAT',
-      'profile' => 'アーシャルデザインです',
-      'sport' => 'サッカー',
-      'password' => bcrypt('test1234'),
+        [
+          'id' => '12',
+          'name' => 'アーシャル',
+          'birth' => '2000-01-01',
+          'join' => '2020-01-01',
+          'email' => 'a-cial@co.jp',
+          'nickname' => 'AAT',
+          'profile' => 'アシャルデザインです',
+          'sport' => 'サッカー',
+          'password' => bcrypt('test1234'),
+        ],
+        [
+          'id' => '13',
+          'name' => 'まさ',
+          'birth' => '2000-07-09',
+          'join' => '2020-08-01',
+          'email' => 'masa@co.jp',
+          'nickname' => 'AAT',
+          'profile' => 'アシャルデザインです',
+          'sport' => 'サッカー',
+          'password' => bcrypt('test5678'),
+        ],
       ]);
     }
 }
