@@ -35,7 +35,7 @@
         @elseif(isset($content->content))
           <div>{!! $content->content !!}</div>
         @else
-          <img src="{{ $content->image }}" style="width: 80%; display: block; margin: 0 auto;">
+          <img src="{{ $content->image }}" class="confirmImage">
         @endif
       </div>
     @endforeach

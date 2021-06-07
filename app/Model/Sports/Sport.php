@@ -15,4 +15,9 @@ class Sport extends Model
   {
     return $this->hasMany('App\Model\Sports\SportFavorite');
   }
+
+  public function sport_category()
+  {
+    return $this->belongsTo('App\Model\Sports\SportCategory');
+  }
 }

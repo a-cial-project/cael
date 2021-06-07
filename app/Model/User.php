@@ -26,6 +26,16 @@ class User extends Authenticatable
     return $this->hasMany('App\Model\Memos\Memo');
   }
 
+  public function messages()
+  {
+    return $this->hasMany('App\Model\Chats\Message');
+  }
+
+  public function rooms()
+  {
+    return $this->hasMany('App\Model\Chats\Room');
+  }
+
   /**
    * The attributes that are mass assignable.
    *
