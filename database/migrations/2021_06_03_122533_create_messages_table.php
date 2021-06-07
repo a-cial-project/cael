@@ -19,6 +19,7 @@ class CreateMessagesTable extends Migration
             $table->unsignedBigInteger('room_id');
             $table->text('message')->nullable();
             $table->string('content')->nullable();
+            $table->string('movie')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
