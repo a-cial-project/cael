@@ -20,6 +20,7 @@
             @elseif(isset($message->movie))
               <div class="image_parent"><video src="{{ $message->movie }}"  controls></video></div>
             @endif
+            <span>{{ App\Enums\ChatStatus::getDescription($message->status) }}</span>
           </div>
         @else
           <div class="row other_message mb-3">
@@ -52,4 +53,5 @@
   </div>
 
 <script type="module" src="{{ mix('js/pusher.js') }}"></script>
+<script type="module" src="{{ mix('js/flagChange.js') }}"></script>
 @endsection

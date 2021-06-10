@@ -141,12 +141,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (e.message.room_id == room_id.value) {
       // 右側
+      console.log(e.message);
+
       if (e.message.user_id == document.getElementById('user_id').value) {
         var newMessage = document.createElement('div');
         newMessage.className = 'row my_message';
         var otherName = document.createElement('h6');
         otherName.innerHTML = 'あなた';
         newMessage.appendChild(otherName);
+        console.log(e.message.status == '0');
 
         if (e.message.message != null) {
           var massageBox = document.createElement('div');
@@ -181,6 +184,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
           position.appendChild(newMessage);
         }
+
+        if (e.message.status == '0') {
+          var messageStatus = document.createElement('span');
+          messageStatus.innerHTML = '既読';
+          newMessage.appendChild(messageStatus);
+        }
       } else {
         // 左側
         var _newMessage = document.createElement('div');
@@ -190,6 +199,8 @@ document.addEventListener('DOMContentLoaded', function () {
         yourName.innerHTML = e.message.user.name;
 
         _newMessage.appendChild(yourName);
+
+        console.log(e.message);
 
         if (e.message.message != null) {
           var _massageBox = document.createElement('div');
