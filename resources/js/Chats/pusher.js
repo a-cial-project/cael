@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const otherName = document.createElement('h6');
         otherName.innerHTML = 'あなた';
         newMessage.appendChild(otherName);
+        console.log(e.message.status == '0');
         if(e.message.message != null){
           const massageBox = document.createElement('div');
           massageBox.className = 'message ml-auto';
@@ -82,6 +83,11 @@ document.addEventListener('DOMContentLoaded', function () {
           imgParent.appendChild(movie);
           position.appendChild(newMessage);
         }
+        if(e.message.status == '0'){
+          const messageStatus = document.createElement('span');
+          messageStatus.innerHTML = '既読';
+          newMessage.appendChild(messageStatus);
+        }
       }else{
         // 左側
         const newMessage = document.createElement('div');
@@ -89,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const yourName = document.createElement('h6');
         yourName.innerHTML = e.message.user.name;
         newMessage.appendChild(yourName);
+        console.log(e.message);
         if(e.message.message != null){
           const massageBox = document.createElement('div');
           massageBox.className = 'message';
