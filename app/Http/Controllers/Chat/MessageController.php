@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Chat;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
+use App\Model\Chats\Entry;
 use App\Model\Chats\Message;
 use App\Events\MessageSent;
 use Illuminate\Http\File;
@@ -14,6 +15,8 @@ class MessageController extends Controller
 {
 	public function store(Request $request)
 	{
+    $otherUser = Entry::select('flag')->where('room_id', $request->room_id)->where('user_id', '!=', Auth::user()->id)->first();
+
     $message = new Message;
     $message->user_id = Auth::user()->id;
     $message->room_id = $request->room_id;
@@ -28,6 +31,9 @@ class MessageController extends Controller
         $path = Storage::disk('s3')->putFile('/chat/content', $request->content, 'public');
         $message->content = Storage::disk('s3')->url($path);
       }
+    }
+    if($otherUser->flag == '0'){
+      $message->status = '0';
     }
     $message->save();
 

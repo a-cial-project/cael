@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Enums\ChatStatus;
 
 class CreateMessagesTable extends Migration
 {
@@ -20,6 +21,7 @@ class CreateMessagesTable extends Migration
             $table->text('message')->nullable();
             $table->string('content')->nullable();
             $table->string('movie')->nullable();
+            $table->enum('status', ChatStatus::getValues())->default(ChatStatus::unread);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
