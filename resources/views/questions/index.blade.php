@@ -30,14 +30,28 @@
 
   <div class="row">
     <div class="col-7">
+
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">回答済み</a>
+          <a class="nav-link {{ $status == 0 ? 'active' : '' }}" aria-current="page" href="{{ $CurrentQuestionCategory == 0 ?route('question.index',['status' => 0]) : route('question.category',['QuestionCategory'=> $CurrentQuestionCategory,'status' => 0])  }}">未回答</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">未回答</a>
+          <a class="nav-link {{ $status == 1 ? 'active' : '' }}" href="{{ $CurrentQuestionCategory == 0 ?route('question.index',['status' => 1]) : route('question.category',['QuestionCategory'=> $CurrentQuestionCategory,'status' => 1])  }}">回答済み</a>
         </li>
       </ul>
+
+      <table class="table table-hover">
+        <tbody>
+          @foreach($questions as $question)
+          <tr>
+            <td>
+              <a href="{{ route('question.show',['question' => $question->id ]) }}" title="">{{ $question->title }}</a>
+              <p>{{ $question->created_at }}</p>
+            </td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
     </div>
     <div class="col-5 border rounded text-center">
       <p class="py-3 border-bottom" style="font-weight: bold;">カリキュラムカテゴリー</p>
