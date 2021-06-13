@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+// モデル連結
 use App\Model\Questions\QuestionCategory;
 
 class questionCategoriesTableSeeder extends Seeder

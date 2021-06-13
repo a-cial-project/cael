@@ -42,7 +42,9 @@
     <div class="col-5 border rounded text-center">
       <p class="py-3 border-bottom" style="font-weight: bold;">カリキュラムカテゴリー</p>
       @foreach($category as $val)
-        <p class="border-bottom">{{ $val }}</p>
+      <p>
+       <a href="{{ route('question.category',['QuestionCategory'=> $val->id]) }}" title="" class="btn btn-outline-primary w-100 {{ $CurrentQuestionCategory === $val->id ? 'active btn-primary' : ''}} ">{{ $val->name }}</a>
+     </p>
       @endforeach
     </div>
   </div>
