@@ -6,6 +6,7 @@ use App\Model\Questions\Question;
 use App\Model\Questions\QuestionCategory;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Auth;
 
 class QuestionController extends Controller
 {
