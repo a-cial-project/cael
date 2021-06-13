@@ -12,6 +12,9 @@ class QuestionController extends Controller
     public function create() {
         return view("questions/create");
     }
+    // public function createForm(){
+    //     return view("questions/create");
+    // }
 
     public function index(){
         $questions = Question::all();
