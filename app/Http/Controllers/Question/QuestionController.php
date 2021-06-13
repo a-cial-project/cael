@@ -18,36 +18,27 @@ class QuestionController extends Controller
     // }
 
     public function index(Request $request){
-        $status = $request->input("status") ?? 0 ;
+        $status = $request->input("status") ?? 0;
+        $current_category_id = $request->input("question_category_id") ?? 0;
+        $question_categories = QuestionCategory::all();
         if ($status==1) {
-            $questions = Question::where("status", 1)->get();
-        }else{
-            $questions = Question::where("status", 0)->get();
+            if ($current_category_id == 0) {
+                $questions = Question::where("status", 1)->get();
+            }else{
+                $questions = Question::where("question_category_id",$current_category_id)->where("status",1)->get();
+            }
+        }elseif($status==0){
+            if ($current_category_id == 0) {
+                $questions = Question::where("status", 0)->get();
+            }else{
+                $questions = Question::where("question_category_id",$current_category_id)->where("status",0)->get();
+            }
         }
-        $QuestionCategories = QuestionCategory::all();
-        // キーがviewページで変数名として使用できる
-        // 引数でidを取得しcurrent表示する（current_question_id）としてviewに渡す
         return view("questions/index",[
             "status" => $status,
             "questions" => $questions,
-            "category" => $QuestionCategories,
-            "CurrentQuestionCategory" => 0,
-        ]);
-    }
-
-    public function QuestionCategory(QuestionCategory $QuestionCategory, Request $request){
-        $status = $request->input("status") ?? 0 ;
-        if ($status==1) {
-            $questions = $QuestionCategory->questions()->where("status",1)->get();
-        }else{
-            $questions = $QuestionCategory->questions()->where("status",0)->get();
-        }
-        $QuestionCategories = QuestionCategory::all();
-        return view("questions/index",[
-            "status" => $status,
-            "questions" => $questions,
-            "category" => $QuestionCategories,
-            "CurrentQuestionCategory" => $QuestionCategory->id,
+            "category" => $question_categories,
+            "current_category_id" => $current_category_id,
         ]);
     }
 }

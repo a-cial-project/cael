@@ -49,7 +49,6 @@ Route::group(['middleware' => 'auth'], function() {
   Route::post('/memostock', 'Memo\MemoStockController@memostock')->name('memos.memostock');
   // 質問機能
   Route::resource('question', 'Question\QuestionController')->only(['show', 'create', 'store', 'edit', 'update','index']);
-  Route::get("/question/category/{QuestionCategory}","Question\QuestionController@QuestionCategory")->name("question.category");
   // チャット機能
   Route::resource('room', 'Chat\RoomController')->only(['show', 'create']);
   Route::post('/flagchange', 'Chat\RoomController@flagchange')->name('rooms.flagchange');
