@@ -37,7 +37,7 @@ class RoomController extends Controller
 		$entry = Entry::where('room_id', $room)->where('user_id', Auth::user()->id)->first();
 		$entry->flag = '0';
 		$entry->save();
-  	$messages = Message::with('user')->where('room_id', $room)->get();
+  	$messages = Message::with('user')->where('room_id', $room)->orderBy('created_at', 'asc')->limit(20)->get();
 
   	$otherUser = Entry::select('user_id')->where('room_id', $room)->where('user_id', '!=', Auth::user()->id)->first();
 
@@ -54,9 +54,9 @@ class RoomController extends Controller
   	}
 
   	return view('chats.show', ['messages' => $messages, 'room' => $room]);
-  	if(count($othermessage) > 0){
-  		event(new MessageSent($othermessage[0]));
-  	}
+  	// if(count($othermessage) > 0){
+  	// 	event(new MessageSent($othermessage[0]));
+  	// }
   }
 
   public function flagchange(Request $request)
@@ -89,5 +89,11 @@ class RoomController extends Controller
 		  	break;
   	}
 
+  }
+
+  public function infinitescroll(Request $request)
+  {
+  	$messages = Message::with('user')->where('room_id', $request->room_id)->orderBy('created_at', 'asc')->offset($request->count * 20)->limit(20)->get();
+  	return $messages;
   }
 }

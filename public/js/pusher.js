@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -141,8 +141,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (e.message.room_id == room_id.value) {
       // 右側
-      console.log(e.message);
-
       if (e.message.user_id == document.getElementById('user_id').value) {
         var newMessage = document.createElement('div');
         newMessage.className = 'row my_message';
@@ -255,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
-/***/ 10:
+/***/ 11:
 /*!********************************************!*\
   !*** multi ./resources/js/Chats/pusher.js ***!
   \********************************************/

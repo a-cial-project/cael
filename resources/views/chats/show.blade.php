@@ -29,9 +29,12 @@
               <div class="message">
                 <p>{{ $message->message }}</p>
               </div>
-            @else
+            @elseif(isset($message->content))
               <div class="image_parent"><img src="{{ $message->content }}" class="content"></div>
+            @elseif(isset($message->movie))
+              <div class="image_parent"><video src="{{ $message->movie }}"  controls></video></div>
             @endif
+            <span>{{ App\Enums\ChatStatus::getDescription($message->status) }}</span>
           </div>
         @endif
       @endforeach
@@ -54,4 +57,5 @@
 
 <script type="module" src="{{ mix('js/pusher.js') }}"></script>
 <script type="module" src="{{ mix('js/flagChange.js') }}"></script>
+<script type="module" src="{{ mix('js/infinitescroll.js') }}"></script>
 @endsection
