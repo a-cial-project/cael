@@ -51,6 +51,7 @@ Route::group(['middleware' => 'auth'], function() {
   Route::resource('question', 'Question\QuestionController')->only(['show', 'create', 'store', 'edit', 'update','index']);
   // チャット機能
   Route::resource('room', 'Chat\RoomController')->only(['show', 'create']);
+  Route::post('/infinitescroll', 'Chat\RoomController@infinitescroll')->name('rooms.infinitescroll');
   Route::post('/flagchange', 'Chat\RoomController@flagchange')->name('rooms.flagchange');
   Route::resource('message', 'Chat\MessageController')->only(['store']);
 });

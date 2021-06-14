@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -127,27 +127,12 @@ window.addEventListener('focus', function (e) {
 
   fd.append('room_id', room_id.value);
   fd.append('flag', 'in');
-  xhr.send(fd); // window.Echo.channel("cael").listen("MessageSent", e => {
-  //   const room_id = document.getElementById("room_id");
-  //   if(e.message.room_id == room_id.value){
-  //   const unreadMessage = document.getElementsByClassName('my_message');
-  //     for(let i = 0; i < unreadMessage.length; i++){
-  //       if(e.message.user_id != Number(document.getElementById('user_id').value)){
-  //         if(unreadMessage[i].getElementsByTagName('span').length == 0){
-  //           let read = document.createElement('span');
-  //           read.innerHTML = '既読';
-  //           unreadMessage[i].appendChild(read);
-  //           console.log(read);
-  //         }
-  //       }
-  //     }
-  //   }
-  // });
+  xhr.send(fd);
 });
 
 /***/ }),
 
-/***/ 11:
+/***/ 12:
 /*!************************************************!*\
   !*** multi ./resources/js/Chats/flagChange.js ***!
   \************************************************/
