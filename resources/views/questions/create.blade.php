@@ -13,34 +13,16 @@
   </div>
 @endif
 <div class="container">
-  <div class="row my-3">
-    <div class="col-6">
-      <form action="index_submit" method="get" accept-charset="utf-8">
-        @csrf
-        <input type="text" name="search" placeholder="検索" class="w-75">
-        <button type="submit"><i class="fas fa-search"></i></button>
-      </form>
-    </div>
-    <div class="col-6">
-      <a href="{{ route('question.create') }} " title=""><div class="btn btn-primary w-75">
-        質問する
-      </div></a>
-    </div>
-  </div>
-
   <div class="row">
-    <div class="col-7">
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">回答済み</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">未回答</a>
-        </li>
-      </ul>
-    </div>
-    <div class="col-5 border rounded text-center">
-      <p class="py-3 border-bottom" style="font-weight: bold;">カリキュラムカテゴリー</p>
+    <div class="col-12">
+      <form action="{{ route('question.store') }}" method="post" accept-charset="utf-8">
+        @csrf
+        <input type="text" name="title" placeholder="タイトルを入力" class="col-12 form-control">
+        <input type="body" name="content" placeholder="試した方法・ソースコード">
+        <!-- 画像アップロード -->
+        <input type="bocy" name="image" placeholder="画像アップロード">
+        <input class="btn btn-primary" type="submit" name="question_submit" value="質問確認画面へ">
+      </form>
     </div>
   </div>
 </div>

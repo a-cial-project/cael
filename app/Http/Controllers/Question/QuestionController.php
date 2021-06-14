@@ -11,11 +11,8 @@ use Auth;
 class QuestionController extends Controller
 {
     public function create() {
-        return view("questions/create");
+       
     }
-    // public function createForm(){
-    //     return view("questions/create");
-    // }
 
     public function index(Request $request){
         $status = $request->input("status") ?? 0;
@@ -40,5 +37,9 @@ class QuestionController extends Controller
             "category" => $question_categories,
             "current_category_id" => $current_category_id,
         ]);
+    }
+
+    public function question_info(){
+        return view("questions/question_info");
     }
 }
