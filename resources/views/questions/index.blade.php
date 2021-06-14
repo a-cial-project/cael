@@ -22,12 +22,11 @@
       </form>
     </div>
     <div class="col-6">
-      <a href="{{ route('question.create') }} " title=""><div class="btn btn-primary w-75">
+      <a href="{{ route('question.info') }} " title=""><div class="btn btn-primary w-75">
         質問する
       </div></a>
     </div>
   </div>
-
   <div class="row">
     <div class="col-7">
 
