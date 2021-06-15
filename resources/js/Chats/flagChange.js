@@ -1,3 +1,9 @@
+window.onload = function(){
+  var element = document.documentElement;
+  var bottom = element.scrollHeight - element.clientHeight;
+  window.scrollTo({top: bottom, left: 0});
+}
+
 window.addEventListener('blur', (e) => {
   const room_id = document.getElementById("room_id");
   const xhr = new XMLHttpRequest();

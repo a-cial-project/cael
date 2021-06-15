@@ -1,5 +1,6 @@
 <head>
   <link rel="stylesheet" href="{{ asset('css/Chats/show.css') }}">
+
 </head>
 
 @extends('layouts.app')
@@ -54,7 +55,6 @@
 
     </form>
   </div>
-
 <script type="module" src="{{ mix('js/pusher.js') }}"></script>
 <script type="module" src="{{ mix('js/flagChange.js') }}"></script>
 <script type="module" src="{{ mix('js/infinitescroll.js') }}"></script>

@@ -27,13 +27,9 @@
 
         <!-- section部分 -->
         <div class="section_create_form">
+          <textarea id="ckeditor" name="editor"></textarea>
         </div>
 
-        <div class="fix hidden my-5 col-9 offset-2">
-          <button type="button" id="code" class="btn btn-primary col-3">コードを追加</button>
-          <button type="button" id="content" class="btn btn-primary col-3">ブログを追加</button>
-          <button type="button" id="image" class="btn btn-primary col-3">画像を追加</button>
-        </div>
       </div>
 
       <div class="posting">
@@ -44,9 +40,6 @@
       </div>
     </form>
 
-    <div class="add_btn">
-      <button type="button" id="sectionBtn" class="btn btn-primary col-2">セクションを追加</button>
-    </div>
   </div>
 
   <div class="container confirm hidden">

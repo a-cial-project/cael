@@ -1,61 +1,60 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+#  アプリ名　cael
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## バージョン
+    PHP 7.4.11
+    Laravel 7.30.4
+    vagrant(Homestead)を用いて開発環境を揃えています。
+    
+## なぜこのアプリを作ったか
+    情報を共有できたり、仲間を募集できたり、やりとりが出来たりというツールがあれば社員の帰属意識を高めることが出来るのではないかということを考えた事がきっかけです。
+    また、実際に運用されているアプリの制作に携わったという事実が自分も含め未経験エンジニアにとっての自信にも繋がるのではないかという事も大きなきっかけの一つでもあります。
+    
+## 開発ルール
+    ・他人が見ても分かるようコメントアウトをつける癖を付ける
+    ・変数名も分かりやすく！
+    ・必ずコンテンツごとにフォルダ分けする（管理しやすいように）
+    ・jQueryは使わない。基本的にJavaScript。
+    ・激詰まりした場所は、解決したら共有、解決できない場合はみんなに相談。みんなで頑張って解決しましょう！
+    ・処理が長めのメソッドや２回以上同じようなコードを書く場合はモデルにメソッドを定義して使い回す。（JavaScriptも同様）
+    
+## caelの機能
+###   １、ユーザーの権限分け
+    ユーザーの役職、立場によって権限を分けられるようになっています。
+    「0 管理者」　「１　エンジニア」　「5　カリキュラム生」　「10　内定者」といった分け方になっています。
 
-## About Laravel
+###   ２、条件検索機能
+    お菓子かユーザーで検索することが出来ます。
+    また、お菓子の場合はカテゴリーも交えて検索できるよう実装しています。
+    今はajaxで実装していますが、使い勝手があまり良くないので今後はサーバー側に処理を変える予定。
+    
+###   ３、チャット機能（問い合わせ機能）
+    ユーザー１対１でチャットを使ってやりとりが出来るようになっています。メッセージはもちろん、画像、動画も出来るようにしています。
+    pusherを用いてリアルタイム通信を実装しています。
+    チャットではお馴染みの既読・未読が分かる機能も実装しております。
+    また、一回で全てのやりとりの履歴が読み込まれるのは処理が重たくなるので一番上にスクロールされる度に20件ずつ読み込まれるように実装しています。
+    
+###   ４、仲間募集
+    スポーツ仲間とエンジニア仲間を募集できる機能を実装しています。
+    「サッカーがしたい！でも、メンバーがいない！」という時にこの機能を使えば募集をする事が出来ます。
+    エンジニアの方でも、「Laravelを使った開発練習がしたい！」という時にエンジニア仲間募集機能を使えば仲間を募集する事が出来ます。
+    個人的には一番アーシャルデザインらしさがある機能なんじゃないかと思ってます。
+    
+###   ５、備忘録
+    Qiitaのようなサイトを意識して作成しています。
+    社内で自分の知識を共有する事が出来ます。
+    
+###   ６、質問機能
+    分からない事があれば質問をする事が出来ます。
+    権限などは関係なく誰でも回答する事が出来ます。
+    
+###   ７、広報機能
+    内定者向けに社員に対するインタビューや動画などを載せられるようになっています。
+    画像などの大きいデータに関しては基本的にAWSのS3に保存されます。
+    
+###   ８、予約機能
+    カリキュラム生向けの機能です。
+    カリキュラム生は分からない事があれば、実際に現場で働いている社員の空いている時間を予約する事が出来ます。
+    eeasyというアプリのAPIを使用して実装予定です。
+    
+    
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
