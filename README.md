@@ -20,7 +20,7 @@
     ・処理が長めのメソッドや２回以上同じようなコードを書く場合はモデルにメソッドを定義して使い回す。（JavaScriptも同様）
     
 ## ER図
-<img width="662" alt="スクリーンショット 2021-06-15 22 14 21" src="https://user-images.githubusercontent.com/59087539/122058952-208ba080-ce27-11eb-85bd-5cfd1be78639.png">    
+<img width="100%" alt="スクリーンショット 2021-06-15 22 14 21" src="https://user-images.githubusercontent.com/59087539/122058952-208ba080-ce27-11eb-85bd-5cfd1be78639.png">    
 
 ## caelの機能
 ###   １、ユーザーの権限分け
