@@ -15,27 +15,21 @@ class QuestionController extends Controller
     }
 
     public function index(Request $request){
+        $categories = QuestionCategory::all();
         $status = $request->input("status") ?? 0;
-        $current_category_id = $request->input("question_category_id") ?? 0;
-        $question_categories = QuestionCategory::all();
-        if ($status==1) {
-            if ($current_category_id == 0) {
-                $questions = Question::where("status", 1)->get();
-            }else{
-                $questions = Question::where("question_category_id",$current_category_id)->where("status",1)->get();
-            }
-        }elseif($status==0){
-            if ($current_category_id == 0) {
-                $questions = Question::where("status", 0)->get();
-            }else{
-                $questions = Question::where("question_category_id",$current_category_id)->where("status",0)->get();
-            }
+        $current_category = QuestionCategory::find($request->input("question_category_id")) ?? Question::where("status", $status)->get();
+        // クラス名を判定する関数があれば使用したい
+        if (count($current_category) != 1) {
+            $questions = $current_category;
+
+        }else{
+            $questions = $current_category->questions()->where("status",$status)->get();
         }
         return view("questions/index",[
             "status" => $status,
             "questions" => $questions,
-            "category" => $question_categories,
-            "current_category_id" => $current_category_id,
+            "categories" => $categories,
+            "current_category" => $current_category,
         ]);
     }
 

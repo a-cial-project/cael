@@ -139,7 +139,7 @@ window.addEventListener('focus', function (e) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/vagrant/code/cael/resources/js/Chats/flagChange.js */"./resources/js/Chats/flagChange.js");
+module.exports = __webpack_require__(/*! /var/www/html/a-cial-project/cael/resources/js/Chats/flagChange.js */"./resources/js/Chats/flagChange.js");
 
 
 /***/ })

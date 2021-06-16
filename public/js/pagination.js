@@ -229,7 +229,7 @@ var display = function display(value, itemArray) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/vagrant/code/cael/resources/js/pagination.js */"./resources/js/pagination.js");
+module.exports = __webpack_require__(/*! /var/www/html/a-cial-project/cael/resources/js/pagination.js */"./resources/js/pagination.js");
 
 
 /***/ })
