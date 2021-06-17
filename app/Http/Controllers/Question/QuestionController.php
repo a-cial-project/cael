@@ -16,12 +16,11 @@ class QuestionController extends Controller
 
     public function index(Request $request){
         $categories = QuestionCategory::all();
-        $status = $request->input("status") ?? 0;
-        $current_category = QuestionCategory::find($request->input("question_category_id")) ?? Question::where("status", $status)->get();
-        // クラス名を判定する関数があれば使用したい
-        if (count($current_category) != 1) {
-            $questions = $current_category;
-
+        $request_category = $request->input("status");
+        $status = isset($request_category) ? $request_category : 0;
+        $current_category = QuestionCategory::find($request->input("question_category_id")) ?? 0;
+        if ($current_category === 0) {
+            $questions = Question::where("status", $status)->get();
         }else{
             $questions = $current_category->questions()->where("status",$status)->get();
         }

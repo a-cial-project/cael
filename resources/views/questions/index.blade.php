@@ -55,11 +55,11 @@
     <div class="col-5 border rounded text-center">
       <p class="py-3 border-bottom" style="font-weight: bold;">カリキュラムカテゴリー</p>
       <p>
-        <a href="{{ route('question.index') }}" class="btn btn-outline-primary w-100 {{ count($current_category) != 1 ? 'active' : '' }}" title="">全てのカテゴリー</a>
+        <a href="{{ route('question.index') }}" class="btn btn-outline-primary w-100 {{ $current_category === 0 ? 'active' : '' }}" title="">全てのカテゴリー</a>
       </p>
       @foreach($categories as $category)
       <p>
-        <a href="{{ route('question.index',['question_category_id'=> $category->id]) }}" title="" class="btn btn-outline-primary w-100 {{ $current_category == $category->id ? 'active btn-primary' : ''}} ">{{ $category->name }}</a>
+        <a href="{{ route('question.index',['question_category_id'=> $category->id]) }}" title="" class="btn btn-outline-primary w-100 {{ $current_category !== 0 && $current_category->id == $category->id ? 'active btn-primary' : ''}} ">{{ $category->name }}</a>
       </p>
       @endforeach
     </div>
