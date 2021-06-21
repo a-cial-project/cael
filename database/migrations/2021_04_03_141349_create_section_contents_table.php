@@ -15,14 +15,11 @@ class CreateSectionContentsTable extends Migration
     {
         Schema::create('section_contents', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('section_id');
-            $table->integer('order');
-            $table->text('code')->nullable();
-            $table->text('content')->nullable();
-            $table->string('image')->nullable();
+            $table->unsignedBigInteger('memo_id');
+            $table->string('image');
             $table->timestamps();
 
-            $table->foreign('section_id')->references('id')->on('sections');
+            $table->foreign('memo_id')->references('id')->on('memos');
         });
     }
 

@@ -19,6 +19,7 @@ class CreateMemosTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->integer('memo_category_id')->unsigned();
+            $table->text('content');
             $table->enum('status', MemoStatus::getKeys());
             $table->timestamps();
 

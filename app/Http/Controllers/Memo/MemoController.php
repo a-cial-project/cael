@@ -56,34 +56,31 @@ class MemoController extends Controller
 	{
 		try{
 			$memo = new Memo;
-			$memo->user_id = Auth::user()->id;;
+			$memo->user_id = Auth::user()->id;
 			$memo->name = $request->memo_name;
-			$memo->memo_category_id = $request->category_id;
+
+			if($request->category_id == '0'){
+				$search = MemoCategory::where('name', $request->new_category)->first();
+				if(is_null($search)){
+						$new_memo = new MemoCategory;
+						$new_memo->name = $request->new_category;
+						$new_memo->save();
+						$memo->memo_category_id = $new_memo->id;
+					}
+			}else{
+				$memo->memo_category_id = $request->category_id;
+			}
+			$memo->content = $request->editor;
 			$memo->status = $request->status;
 			$memo->save();
 
-			foreach($request->section_title as $section_key => $title){
-				$section = new Section;
-				$section->memo_id = $memo->id;
-				$section->title = $title;
-				$section->save();
-
-				foreach($request->section[$section_key] as $order => $content){
-					$section_content = new SectionContent;
-					$section_content->section_id = $section->id;
-					$section_content->order = $order;
-					if(isset($content['section_content'])){
-						$section_content->content = $content['section_content'];
-					}elseif(isset($content['section_code'])){
-						$section_content->code = $content['section_code'];
-					}elseif(isset($content['section_image'])){
-						$path = Storage::disk('s3')->putFile('/memo', $content['section_image'], 'public');
-						$section_content->image = Storage::disk('s3')->url($path);
-					}
-					$section_content->save();
-				}
-
+			foreach($request->path as $path){
+				$image = new SectionContent;
+				$image->memo_id = $memo->id;
+				$image->image = $path;
+				$image->save();
 			}
+
 			return redirect('/');
 
 		}catch (Throwable $e){
@@ -145,21 +142,15 @@ class MemoController extends Controller
 		}
 	}
 
-	public function deletecontent(Request $request)
+	public function imageupload(Request $request)
 	{
-		$deletecontent = SectionContent::find($request->content);
-		if(isset($deletecontent->image)){
-			Storage::disk('s3')->delete('memo/'.basename($deletecontent->image));
-		}
-		try{
-			if(isset($deletecontent)){
-			  $deletecontent->delete();
-			}else{
-				return false;
-			}
-		}catch (Throwable $e){
-			report($e);
-			return false;
-		}
+		$path = Storage::disk('s3')->putFile('/memo', $request->image, 'public');
+		return Storage::disk('s3')->url($path);
 	}
+
+	public function imagedelete(Request $request)
+	{
+		Storage::disk('s3')->delete('memo/'.basename($request->img));
+	}
+
 }
