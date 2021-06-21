@@ -45,6 +45,8 @@ Route::group(['middleware' => 'auth'], function() {
   // Qiita機能
   Route::resource('memo', 'Memo\MemoController')->only(['show', 'create', 'store', 'edit', 'update']);
   Route::post('memosearch', 'Memo\MemoController@search')->name('memos.search');
+  Route::post('/imageupload', 'Memo\MemoController@imageupload')->name('memos.imageupload');
+  Route::post('/imagedelete', 'Memo\MemoController@imagedelete')->name('memos.imagedelete');
   Route::post('/deletecontent', 'Memo\MemoController@deletecontent')->name('memos.deletecontent');
   Route::post('/memostock', 'Memo\MemoStockController@memostock')->name('memos.memostock');
   // 質問機能

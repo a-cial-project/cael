@@ -81,104 +81,86 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/Memos/sectionAdd.js":
-/*!******************************************!*\
-  !*** ./resources/js/Memos/sectionAdd.js ***!
-  \******************************************/
+/***/ "./resources/js/Memos/s3_upload.js":
+/*!*****************************************!*\
+  !*** ./resources/js/Memos/s3_upload.js ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-window.onload = function (event) {
-  var editor = CKEDITOR.replace('editor', {
-    uiColor: '#EEEEEE',
-    height: 650
+var input = document.getElementById('image_input');
+input.addEventListener('change', function (e) {
+  fileReader(this.files[0]);
+}, false);
+
+function fileReader(addImage) {
+  var xhr = new XMLHttpRequest();
+  var fd = new FormData();
+  var token = document.getElementById('csrf_token').getAttribute('content');
+  xhr.open('post', '/imageupload');
+  xhr.setRequestHeader('X-CSRF-Token', token);
+  fd.append('image', addImage);
+  xhr.send(fd);
+  xhr.addEventListener('readystatechange', function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      var image_zone = document.getElementById('image_zone');
+      var imgDiv = document.createElement('div');
+      imgDiv.className = 'img_parent';
+      var deleteBtn = document.createElement('div');
+      deleteBtn.className = 'deleteBtn';
+      deleteBtn.innerHTML = '×';
+      var image = new Image();
+      image.className = 'image';
+      image.src = xhr.response;
+      var input_file = document.createElement('input');
+      input_file.type = 'text';
+      input_file.display = 'none';
+      input_file.setAttribute("name", "path[]");
+      input_file.value = xhr.response;
+      image.appendChild(input_file);
+      image_zone.appendChild(imgDiv);
+      imgDiv.appendChild(image);
+      imgDiv.appendChild(deleteBtn); // 画像の削除処理
+
+      imgDiv.onclick = function () {
+        deleteImg(this);
+      };
+    }
   });
-  editor.on("instanceReady", function () {
-    var ck = CKEDITOR.instances["ckeditor"];
-    ck.document.on("keyup", function () {
-      var words = CKEDITOR.instances.ckeditor.getData(); //ckeditorの中の文字列をとってきてくれる
-      // プレビューを映し出す処理
+}
 
-      var preview = document.getElementById('realtimepreview');
-      console.log(words);
-      preview.innerHTML = words;
-      prettyPrint();
-    });
+function deleteImg(deleteImage) {
+  var xhr = new XMLHttpRequest();
+  var fd = new FormData();
+  var token = document.getElementById('csrf_token').getAttribute('content');
+  var deleteImg = deleteImage.firstElementChild.getAttribute('src');
+  console.log(deleteImg);
+  xhr.open('post', '/imagedelete');
+  xhr.setRequestHeader('X-CSRF-Token', token);
+  fd.append('img', deleteImg);
+  xhr.send(fd);
+  xhr.addEventListener('readystatechange', function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      deleteImage.remove();
+    }
   });
-};
-
-var input = document.getElementsByClassName('input')[0];
-var confirm = document.getElementById('confirm');
-var confirmBtn = document.getElementById('posting');
-confirmBtn.addEventListener('click', function (e) {
-  input.classList.toggle('hidden');
-  confirm.classList.toggle('hidden');
-  var memo_name = document.getElementById('memo_name').value;
-  var category_id = document.getElementById('category_id');
-  var status_id = document.getElementById('status');
-  var confirmEditor = CKEDITOR.instances.ckeditor.getData();
-  var confirmPreview = document.createElement('div');
-  confirmPreview.className = "confirmPreview";
-  confirm.appendChild(confirmPreview);
-  var title = document.createElement('div');
-  title.className = 'title';
-  var titleValue = document.createElement('h1');
-  titleValue.innerHTML = 'タイトル：' + memo_name;
-  title.appendChild(titleValue);
-  confirmPreview.appendChild(title);
-  var category = document.createElement('div');
-  category.className = 'category';
-  var categoryValue = document.createElement('h4');
-
-  if (category_id.value == 0) {
-    categoryValue.innerHTML = 'カテゴリー：' + document.getElementById('new_category').value;
-  } else {
-    categoryValue.innerHTML = 'カテゴリー：' + category_id[category_id.selectedIndex].text;
-  }
-
-  category.appendChild(categoryValue);
-  confirmPreview.appendChild(category);
-  var status = document.createElement('div');
-  status.className = 'status';
-  var statusValue = document.createElement('h4');
-
-  if (status_id.value == "privacy") {
-    statusValue.innerHTML = '状態：非公開';
-  } else {
-    statusValue.innerHTML = '状態：公開';
-  }
-
-  status.appendChild(statusValue);
-  confirmPreview.appendChild(status);
-  var editor = document.createElement('div');
-  editor.className = 'editor';
-  editor.innerHTML = confirmEditor;
-  confirmPreview.appendChild(editor);
-  prettyPrint(confirmEditor);
-});
-var returnBtn = document.getElementById('returnBtn');
-returnBtn.addEventListener('click', function (e) {
-  var confirmPreview = document.getElementsByClassName('confirmPreview')[0];
-  confirmPreview.remove();
-  input.classList.toggle('hidden');
-  confirm.classList.toggle('hidden');
-});
+}
 
 /***/ }),
 
-/***/ 9:
-/*!************************************************!*\
-  !*** multi ./resources/js/Memos/sectionAdd.js ***!
-  \************************************************/
+/***/ 11:
+/*!***********************************************!*\
+  !*** multi ./resources/js/Memos/s3_upload.js ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/vagrant/code/cael/resources/js/Memos/sectionAdd.js */"./resources/js/Memos/sectionAdd.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/cael/resources/js/Memos/s3_upload.js */"./resources/js/Memos/s3_upload.js");
 
 
 /***/ })
