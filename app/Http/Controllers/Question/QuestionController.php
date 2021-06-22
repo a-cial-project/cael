@@ -11,7 +11,7 @@ use Auth;
 class QuestionController extends Controller
 {
     public function create() {
-       
+         return view("questions/create");
     }
 
     public function index(Request $request){

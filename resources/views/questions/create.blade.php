@@ -1,3 +1,6 @@
+<head>
+  <script src="/ckeditor/ckeditor.js" type="text/javascript"></script>
+ </head>
 @extends('layouts.app')
 
 <!-- yeildに挿入 -->
@@ -25,6 +28,7 @@
       </form>
     </div>
   </div>
+  <textarea class="ckeditor" name="" id="editor"></textarea>
 </div>
 
 @endsection
