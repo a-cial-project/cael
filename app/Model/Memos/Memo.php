@@ -12,9 +12,9 @@ class Memo extends Model
     return $this->belongsTo('App\Model\User');
   }
 
-  public function sections()
+  public function section_contents()
   {
-    return $this->hasMany('App\Model\Memos\Section');
+    return $this->hasMany('App\Model\Memos\SectionContent');
   }
 
   public function memo_category()

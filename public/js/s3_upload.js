@@ -124,29 +124,37 @@ function fileReader(addImage) {
       input_file.value = xhr.response;
       image.appendChild(input_file);
       image_zone.appendChild(imgDiv);
-      imgDiv.appendChild(image);
-      imgDiv.appendChild(deleteBtn); // 画像の削除処理
+      imgDiv.appendChild(deleteBtn);
+      imgDiv.appendChild(image); // 画像の削除処理
 
-      imgDiv.onclick = function () {
+      deleteBtn.onclick = function () {
+        console.log(this);
         deleteImg(this);
       };
     }
   });
 }
 
+var alreadyImg = document.getElementsByClassName('deleteBtn');
+
+for (var i = 0; i < alreadyImg.length; i++) {
+  alreadyImg[i].addEventListener('click', function (e) {
+    deleteImg(this);
+  }, false);
+}
+
 function deleteImg(deleteImage) {
   var xhr = new XMLHttpRequest();
   var fd = new FormData();
   var token = document.getElementById('csrf_token').getAttribute('content');
-  var deleteImg = deleteImage.firstElementChild.getAttribute('src');
-  console.log(deleteImg);
+  var deleteImg = deleteImage.nextElementSibling.getAttribute('src');
   xhr.open('post', '/imagedelete');
   xhr.setRequestHeader('X-CSRF-Token', token);
   fd.append('img', deleteImg);
   xhr.send(fd);
   xhr.addEventListener('readystatechange', function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
-      deleteImage.remove();
+      deleteImage.parentNode.remove();
     }
   });
 }

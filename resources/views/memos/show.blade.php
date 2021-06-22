@@ -24,23 +24,11 @@
     @endif
   </div>
 
-  @foreach($memo->sections as $section)
-    <div class="row"><h3>{{ $section->title }}</h3></div>
+    <div class="row"><h3>{{ $memo->title }}</h3></div>
 
-    @foreach($section->section_contents->sortBy('order') as $content)
       <div class="">
-        @if(isset($content->code))
-          <pre class="prettyprint linenums">
-{!! \App\Model\Memos\Memo::escape(e($content->code)) !!}
-          </pre>
-        @elseif(isset($content->content))
-          <div>{!! $content->content !!}</div>
-        @else
-          <img src="{{ $content->image }}" class="confirmImage">
-        @endif
+          {!! $memo->content !!}
       </div>
-    @endforeach
-  @endforeach
 </div>
 <script type="module" src="{{ mix('js/prettify.js') }}"></script>
 <script type="module" src="{{ mix('js/showFavorite.js') }}"></script>
