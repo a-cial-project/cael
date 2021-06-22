@@ -22,10 +22,10 @@ class MemoController extends Controller
     $memos[] = Memo::where('name', 'like', '%' . $request->value . '%')->orderBy('created_at', 'desc')->get();
     $memos[] = 'memo';
     foreach($memos[0] as $key => $memo){
-    	$result = $this->favoritecheck('App\Model\Memos\MemoStock', 'memo_id', $memo->id);
-    	$count = $this->favoritecount('App\Model\Memos\MemoStock', 'memo_id', $memo->id);
-    	$memos[0][$key]['result'] = $result;
-    	$memos[0][$key]['count'] = $count;
+	  	$result = $this->favoritecheck('App\Model\Memos\MemoStock', 'memo_id', $memo->id);
+	  	$count = $this->favoritecount('App\Model\Memos\MemoStock', 'memo_id', $memo->id);
+	  	$memos[0][$key]['result'] = $result;
+	  	$memos[0][$key]['count'] = $count;
     }
     $memos[] = 'fa-pencil-alt';
     $memos[] = 'memostock';
@@ -35,7 +35,7 @@ class MemoController extends Controller
 	public function show($id){
 		$memo = Memo::find($id);
 		$result = $this->favoritecheck('App\Model\Memos\MemoStock', 'memo_id', $memo->id);
-    $count = $this->favoritecount('App\Model\Memos\MemoStock', 'memo_id', $memo->id);
+	  $count = $this->favoritecount('App\Model\Memos\MemoStock', 'memo_id', $memo->id);
 		return view('memos.show',['memo' => $memo, 'result' => $result, 'count' => $count]);
 	}
 
@@ -92,47 +92,29 @@ class MemoController extends Controller
 	public function update(Request $request)
 	{
 		try{
-			$editMemo = Memo::find($request->memo_id);
-			$editMemo->name = $request->memo_name;
-			$editMemo->memo_category_id = $request->category_id;
-			$editMemo->status = $request->status;
-			$editMemo->save();
-			$count = 0;
-			// dd($request->all());
-			foreach($request->section_id as $key => $section){
-				$editSection = Section::find($key);
-				if(!is_null($editSection)){
-					$editSection->title = $section;
-				}else{
-					$editSection = new Section;
-					$editSection->title = $section;
-					$editSection->memo_id = $editMemo->id;
-				}
-				$editSection->save();
-				$count++;
-				// dd($request->section[3]);
+			$memo = Memo::find($request->id);
 
-
-				foreach($request->section[$count] as $key => $content){
-					$editContent = SectionContent::find(key($content["section_id"]));
-					if(empty($editContent)){
-						$editContent = new SectionContent;
+			if($request->category_id == '0'){
+				$search = MemoCategory::where('name', $request->new_category)->first();
+				if(is_null($search)){
+						$new_memo = new MemoCategory;
+						$new_memo->name = $request->new_category;
+						$new_memo->save();
+						$memo->memo_category_id = $new_memo->id;
 					}
-					$editContent->section_id = $editSection->id;
-					$editContent->order = $key;
-
-					if(key($content["section_id"][key($content["section_id"])]) == 'section_content'){
-						$editContent->content = $content["section_id"][key($content["section_id"])]['section_content'];
-					}elseif(key($content["section_id"][key($content["section_id"])]) == 'section_code'){
-						$editContent->code = $content["section_id"][key($content["section_id"])]['section_code'];
-					}elseif(key($content["section_id"][key($content["section_id"])]) == 'section_image'){
-						if(!is_null($content["section_id"][key($content["section_id"])]['section_image'])){
-							Storage::disk('s3')->delete('memo/'.basename($editContent->image));
-						}
-						$path = Storage::disk('s3')->putFile('/memo', $content["section_id"][key($content["section_id"])]['section_image'], 'public');
-						$editContent->image = Storage::disk('s3')->url($path);
-					}
-					$editContent->save();
+			}else{
+				$memo->memo_category_id = $request->category_id;
+			}
+			$memo->content = $request->editor;
+			$memo->status = $request->status;
+			$memo->save();
+			// 新しく追加する画像があれば処理に入れる
+			if(isset($request->path)){
+				foreach($request->path as $path){
+					$image = new SectionContent;
+					$image->memo_id = $memo->id;
+					$image->image = $path;
+					$image->save();
 				}
 			}
 			return redirect('/');
@@ -151,6 +133,10 @@ class MemoController extends Controller
 	public function imagedelete(Request $request)
 	{
 		Storage::disk('s3')->delete('memo/'.basename($request->img));
+		$deleteImg = SectionContent::where('image', $request->img)->first();
+		if(!is_null($deleteImg)){
+			$deleteImg->delete();
+		}
 	}
 
 }
