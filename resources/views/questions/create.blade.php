@@ -1,6 +1,4 @@
-<head>
-  <script src="/ckeditor/ckeditor.js" type="text/javascript"></script>
- </head>
+
 @extends('layouts.app')
 
 <!-- yeildに挿入 -->
@@ -28,7 +26,11 @@
       </form>
     </div>
   </div>
-  <textarea class="ckeditor" name="" id="editor"></textarea>
+  <textarea class="ckeditor" name="editor" id="ckeditor"></textarea>
 </div>
-
+<script src="{{ asset('/js/app.js') }}"></script>
+<script src="{{ asset('/ckeditor/ckeditor.js') }}"></script>
+<script>
+  CKEDITOR.replace("ckedior");
+</script>
 @endsection
