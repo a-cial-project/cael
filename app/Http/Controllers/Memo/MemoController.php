@@ -19,23 +19,23 @@ class MemoController extends Controller
 	public function search(Request $request)
 	{
 		$memos = [];
-    $memos[] = Memo::where('name', 'like', '%' . $request->value . '%')->orderBy('created_at', 'desc')->get();
-    $memos[] = 'memo';
-    foreach($memos[0] as $key => $memo){
-	  	$result = $this->favoritecheck('App\Model\Memos\MemoStock', 'memo_id', $memo->id);
-	  	$count = $this->favoritecount('App\Model\Memos\MemoStock', 'memo_id', $memo->id);
-	  	$memos[0][$key]['result'] = $result;
-	  	$memos[0][$key]['count'] = $count;
-    }
-    $memos[] = 'fa-pencil-alt';
-    $memos[] = 'memostock';
-    return $memos;
+		$memos[] = Memo::where('name', 'like', '%' . $request->value . '%')->orderBy('created_at', 'desc')->get();
+		$memos[] = 'memo';
+		foreach($memos[0] as $key => $memo){
+			$result = $this->favoritecheck('App\Model\Memos\MemoStock', 'memo_id', $memo->id);
+			$count = $this->favoritecount('App\Model\Memos\MemoStock', 'memo_id', $memo->id);
+			$memos[0][$key]['result'] = $result;
+			$memos[0][$key]['count'] = $count;
+		}
+		$memos[] = 'fa-pencil-alt';
+		$memos[] = 'memostock';
+		return $memos;
 	}
 
 	public function show($id){
 		$memo = Memo::find($id);
 		$result = $this->favoritecheck('App\Model\Memos\MemoStock', 'memo_id', $memo->id);
-	  $count = $this->favoritecount('App\Model\Memos\MemoStock', 'memo_id', $memo->id);
+		$count = $this->favoritecount('App\Model\Memos\MemoStock', 'memo_id', $memo->id);
 		return view('memos.show',['memo' => $memo, 'result' => $result, 'count' => $count]);
 	}
 
@@ -105,6 +105,7 @@ class MemoController extends Controller
 			}else{
 				$memo->memo_category_id = $request->category_id;
 			}
+			$memo->name = $request->memo_name;
 			$memo->content = $request->editor;
 			$memo->status = $request->status;
 			$memo->save();
