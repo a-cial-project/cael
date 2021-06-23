@@ -13,7 +13,7 @@
       @method('put')
       @csrf
         <!-- memo部分 -->
-        <input type="hidden" name="id" class="row offset-4 col-4 mb-5" id="memo_name" value="{{$memo->id}}">
+        <input type="hidden" name="id" class="row offset-4 col-4 mb-5" id="memo_id" value="{{$memo->id}}">
         <input type="text" name="memo_name" class="row offset-4 col-4 mb-5" id="memo_name" value="{{$memo->name}}">
         <p id="hide" style="display: none;">{{$memo->memo_category_id}}</p>
         <select class="row offset-4 col-4 mb-5" id="category_id" name="category_id">
@@ -56,6 +56,7 @@
         <button type="submit" id="submitBtn" class="btn btn-primary row offset-5 col-2">投稿する</button>
       </div>
     </form>
+
 
 
 
