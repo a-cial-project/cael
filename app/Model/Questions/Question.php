@@ -8,5 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     //
-    
+     public function question_category()
+  {
+    return $this->belongsTo('App\Model\Questions\QuestionCategory');
+  }
 }
