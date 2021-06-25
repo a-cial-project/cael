@@ -25,6 +25,7 @@ class UsersTableSeeder extends Seeder
           'nickname' => 'AAT',
           'profile' => 'アシャルデザインです',
           'sport' => 'サッカー',
+          'role' => '0',
           'password' => bcrypt('test1234'),
         ],
         [
@@ -36,6 +37,7 @@ class UsersTableSeeder extends Seeder
           'nickname' => 'AAT',
           'profile' => 'アシャルデザインです',
           'sport' => 'サッカー',
+          'role' => '10',
           'password' => bcrypt('test5678'),
         ],
       ]);

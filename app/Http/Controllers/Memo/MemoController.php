@@ -54,6 +54,15 @@ class MemoController extends Controller
 
 	public function store(Request $request)
 	{
+		$rules = [
+			'memo_name' => ['required'],
+			'editor' => ['min:100'],
+		];
+        $messages = [
+            'editor.min'         => '内容が書かれていません。',        // editorフィールドで255文字を超えた時に表示されるエラーメッセージ
+        ];
+	    $this->validate($request, $rules, $messages);
+
 		try{
 			$memo = new Memo;
 			$memo->user_id = Auth::user()->id;
@@ -62,11 +71,11 @@ class MemoController extends Controller
 			if($request->category_id == '0'){
 				$search = MemoCategory::where('name', $request->new_category)->first();
 				if(is_null($search)){
-						$new_memo = new MemoCategory;
-						$new_memo->name = $request->new_category;
-						$new_memo->save();
-						$memo->memo_category_id = $new_memo->id;
-					}
+					$new_memo = new MemoCategory;
+					$new_memo->name = $request->new_category;
+					$new_memo->save();
+					$memo->memo_category_id = $new_memo->id;
+				}
 			}else{
 				$memo->memo_category_id = $request->category_id;
 			}
@@ -74,11 +83,13 @@ class MemoController extends Controller
 			$memo->status = $request->status;
 			$memo->save();
 
-			foreach($request->path as $path){
-				$image = new SectionContent;
-				$image->memo_id = $memo->id;
-				$image->image = $path;
-				$image->save();
+			if(isset($request->path)){
+				foreach($request->path as $path){
+					$image = new SectionContent;
+					$image->memo_id = $memo->id;
+					$image->image = $path;
+					$image->save();
+				}
 			}
 
 			return redirect('/');
@@ -91,6 +102,14 @@ class MemoController extends Controller
 
 	public function update(Request $request)
 	{
+		$rules = [
+			'memo_name' => ['required'],
+			'editor' => ['min:100'],
+		];
+        $messages = [
+            'editor.min'         => '内容が書かれていません。',        // editorフィールドで255文字を超えた時に表示されるエラーメッセージ
+        ];
+	    $this->validate($request, $rules, $messages);
 		try{
 			$memo = Memo::find($request->id);
 

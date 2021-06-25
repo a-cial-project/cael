@@ -1,6 +1,6 @@
 const category_id = document.getElementById('category_id');
 
-	const categoryChange = category_id.children;
+const categoryChange = category_id.children;
 if(document.getElementById('hide') != undefined){
 	const value = document.getElementById('hide').textContent;
 	for(let i = 0; i < categoryChange.length; i++){

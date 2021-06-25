@@ -20,4 +20,12 @@ class Engineer extends Model
   {
     return $this->belongsTo('App\Model\Engineers\EngineerCategory');
   }
+
+  protected $fillable = [
+      'name',
+      'engineer_category_id',
+      'content',
+      'start',
+      'git_hub_url',
+  ];
 }

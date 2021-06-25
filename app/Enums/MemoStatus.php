@@ -17,14 +17,14 @@ final class MemoStatus extends Enum
   public static function getStatus($value): string
   {
     switch ($value){
-      case 'relase':
-        return '公開';
-        brake;
-      case 'privacy':
-        return '非公開';
-        brake;
-      default:
-        return self::getKey($value);
+        case 'relase':
+            return '公開';
+            brake;
+        case 'privacy':
+            return '非公開';
+            brake;
+        default:
+            return self::getKey($value);
     }
   }
 }
