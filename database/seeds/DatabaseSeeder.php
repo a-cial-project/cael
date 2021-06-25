@@ -17,5 +17,8 @@ class DatabaseSeeder extends Seeder
       $this->call(EngineerCategoryTableSeeder::class);
       $this->call(EngineerTableSeeder::class);
       $this->call(MemoCategoryTableSeeder::class);
+      $this->call(RoomTableSeeder::class);
+      $this->call(EntryTableSeeder::class);
+      $this->call(MessageTableSeeder::class);
     }
 }

@@ -20,4 +20,14 @@ class Sport extends Model
   {
     return $this->belongsTo('App\Model\Sports\SportCategory');
   }
+
+  protected $fillable = [
+      'name',
+      'sport_category_id',
+      'content',
+      'date',
+      'limit',
+      'status',
+  ];
 }
+

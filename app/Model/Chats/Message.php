@@ -7,12 +7,12 @@ use App\Enums\ChatStatus;
 
 class Message extends Model
 {
-  protected $enumCasts = [
-    'status' => ChatStatus::class,
-  ];
+	protected $enumCasts = [
+		'status' => ChatStatus::class,
+	];
 
-  public function user()
-  {
-    return $this->belongsTo('App\Model\User');
-  }
+	public function user()
+	{
+		return $this->belongsTo('App\Model\User');
+	}
 }

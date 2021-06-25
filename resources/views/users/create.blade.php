@@ -27,7 +27,7 @@
       <option value="0">管理者</option>
       <option value="1">エンジニア</option>
       <option value="2">カリキュラム生</option>
-      <option value="3">内定者</option>
+      <option value="3" selected>内定者</option>
     </select>
     <input type="password" name="password" placeholder="仮パスワード" class="row offset-4 col-4 mb-5">
     <button type="submit" class="btn btn-primary row offset-2 col-8">投稿する</button>

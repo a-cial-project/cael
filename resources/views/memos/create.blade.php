@@ -8,6 +8,15 @@
 @section('content')
 
   	<h3 style="text-align: center;" class="mb-5">投稿して知識を共有しよう！</h3>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form action="{{ route('memo.store')}}" enctype="multipart/form-data" method="post" name="my_form">
       <div class="input">
       @csrf

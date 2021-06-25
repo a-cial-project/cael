@@ -25,22 +25,22 @@ class EngineerController extends Controller
 		$engineers = [];
 		$engineers[] = Engineer::where('name', 'like', '%' . $request->value . '%')->orderBy('created_at', 'desc')->get();
 		$engineers[] = 'engineer';
-    foreach($engineers[0] as $key => $engineer){
-    	$result = $this->favoritecheck('App\Model\Engineers\EngineerFavorite', 'engineer_id', $engineer->id);
-    	$count = $this->favoritecount('App\Model\Engineers\EngineerFavorite', 'engineer_id', $engineer->id);
-    	$engineers[0][$key]['result'] = $result;
-    	$engineers[0][$key]['count'] = $count;
-    }
-    $engineers[] = 'fa-laptop-code';
-    $engineers[] = 'engineerfavorite';
-    return $engineers;
+	    foreach($engineers[0] as $key => $engineer){
+	    	$result = $this->favoritecheck('App\Model\Engineers\EngineerFavorite', 'engineer_id', $engineer->id);
+	    	$count = $this->favoritecount('App\Model\Engineers\EngineerFavorite', 'engineer_id', $engineer->id);
+	    	$engineers[0][$key]['result'] = $result;
+	    	$engineers[0][$key]['count'] = $count;
+	    }
+	    $engineers[] = 'fa-laptop-code';
+	    $engineers[] = 'engineerfavorite';
+	    return $engineers;
 	}
 
 	public function show($id)
 	{
 		$engineer = Engineer::find($id);
 		$result = $this->favoritecheck('App\Model\Engineers\EngineerFavorite', 'engineer_id', $engineer->id);
-    $count = $this->favoritecount('App\Model\Engineers\EngineerFavorite', 'engineer_id', $engineer->id);
+		$count = $this->favoritecount('App\Model\Engineers\EngineerFavorite', 'engineer_id', $engineer->id);
 		$engineercomments = EngineerComment::where('engineer_id', $engineer->id)->get();
 		return view('engineers.show',['engineer' => $engineer, 'engineercomments' => $engineercomments, 'result' => $result, 'count' => $count]);
 	}
@@ -55,11 +55,11 @@ class EngineerController extends Controller
 	{
 
     // validation ここから追加
-    $rules = [
-    	'name' => ['required'],
-      'content' => ['required'],
-      'date' => ['required', 'after:"now"'],
-    ];
+	$rules = [
+		'name' => ['required'],
+		'content' => ['required'],
+		'start' => ['required', 'after:"now"'],
+	];
     $this->validate($request, $rules);
     // ここまで追加
 
@@ -70,28 +70,18 @@ class EngineerController extends Controller
 					$engineer_category = new EngineerCategory;
 					$engineer_category->name = $request->new_category;
 					$engineer_category->save();
-			  }
+					$request->engineer_category_id = $engineer_category->id;
+				}elseif(isset($category)){
+					$request->engineer_category_id = $category->id;
+				}
 			}
 
 			$engineer = new Engineer;
 			$engineer->user_id = Auth::user()->id;
-			$engineer->name = $request->name;
-
-			if(isset($category)){
-				$engineer->engineer_category_id = $category->id;
-			}elseif(isset($sport_category)){
-				$engineer->engineer_category_id = $engineer_category->id;
-			}elseif(is_null($request->new_category)){
-				$engineer->engineer_category_id = $request->category_id;
-			}
-
-			$engineer->content = $request->content;
-			$engineer->start = $request->date;
-			$engineer->git_hub_url = $request->git_hub_url;
-			$engineer->save();
+			$engineer->fill($request->all())->save();
 
 			$engineers = Engineer::orderBy('created_at', 'desc')->paginate(10);
-			return view('engineers.index',['engineers' => $engineers]);
+			return redirect('/');
 		} catch (Throwable $e) {
 			report($e);
 			return false;
@@ -107,14 +97,14 @@ class EngineerController extends Controller
 
 	public function update(Request $request)
 	{
-    // validation ここから追加
-    $rules = [
-    	'name' => ['required'],
-      'content' => ['required'],
-      'date' => ['required', 'after:"now"'],
-    ];
-    $this->validate($request, $rules);
-    // ここまで追加
+		// validation ここから追加
+		$rules = [
+			'name' => ['required'],
+			'content' => ['required'],
+			'date' => ['required', 'after:"now"'],
+		];
+		$this->validate($request, $rules);
+		// ここまで追加
 
 		try{
 			$engineer = Engineer::find($request->id);
@@ -124,26 +114,16 @@ class EngineerController extends Controller
 					$engineer_category = new EngineerCategory;
 					$engineer_category->name = $request->new_category;
 					$engineer_category->save();
-			  }
+					$request->engineer_category_id = $engineer_category->id;
+				}elseif(isset($category)){
+					$request->engineer_category_id = $category->id;
+				}
 			}
-
-			if(isset($category)){
-				$engineer->engineer_category_id = $category->id;
-			}elseif(isset($sport_category)){
-				$engineer->engineer_category_id = $engineer_category->id;
-			}elseif(is_null($request->new_category)){
-				$engineer->engineer_category_id = $request->category_id;
-			}
-      $engineer->name = $request->name;
-			$engineer->content = $request->content;
-			$engineer->start = $request->date;
-			$engineer->git_hub_url = $request->git_hub_url;
-			$engineer->status = $request->status;
-			$engineer->save();
+			$engineer->fill($request->all())->save();
 
 			$engineer = Engineer::find($engineer->id);
 			$result = $this->favoritecheck('App\Model\Engineers\EngineerFavorite', 'engineer_id', $engineer->id);
-	    $count = $this->favoritecount('App\Model\Engineers\EngineerFavorite', 'engineer_id', $engineer->id);
+			$count = $this->favoritecount('App\Model\Engineers\EngineerFavorite', 'engineer_id', $engineer->id);
 			$engineercomments = EngineerComment::where('engineer_id', $engineer->id)->get();
 			return view('engineers.show',['engineer' => $engineer, 'engineercomments' => $engineercomments, 'result' => $result, 'count' => $count]);
 		} catch (Throwable $e) {

@@ -93,13 +93,8 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-window.onload = function () {
-  var element = document.documentElement;
-  var bottom = element.scrollHeight - element.clientHeight;
-  window.scrollTo({
-    top: bottom,
-    left: 0
-  });
+window.onload = function (event) {
+  window.scrollTo(0, document.body.scrollHeight);
 };
 
 window.addEventListener('blur', function (e) {
