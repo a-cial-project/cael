@@ -18,19 +18,15 @@
     <div class="col-12">
       <form action="{{ route('question.store') }}" method="post" accept-charset="utf-8">
         @csrf
-        <input type="text" name="title" placeholder="タイトルを入力" class="col-12 form-control">
-        <input type="body" name="content" placeholder="試した方法・ソースコード">
-        <!-- 画像アップロード -->
-        <input type="bocy" name="image" placeholder="画像アップロード">
+        <!-- cdeditorの生成　class命名による -->
+       <textarea class="form-control" id="ckeditor" name="ckeditor"></textarea>
+       <script>
+         CKEDITOR.replace( 'ckeditor' );
+       </script>
         <input class="btn btn-primary" type="submit" name="question_submit" value="質問確認画面へ">
       </form>
     </div>
   </div>
-  <textarea class="ckeditor" name="editor" id="ckeditor"></textarea>
 </div>
-<script src="{{ asset('/js/app.js') }}"></script>
-<script src="{{ asset('/ckeditor/ckeditor.js') }}"></script>
-<script>
-  CKEDITOR.replace("ckedior");
-</script>
 @endsection
+

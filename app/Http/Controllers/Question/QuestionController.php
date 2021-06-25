@@ -35,4 +35,8 @@ class QuestionController extends Controller
     public function question_info(){
         return view("questions/question_info");
     }
+
+    public function store(Request $request){
+        return view("questions/question_info",["editor" => $request]);
+    }
 }
