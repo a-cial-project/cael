@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/vagrant/code/cael/resources/js/showFavorite.js */"./resources/js/showFavorite.js");
+module.exports = __webpack_require__(/*! /var/www/html/a-cial-project/cael/resources/js/showFavorite.js */"./resources/js/showFavorite.js");
 
 
 /***/ })

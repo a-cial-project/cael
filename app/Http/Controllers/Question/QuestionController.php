@@ -11,35 +11,32 @@ use Auth;
 class QuestionController extends Controller
 {
     public function create() {
-       
+         return view("questions/create");
     }
 
     public function index(Request $request){
-        $status = $request->input("status") ?? 0;
-        $current_category_id = $request->input("question_category_id") ?? 0;
-        $question_categories = QuestionCategory::all();
-        if ($status==1) {
-            if ($current_category_id == 0) {
-                $questions = Question::where("status", 1)->get();
-            }else{
-                $questions = Question::where("question_category_id",$current_category_id)->where("status",1)->get();
-            }
-        }elseif($status==0){
-            if ($current_category_id == 0) {
-                $questions = Question::where("status", 0)->get();
-            }else{
-                $questions = Question::where("question_category_id",$current_category_id)->where("status",0)->get();
-            }
+        $categories = QuestionCategory::all();
+        $request_category = $request->input("status");
+        $status = isset($request_category) ? $request_category : 0;
+        $current_category = QuestionCategory::find($request->input("question_category_id")) ?? 0;
+        if ($current_category === 0) {
+            $questions = Question::where("status", $status)->get();
+        }else{
+            $questions = $current_category->questions()->where("status",$status)->get();
         }
         return view("questions/index",[
             "status" => $status,
             "questions" => $questions,
-            "category" => $question_categories,
-            "current_category_id" => $current_category_id,
+            "categories" => $categories,
+            "current_category" => $current_category,
         ]);
     }
 
     public function question_info(){
         return view("questions/question_info");
+    }
+
+    public function store(Request $request){
+        return view("questions/question_info",["editor" => $request]);
     }
 }

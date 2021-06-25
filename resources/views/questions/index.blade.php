@@ -32,10 +32,10 @@
 
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link {{ $status == 0 ? 'active' : '' }}" aria-current="page" href="{{ route('question.index',['status' => 0, 'question_category_id' => $current_category_id]) }}">未回答</a>
+          <a class="nav-link {{ $status == 0 ? 'active' : '' }}" aria-current="page" href="{{ route('question.index',['status' => 0, 'question_category_id' => $current_category]) }}">未回答</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ $status == 1 ? 'active' : '' }}" href="{{ route('question.index',['status' => 1, 'question_category_id' => $current_category_id]) }}">回答済み</a>
+          <a class="nav-link {{ $status == 1 ? 'active' : '' }}" href="{{ route('question.index',['status' => 1, 'question_category_id' => $current_category]) }}">回答済み</a>
         </li>
       </ul>
 
@@ -55,11 +55,11 @@
     <div class="col-5 border rounded text-center">
       <p class="py-3 border-bottom" style="font-weight: bold;">カリキュラムカテゴリー</p>
       <p>
-        <a href="{{ route('question.index') }}" class="btn btn-outline-primary w-100 {{ $current_category_id === 0 ? 'active btn-primary' : '' }}" title="">全てのカテゴリー</a>
+        <a href="{{ route('question.index') }}" class="btn btn-outline-primary w-100 {{ $current_category === 0 ? 'active' : '' }}" title="">全てのカテゴリー</a>
       </p>
-      @foreach($category as $val)
+      @foreach($categories as $category)
       <p>
-        <a href="{{ route('question.index',['question_category_id'=> $val->id]) }}" title="" class="btn btn-outline-primary w-100 {{ $current_category_id == $val->id ? 'active btn-primary' : ''}} ">{{ $val->name }}</a>
+        <a href="{{ route('question.index',['question_category_id'=> $category->id]) }}" title="" class="btn btn-outline-primary w-100 {{ $current_category !== 0 && $current_category->id == $category->id ? 'active btn-primary' : ''}} ">{{ $category->name }}</a>
       </p>
       @endforeach
     </div>
