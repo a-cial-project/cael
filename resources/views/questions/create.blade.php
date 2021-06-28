@@ -19,10 +19,10 @@
       <form action="{{ route('question.store') }}" method="post" accept-charset="utf-8">
         @csrf
         <!-- cdeditorの生成　class命名による -->
-       <textarea class="form-control" id="ckeditor" name="ckeditor"></textarea>
-       <script>
+       <textarea class="ckeditor" id="ckeditor" name="ckeditor"></textarea>
+      <!--  <script>
          CKEDITOR.replace( 'ckeditor' );
-       </script>
+       </script> -->
         <input class="btn btn-primary" type="submit" name="question_submit" value="質問確認画面へ">
       </form>
     </div>
