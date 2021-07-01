@@ -1,4 +1,4 @@
-h3 {
-	border-bottom: 1px solid #696565;
+h3,strong{
+	border-bottom: 1px solid #dee2e6;
 	padding-bottom: 5px;
 }
