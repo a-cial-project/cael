@@ -2,3 +2,7 @@ h3,strong{
 	border-bottom: 1px solid #dee2e6;
 	padding-bottom: 5px;
 }
+#file_preview img {
+	width: 600px;
+	margin: 20px;
+}
