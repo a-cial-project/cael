@@ -81,94 +81,50 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/Memos/s3_upload.js":
-/*!*****************************************!*\
-  !*** ./resources/js/Memos/s3_upload.js ***!
-  \*****************************************/
+/***/ "./resources/js/Questions/question_editor.js":
+/*!***************************************************!*\
+  !*** ./resources/js/Questions/question_editor.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var input = document.getElementById('image_input');
-input.addEventListener('change', function (e) {
-  fileReader(this.files[0]);
-}, false);
+window.onload = function () {
+  // ckeditorの実装
+  var ckeditor = CKEDITOR.replace("editor", {
+    uiColor: "#EEEEEE",
+    height: 600
+  }); // 実装準備完了時の関数読み込み
 
-function fileReader(addImage) {
-  var xhr = new XMLHttpRequest();
-  var fd = new FormData();
-  var token = document.getElementById('csrf_token').getAttribute('content');
-  xhr.open('post', '/imageupload');
-  xhr.setRequestHeader('X-CSRF-Token', token);
-  fd.append('image', addImage);
-  xhr.send(fd);
-  xhr.addEventListener('readystatechange', function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      var image_zone = document.getElementById('image_zone');
-      var imgDiv = document.createElement('div');
-      imgDiv.className = 'img_parent';
-      var deleteBtn = document.createElement('div');
-      deleteBtn.className = 'deleteBtn';
-      deleteBtn.innerHTML = '×';
-      var image = new Image();
-      image.className = 'image';
-      image.src = xhr.response;
-      var input_file = document.createElement('input');
-      input_file.type = 'text';
-      input_file.display = 'none';
-      input_file.setAttribute("name", "path[]");
-      input_file.value = xhr.response;
-      image.appendChild(input_file);
-      image_zone.appendChild(imgDiv);
-      imgDiv.appendChild(deleteBtn);
-      imgDiv.appendChild(image); // 画像の削除処理
+  ckeditor.on("instanceReady", function (e) {
+    // ckeditorのインスタンス化
+    var editor_instance = CKEDITOR.instances.editor; // 初期値設定
 
-      deleteBtn.onclick = function () {
-        console.log(this);
-        deleteImg(this);
-      };
-    }
+    editor_instance.setData("<h3><strong>[質問内容]:</strong></h3><strong><br>[発生している問題]:</strong><p></p><br><br><strong>[試したこと]:</strong><p></p><br><br><strong>[備考欄（バージョン指定やその他知りたいこと)]:</strong><p></p>"); // リアルタイム表示関数読み込み
+
+    editor_instance.document.on("keyup", function () {
+      // オブジェクトデータ取得
+      var data = editor_instance.getData(); // 指定elementIdに表示
+
+      document.getElementById("preview").innerHTML = data;
+    });
   });
-}
-
-var alreadyImg = document.getElementsByClassName('deleteBtn');
-
-for (var i = 0; i < alreadyImg.length; i++) {
-  alreadyImg[i].addEventListener('click', function (e) {
-    deleteImg(this);
-  }, false);
-}
-
-function deleteImg(deleteImage) {
-  var xhr = new XMLHttpRequest();
-  var fd = new FormData();
-  var token = document.getElementById('csrf_token').getAttribute('content');
-  var deleteImg = deleteImage.nextElementSibling.getAttribute('src');
-  xhr.open('post', '/imagedelete');
-  xhr.setRequestHeader('X-CSRF-Token', token);
-  fd.append('img', deleteImg);
-  xhr.send(fd);
-  xhr.addEventListener('readystatechange', function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      deleteImage.parentNode.remove();
-    }
-  });
-}
+};
 
 /***/ }),
 
-/***/ 11:
-/*!***********************************************!*\
-  !*** multi ./resources/js/Memos/s3_upload.js ***!
-  \***********************************************/
+/***/ 14:
+/*!*********************************************************!*\
+  !*** multi ./resources/js/Questions/question_editor.js ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/a-cial-project/cael/resources/js/Memos/s3_upload.js */"./resources/js/Memos/s3_upload.js");
+module.exports = __webpack_require__(/*! /var/www/html/a-cial-project/cael/resources/js/Questions/question_editor.js */"./resources/js/Questions/question_editor.js");
 
 
 /***/ })

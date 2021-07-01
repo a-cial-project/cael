@@ -60,9 +60,9 @@
     </div>
   </div>
 
-  <div class="row">
-    <a href="{{ route('question.create') }}" title="">
-      <div class="btn btn-primary">
+  <div class="row justify-content-center">
+    <a href="{{ route('question.create') }}" title="" class="w-50">
+      <div class="btn btn-primary w-100">
         質問を入力する
       </div>
     </a>

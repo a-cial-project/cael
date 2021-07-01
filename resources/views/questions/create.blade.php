@@ -1,4 +1,6 @@
-
+<head>
+  <link rel="stylesheet" href="{{ asset('css/Questions/question_editor.css')}}">
+</head>
 @extends('layouts.app')
 
 <!-- yeildに挿入 -->
@@ -13,28 +15,22 @@
   </ul>
   </div>
 @endif
-<div class="container">
-  <div class="row">
-    <div class="col-12">
+  <div class="row mx-2">
+    <div class="col-6">
       <form action="{{ route('question.store') }}" method="post" accept-charset="utf-8">
         @csrf
         <!-- cdeditorの生成　class命名による -->
-       <textarea id="editor" name="ckeditor"></textarea>
-        <input class="btn btn-primary" type="submit" name="question_submit" value="質問確認画面へ">
-      </form>
-      <!-- scriptがページを読み込む前に発動するため、一定時間を置いて起動させる -->
-      <script>
-        setTimeout(function(){
-           CKEDITOR.replace("editor", {
-            uiColor: "#EEEEEE",
-            width:700,
-            height:600,
-          });
-        },);
-      </script>
+       <textarea id="editor" name="ckeditor" ></textarea>
+    </div>
+    <div class="col-6 border">
+      <p class="font-weight-bold text-center my-3 border-bottom">プレビュー</p>
+      <p class="preview" id="preview">
+      </p>
     </div>
   </div>
-</div>
 
+  <input class="btn btn-primary offset-3 col-6 mt-3" type="submit" name="question_submit" value="質問確認画面へ">
+    </form>
+<script type="module" src="{{ mix('js/question_editor.js') }}"></script>
 @endsection
 
