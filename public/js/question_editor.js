@@ -113,39 +113,22 @@ window.onload = function () {
       document.getElementById("preview").innerHTML = data;
     });
   });
-}; // 画像プレビュー表示 画像選択時にonchange起動で呼び出し
+};
 
+var question_img = document.getElementById('file_upload');
+question_img.addEventListener("change", function () {
+  // question_img要素のデータを取得
+  var reader = this.files[0];
+  var img_url = window.URL.createObjectURL(reader);
+  console.log(img_url); // エレメントを生成しimg_view要素に挿入
 
-var setImage = document.getElementById('file_upload');
-setImage.addEventListener('change', function (e) {
-  for (i = 0; i < e.files.length; i++) {
-    // FileReaderのインスタンス化
-    var reader = new FileReader(); // readerのロード完了時のイベント
-
-    reader.onload = function (e) {
-      // e.srcElement.resultで画像データオブジェクト取得
-      document.getElementById("file_preview").innerHTML += '<img src="' + e.srcElement.result + '">';
-    }; // src属性として出力するためDataURLで実行
-
-
-    reader.readAsDataURL(e.files[i]);
-  }
-
-  ;
-}); // function setImage(e){
-//   // 引数のオブジェクトの数ループ処理で複数画像取得
-//  for (i = 0; i<e.files.length; i++){
-//   // FileReaderのインスタンス化
-//    const reader = new FileReader();
-//   // readerのロード完了時のイベント
-//    reader.onload = (e) => {
-//   // e.srcElement.resultで画像データオブジェクト取得
-//      document.getElementById("file_preview").innerHTML += '<img src="'+ e.srcElement.result + '">';
-//    };
-//   // src属性として出力するためDataURLで実行
-//    reader.readAsDataURL(e.files[i]);
-//  };
-// };
+  var img_view = document.getElementById('img_view');
+  var img_element = document.createElement('img');
+  img_element.src = img_url;
+  img_view.appendChild(img_element);
+  console.log(img_element);
+  console.log(img_view);
+});
 
 /***/ }),
 

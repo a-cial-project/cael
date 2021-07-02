@@ -16,7 +16,22 @@
      // オブジェクトデータ取得
         const data = editor_instance.getData();
      // 指定elementIdに表示
-        document.getElementById("preview").innerHTML=data;
+        document.getElementById("preview").innerHTML = data;
       });
      });
  };
+
+ const question_img = document.getElementById('file_upload');
+ question_img.addEventListener("change", function(){
+   // question_img要素のデータを取得
+   const reader = this.files[0];
+   const img_url = window.URL.createObjectURL(reader);
+   console.log(img_url);
+   // エレメントを生成しimg_view要素に挿入
+   const img_view = document.getElementById('img_view');
+   const img_element = document.createElement('img');
+   img_element.src = img_url;
+   img_view.appendChild(img_element);
+   console.log(img_element);
+   console.log(img_view);
+ });

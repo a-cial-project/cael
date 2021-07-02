@@ -41,7 +41,8 @@ class QuestionController extends Controller
         return view("questions/question_info",["editor" => $request]);
     }
 
-    public function upload(){
-
+    public function img_upload(Request $request){
+        // if($request->hasFile("upload"))
+        // $file = $request->file();
     }
 }
