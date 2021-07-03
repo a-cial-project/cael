@@ -23,18 +23,40 @@
       });
      });
  };
-// 画像プレビュー
- const question_img = document.getElementById('file_upload');
- question_img.addEventListener("change", function(){
-   // question_img要素のデータを取得
-   const reader = this.files[0];
-   const img_url = window.URL.createObjectURL(reader);
-   console.log(img_url);
-   // エレメントを生成しimg_view要素に挿入
-   const img_view = document.getElementById('img_view');
-   const img_element = document.createElement('img');
-   img_element.src = img_url;
-   img_view.appendChild(img_element);
-   console.log(img_element);
-   console.log(img_view);
- });
+
+// 画像アップロード コントローラへ送信・s3アップロード後フルパスを取得
+const upload_image = document.getElementById('file_upload');
+upload_image.addEventListener("change", function(event){
+// データの形成
+   const image_data = upload_image.files[0];
+   // Formdataオブジェクトの作成とname,valueの設定
+   const form_data = new FormData();
+   form_data.append("image", image_data);
+   // オブジェクトの中身確認
+   console.log(...form_data.entries());
+// json生成
+  // リクエストインスタンスの生成
+   let xhr = new XMLHttpRequest();
+  // csrfトークンの生成
+   let csrf_token = document.getElementById('csrf_token').getAttribute('content');
+  // 送信先の設定
+   xhr.open('post','/questionImgUpload');
+  // ヘッダーの設定
+   xhr.setRequestHeader('X-CSRF-Token', csrf_token);
+// データ送信
+  xhr.send(form_data);
+
+// 通信後の挙動(画像表示とinputタグのデータ定義)
+   xhr.onreadystatechange = function(){
+    // xhrクライアントの状態がDONE=4　操作完了で発火
+    if(this.readyState == 4 && this.status == 200){
+    // 表示用のエレメント作成(imgタグ・クラス名生成)
+      const img_view = document.getElementById('img_view');
+      const img_element = document.createElement('img');
+      img_element.className = 'upload_img';
+      // レスポンスされたurlをimgに付与
+      img_element.src = this.response;
+      img_view.appendChild(img_element);
+    }
+   }
+});
