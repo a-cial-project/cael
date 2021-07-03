@@ -21,8 +21,8 @@
         <button type="submit"><i class="fas fa-search"></i></button>
       </form>
     </div>
-    <div class="col-6">
-      <a href="{{ route('question.info') }} " title=""><div class="btn btn-primary w-75">
+    <div class="col-6 d-flex justify-content-end">
+      <a href="{{ route('question.info') }} " title="" class="w-100"><div class="btn btn-primary w-100">
         質問する
       </div></a>
     </div>

@@ -1,4 +1,10 @@
-h3 {
-	border-bottom: 1px solid #696565;
+h3,strong{
+	border-bottom: 1px solid #dee2e6;
 	padding-bottom: 5px;
+}
+#img_view img {
+	width: 600px;
+	height: 300px;
+	object-fit: cover;
+	margin: 20px;
 }
