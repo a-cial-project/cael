@@ -50,13 +50,19 @@ upload_image.addEventListener("change", function(event){
    xhr.onreadystatechange = function(){
     // xhrクライアントの状態がDONE=4　操作完了で発火
     if(this.readyState == 4 && this.status == 200){
-    // 表示用のエレメント作成(imgタグ・クラス名生成)
+    // 表示用のエレメント作成(imgタグ・id生成,削除ボタンの生成)
       const img_view = document.getElementById('img_view');
       const img_element = document.createElement('img');
-      img_element.className = 'upload_img';
-      // レスポンスされたurlをimgに付与
+      const img_url = String(this.response);
+      const img_array = img_url.split('/');
+      const img_id = img_array[4];
+      // 削除する際の判別idを指定
+      img_element.setAttribute('id', img_id);
       img_element.src = this.response;
       img_view.appendChild(img_element);
     }
    }
 });
+
+// 画像削除
+// クリックしたimg要素のsrcを取得
