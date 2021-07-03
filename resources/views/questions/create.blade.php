@@ -34,7 +34,7 @@
         @csrf
        <textarea id="editor" name="ckeditor" ></textarea>
     </div>
-    <div class="col-6 border">
+    <div class="col-6 border" style="overflow: scroll;">
       <p class="font-weight-bold text-center my-3 border-bottom">プレビュー</p>
       <p class="preview" id="preview">
       </p>
