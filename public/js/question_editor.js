@@ -158,10 +158,13 @@ upload_image.addEventListener("change", function (event) {
   xhr.onreadystatechange = function () {
     // xhrクライアントの状態がDONE=4　操作完了で発火
     if (this.readyState == 4 && this.status == 200) {
-      // 表示用のエレメント作成(imgタグ・クラス名生成)
+      // 表示用のエレメント作成(imgタグ・クラス名生成,削除ボタンの生成)
       var img_view = document.getElementById('img_view');
       var img_element = document.createElement('img');
-      img_element.className = 'upload_img'; // レスポンスされたurlをimgに付与
+      var img_url = String(this.response);
+      var img_array = img_url.split('/');
+      var img_id = img_array[4];
+      img_element.setAttribute('id', img_id); // レスポンスされたurlをimgに付与
 
       img_element.src = this.response;
       img_view.appendChild(img_element);
