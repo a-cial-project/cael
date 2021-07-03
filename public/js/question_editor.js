@@ -93,6 +93,18 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 window.onload = function () {
   // ckeditorの実装
   var ckeditor = CKEDITOR.replace("editor", {
@@ -116,22 +128,45 @@ window.onload = function () {
       preview.innerHTML = data;
     });
   });
-}; // 画像プレビュー
+}; // 画像アップロード コントローラへ送信・s3アップロード後フルパスを取得
 
 
-var question_img = document.getElementById('file_upload');
-question_img.addEventListener("change", function () {
-  // question_img要素のデータを取得
-  var reader = this.files[0];
-  var img_url = window.URL.createObjectURL(reader);
-  console.log(img_url); // エレメントを生成しimg_view要素に挿入
+var upload_image = document.getElementById('file_upload');
+upload_image.addEventListener("change", function (event) {
+  var _console;
 
-  var img_view = document.getElementById('img_view');
-  var img_element = document.createElement('img');
-  img_element.src = img_url;
-  img_view.appendChild(img_element);
-  console.log(img_element);
-  console.log(img_view);
+  // データの形成
+  var image_data = upload_image.files[0]; // Formdataオブジェクトの作成とname,valueの設定
+
+  var form_data = new FormData();
+  form_data.append("image", image_data); // オブジェクトの中身確認
+
+  (_console = console).log.apply(_console, _toConsumableArray(form_data.entries())); // json生成
+  // リクエストインスタンスの生成
+
+
+  var xhr = new XMLHttpRequest(); // csrfトークンの生成
+
+  var csrf_token = document.getElementById('csrf_token').getAttribute('content'); // 送信先の設定
+
+  xhr.open('post', '/questionImgUpload'); // ヘッダーの設定
+
+  xhr.setRequestHeader('X-CSRF-Token', csrf_token); // データ送信
+
+  xhr.send(form_data); // 通信後の挙動(画像表示とinputタグのデータ定義)
+
+  xhr.onreadystatechange = function () {
+    // xhrクライアントの状態がDONE=4　操作完了で発火
+    if (this.readyState == 4 && this.status == 200) {
+      // 表示用のエレメント作成(imgタグ・クラス名生成)
+      var img_view = document.getElementById('img_view');
+      var img_element = document.createElement('img');
+      img_element.className = 'upload_img'; // レスポンスされたurlをimgに付与
+
+      img_element.src = this.response;
+      img_view.appendChild(img_element);
+    }
+  };
 });
 
 /***/ }),
