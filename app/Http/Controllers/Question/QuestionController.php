@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Question;
 
 use App\Model\Questions\Question;
 use App\Model\Questions\QuestionCategory;
+use App\Model\Questions\QuestionImage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\Storage;
 
 class QuestionController extends Controller
 {
@@ -38,5 +40,16 @@ class QuestionController extends Controller
 
     public function store(Request $request){
         return view("questions/question_info",["editor" => $request]);
+    }
+
+    public function img_upload(Request $request){
+        // s3へのアップロード 第一引数は任意のフォルダ名をつける
+        $path = Storage::disk('s3')->putFile('/question', $request->file('image'), 'public');
+        // フルパスの取得
+        return Storage::disk('s3')->url($path);
+    }
+
+    public function img_remove(Request $request){
+        Storage::disk('s3')->delete('question/', $request->image);
     }
 }

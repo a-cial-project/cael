@@ -12,4 +12,7 @@ class Question extends Model
   {
     return $this->belongsTo('App\Model\Questions\QuestionCategory');
   }
+    public function question_images(){
+        return $this->hasMany("App\Model\Questions\QuestionImage");
+    }
 }

@@ -28,8 +28,9 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'colors' },
 		{ name: 'about' }
 	];
-	// ckeditor css読み込み
-	config.contentsCss = ['css/Questions/question_editor.css'];
+	// ckeditor 画像アップロード
+	config.filebrowserImageBrowseUrl = '/kcfinder/browse.php?type=images';
+	config.filebrowserImageUploadUrl = '/kcfinder/upload.php?type=images';
 
 	// Remove some buttons provided by the standard plugins, which are
 	// not needed in the Standard(s) toolbar.
