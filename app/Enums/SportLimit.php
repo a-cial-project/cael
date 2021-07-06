@@ -12,20 +12,20 @@ use BenSampo\Enum\Enum;
  */
 final class SportLimit extends Enum
 {
-  const UnderRecruitment = 0;
-  const End = 1;
+	const UnderRecruitment = 0;
+	const End = 1;
 
-  public static function getStatus($value): string
-  {
-    switch ($value){
-      case 'UnderRecruitment':
-        return '募集中';
-        brake;
-      case 'End':
-        return '終了';
-        brake;
-      default:
-        return self::getKey($value);
-    }
-  }
+	public static function getStatus($value): string
+	{
+		switch ($value){
+			case 'UnderRecruitment':
+				return '募集中';
+				brake;
+			case 'End':
+				return '終了';
+				brake;
+			default:
+				return self::getKey($value);
+		}
+	}
 }

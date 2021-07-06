@@ -68,3 +68,18 @@ input[type="file"] {
 .content{
 	width: 40%;
 }
+
+/*ローディング*/
+#loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: deepskyblue;
+    transition: all 1s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}

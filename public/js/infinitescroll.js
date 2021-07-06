@@ -248,7 +248,7 @@ xhr.addEventListener('readystatechange', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/a-cial-project/cael/resources/js/infinitescroll.js */"./resources/js/infinitescroll.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/cael/resources/js/infinitescroll.js */"./resources/js/infinitescroll.js");
 
 
 /***/ })

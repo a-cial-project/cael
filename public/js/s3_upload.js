@@ -159,6 +159,36 @@ function deleteImg(deleteImage) {
   });
 }
 
+var submitBtn = document.getElementById('submitBtn');
+var is_note_msg = true;
+submitBtn.addEventListener('click', function (event) {
+  is_note_msg = false;
+});
+window.addEventListener('beforeunload', function (event) {
+  if (is_note_msg) {
+    // Cancel the event as stated by the standard.
+    event.preventDefault(); // Chrome requires returnValue to be set.
+
+    event.returnValue = 'aaa'; // setTimeout(() => {
+    // 	flag = true;
+    // 	setTimeout(() => {
+    // 		flag = false;
+    // 		console.log(flag);
+    // 		return flag;
+    // 	}, 1000);
+    // },1);
+    // console.log(flag);
+  }
+});
+window.addEventListener('unload', function (event) {
+  if (is_note_msg) {
+    // ロードした時はS3に保存された画像を削除する処理をする
+    for (var _i = 0; _i < alreadyImg.length; _i++) {
+      deleteImg(alreadyImg[_i]);
+    }
+  }
+});
+
 /***/ }),
 
 /***/ 11:
@@ -168,7 +198,7 @@ function deleteImg(deleteImage) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/a-cial-project/cael/resources/js/Memos/s3_upload.js */"./resources/js/Memos/s3_upload.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/cael/resources/js/Memos/s3_upload.js */"./resources/js/Memos/s3_upload.js");
 
 
 /***/ })

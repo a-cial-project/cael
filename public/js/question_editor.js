@@ -124,7 +124,7 @@ window.onload = function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/a-cial-project/cael/resources/js/Questions/question_editor.js */"./resources/js/Questions/question_editor.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/cael/resources/js/Questions/question_editor.js */"./resources/js/Questions/question_editor.js");
 
 
 /***/ })

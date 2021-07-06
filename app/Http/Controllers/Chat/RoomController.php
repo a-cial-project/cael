@@ -93,7 +93,8 @@ class RoomController extends Controller
 
   public function infinitescroll(Request $request)
   {
-  	$messages = Message::with('user')->where('room_id', $request->room_id)->orderBy('created_at', 'asc')->offset($request->count * 20)->limit(20)->get();
+  	$messages = Message::with('user')->where('room_id', $request->room_id)->orderBy('id', 'asc')->get();
+  	dd($messages);
   	return $messages;
   }
 }

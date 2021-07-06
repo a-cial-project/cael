@@ -12,9 +12,9 @@ if(document.getElementById('hide') != undefined){
 }
 
 category_id.onchange = function(){
-  if(category_id.value == 0){
-    document.getElementById("new_category").style.display ="block";
-  }else if(category_id.value != 0){
-    document.getElementById("new_category").style.display ="none";
-  }
+	if(category_id.value == 0){
+		document.getElementById("new_category").style.display ="block";
+	}else if(category_id.value != 0){
+		document.getElementById("new_category").style.display ="none";
+	}
 }
