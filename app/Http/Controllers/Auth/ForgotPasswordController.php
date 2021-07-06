@@ -19,12 +19,12 @@ class ForgotPasswordController extends Controller
     |
     */
 
-    use SendsPasswordResetEmails;
+	use SendsPasswordResetEmails;
 
-    // ユーザ用のviewを指定
-    public function showLinkRequestForm()
-    {
-        return view('auth.passwords.email');
-    }
+	// ユーザ用のviewを指定
+	public function showLinkRequestForm()
+	{
+		return view('auth.passwords.email');
+	}
 
 }

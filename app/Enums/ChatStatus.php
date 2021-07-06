@@ -12,6 +12,6 @@ use BenSampo\Enum\Contracts\LocalizedEnum;
  */
 final class ChatStatus extends Enum implements LocalizedEnum
 {
-    const read =   0;
-    const unread =   1;
+	const read =   0;
+	const unread =   1;
 }

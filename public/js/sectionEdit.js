@@ -127,7 +127,6 @@ confirmBtn.addEventListener('click', function (e) {
   var status_id = document.getElementById('status');
   var confirmEditor = CKEDITOR.instances.ckeditor.getData();
   var errCount = validation();
-  console.log(errCount);
 
   if (errCount == 0) {
     input.classList.toggle('hidden');
@@ -226,7 +225,7 @@ function validation() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/a-cial-project/cael/resources/js/Memos/sectionEdit.js */"./resources/js/Memos/sectionEdit.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/cael/resources/js/Memos/sectionEdit.js */"./resources/js/Memos/sectionEdit.js");
 
 
 /***/ })
