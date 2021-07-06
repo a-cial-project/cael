@@ -23,8 +23,7 @@
     </form>
   </div>
     <!-- 画像表示用要素　ここに保存した画像をimg要素で出力 -->
-  <div class="img_view" id="img_view">
-      
+  <div class="img_view" id="img_views">
   </div>
 
   <!-- 質問投稿 -->

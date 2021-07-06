@@ -48,4 +48,8 @@ class QuestionController extends Controller
         // フルパスの取得
         return Storage::disk('s3')->url($path);
     }
+
+    public function img_remove(Request $request){
+        Storage::disk('s3')->delete('question/', $request->image);
+    }
 }
