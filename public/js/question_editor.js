@@ -109,7 +109,39 @@ window.onload = function () {
   // ckeditorの実装
   var ckeditor = CKEDITOR.replace("editor", {
     uiColor: "#EEEEEE",
-    height: 600
+    height: 600,
+    toolbarGroups: [{
+      name: 'clipboard',
+      groups: ['clipboard', 'undo']
+    }, {
+      name: 'paragraph',
+      groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']
+    }, {
+      name: 'links',
+      groups: ['links']
+    }, {
+      name: 'insert',
+      groups: ['insert']
+    }, '/', {
+      name: 'styles',
+      groups: ['styles']
+    }, {
+      name: 'basicstyles',
+      groups: ['basicstyles', 'cleanup']
+    }, {
+      name: 'colors',
+      groups: ['colors']
+    }, {
+      name: 'tools',
+      groups: ['tools']
+    }, {
+      name: 'others',
+      groups: ['others']
+    }, {
+      name: 'about',
+      groups: ['about']
+    } // { name: 'document', groups: [ 'mode', 'document', 'doctools' ] }
+    ]
   });
   var preview = document.getElementById('preview'); // 実装準備完了時の関数読み込み
 
