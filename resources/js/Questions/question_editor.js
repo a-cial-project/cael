@@ -61,7 +61,6 @@ upload_image.addEventListener("change", function(event){
          img_div.className = "img_view";
          const img_element = document.createElement('img');
          const img_url = String(this.response);
-         console.log(img_element);
          var img_array = img_url.split('/');
          var img_id = img_array[4];
        // 削除する際の判別idを指定
@@ -88,7 +87,9 @@ upload_image.addEventListener("change", function(event){
          });
          // クリックした時の画像削除イベント発火
          img_element.addEventListener("click", function(){
-            del_img(this);
+            if (confirm("画像を削除しますか？")){
+               del_img(this);
+            }
          });
       };
    };
@@ -97,36 +98,18 @@ upload_image.addEventListener("change", function(event){
 function del_img(request) {
    var xhr = json("/questionImgRemove");
    var form_data = new FormData();
-   var image_url = request.getAttribute("src");
-   var img_array = image_url.split('/');
-   var img_data = img_array[4];
-   form_data.append("image", img_data);
+   var image_url = request.getAttribute("id");
+   form_data.append("image", image_url);
    xhr.send(form_data);
-
    xhr.onreadystatechange = function(){
       // xhrクライアントの状態がDONE=4　操作完了で発火
       if(this.readyState == 4 && this.status == 200){
+         request.parentNode.remove();
+         request.remove();
       }
    }
 }
 
-// 画像削除
-// img_viewの子要素に要素が追加されると発火
-// const observer = new MutationObserver(function(){
-//    console.log(click_img);
-// });
-// // 監視対象の選定
-// const observer_config = {
-//    cildList: true,
-//    attributes: true,
-//    characterData: true,
-// };
-// observer.observe(img_view, observer_config);
-// for (let i = 1; i <= click_img.length; i++){
-//    click_img[i].addEventListener("click", function(event) {
-//       console.log(event.target.id);
-//    });
-// };
 
 
 
