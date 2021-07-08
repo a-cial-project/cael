@@ -29,7 +29,7 @@
   <!-- 質問投稿 -->
   <div class="row mx-2">
     <div class="col-6">
-      <form action="{{ route('question.store') }}" method="post" enctype="multipart/form-data" id="question_post">
+      <form action="{{ route('question.store') }}" method="post" enctype="multipart/form-data" id="question_post" name="question">
         @csrf
        <textarea id="editor" name="ckeditor" ></textarea>
     </div>

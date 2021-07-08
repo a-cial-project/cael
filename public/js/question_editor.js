@@ -140,7 +140,8 @@ window.onload = function () {
     }, {
       name: 'about',
       groups: ['about']
-    } // { name: 'document', groups: [ 'mode', 'document', 'doctools' ] }
+    } // 「ソース」削除
+    // { name: 'document', groups: [ 'mode', 'document', 'doctools' ] }
     ]
   });
   var preview = document.getElementById('preview'); // 実装準備完了時の関数読み込み
@@ -199,17 +200,25 @@ upload_image.addEventListener("change", function (event) {
       // 表示用のエレメント作成(imgタグ・id生成,削除ボタンの生成)
       var img_view = document.getElementById('img_views');
       var img_div = document.createElement("div");
+      var img_input = document.createElement("input");
+      img_input.type = "text";
       img_div.className = "img_view";
       var img_element = document.createElement('img');
       var img_url = String(this.response);
+      img_input.setAttribute("name", "image[]");
+      img_input.className = "img_input";
       var img_array = img_url.split('/');
-      var img_id = img_array[4]; // 削除する際の判別idを指定
+      var img_id = img_array[4];
+      img_input.value = img_id;
+      img_input.style.display = "none"; // 削除する際の判別idを指定
 
       img_element.setAttribute('id', img_id);
       img_element.className = "upload_imgs";
       img_element.src = this.response;
       img_div.appendChild(img_element);
-      img_view.appendChild(img_div); // 作成したエレメントをホバーした時イベント発火
+      img_view.appendChild(img_div);
+      var question_post = document.getElementById("question_post");
+      question_post.appendChild(img_input); // 作成したエレメントをホバーした時イベント発火
 
       img_element.addEventListener("mouseover", function () {
         // マウスオーバーした親要素に削除テキスト、透過css判定id付与
@@ -236,7 +245,7 @@ upload_image.addEventListener("change", function (event) {
 
     ;
   };
-});
+}); // 
 
 function del_img(request) {
   var xhr = json("/questionImgRemove");
@@ -249,7 +258,15 @@ function del_img(request) {
     // xhrクライアントの状態がDONE=4　操作完了で発火
     if (this.readyState == 4 && this.status == 200) {
       request.parentNode.remove();
-      request.remove();
+      request.remove(); // inputのvalueがrequest.idと同じだったらinput削除
+
+      var img_inputs = document.getElementsByClassName("img_input");
+
+      for (var i = 0; i < img_inputs.length; i++) {
+        if (request.id == img_inputs[i].value) {
+          img_inputs[i].remove();
+        }
+      }
     }
   };
 }
