@@ -44,12 +44,13 @@ class QuestionController extends Controller
 
     public function img_upload(Request $request){
         // s3へのアップロード 第一引数は任意のフォルダ名をつける
-        $path = Storage::disk('s3')->putFile('/question', $request->file('image'), 'public');
+        $path = Storage::disk('s3')->putFile('/question', $request->image, 'public');
         // フルパスの取得
         return Storage::disk('s3')->url($path);
     }
 
     public function img_remove(Request $request){
-        Storage::disk('s3')->delete('question/', $request->image);
+        $url = 'question/'.$request->image;
+        Storage::disk('s3')->delete($url);
     }
 }
