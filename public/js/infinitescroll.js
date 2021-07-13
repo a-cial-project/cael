@@ -122,16 +122,15 @@ var token = document.getElementById('csrf_token').getAttribute('content'); // (2
 
 var scrollFlag = 55; // 間引きしたい処理
 
-var count = 1;
-
 function myCallback() {
   if (window.scrollY < scrollFlag) {
+    var min = document.getElementById('min').textContent;
     xhr.open('post', '/infinitescroll');
     xhr.setRequestHeader('X-CSRF-Token', token); // 追加
     // (4) フォームに入力されたデータを取得
 
     fd.append('room_id', document.getElementById('room_id').value);
-    fd.append('count', count++);
+    fd.append('min', min);
     xhr.send(fd);
   }
 }
@@ -146,7 +145,7 @@ xhr.addEventListener('readystatechange', function () {
     var res = JSON.parse(xhr.response);
     var all_message = document.getElementById('all_message');
 
-    for (var i = res.length - 1; i >= 0; i--) {
+    for (var i = 0; i <= res.length - 1; i++) {
       // 自分のメッセージ
       if (res[i].user_id == document.getElementById('user_id').value) {
         var loadMessage = document.createElement('div');
@@ -160,7 +159,7 @@ xhr.addEventListener('readystatechange', function () {
 
           _yourMessage.className = 'message ml-auto';
           var message = document.createElement('p');
-          message.innerHTML = res[i].message;
+          message.innerHTML = res[i].id + res[i].message;
 
           _yourMessage.appendChild(message);
 
@@ -236,6 +235,9 @@ xhr.addEventListener('readystatechange', function () {
         }
       }
     }
+
+    var last = res.slice(-1)[0];
+    document.getElementById('min').textContent = last.id;
   }
 });
 

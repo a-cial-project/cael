@@ -24,7 +24,8 @@ class MessageController extends Controller
 		if(isset($request->message)){
 			$message->message = $request->message;
 		}elseif(isset($request->content)){
-		$contentjudge = pathinfo($request->file('content')->getClientOriginalName(), PATHINFO_EXTENSION);
+			// ここで動画か画像かを判断
+			$contentjudge = pathinfo($request->file('content')->getClientOriginalName(), PATHINFO_EXTENSION);
 			if($contentjudge == 'mp4'){
 				$path = Storage::disk('s3')->putFile('/chat/movie', $request->content, 'public');
 				$message->movie = Storage::disk('s3')->url($path);

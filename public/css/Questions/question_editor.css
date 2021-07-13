@@ -1,4 +1,21 @@
-h3 {
-	border-bottom: 1px solid #696565;
+h3,strong{
+	border-bottom: 1px solid #dee2e6;
 	padding-bottom: 5px;
+}
+#img_views img {
+	width: 600px;
+	height: 300px;
+	object-fit: cover;
+	margin: 20px;
+}
+#del_img {
+	position: relative;
+	opacity: 0.7;
+}
+#del_btn {
+	position: absolute;
+	text-align: center;
+	top: 120px;
+	left: 280px;
+	font-size: 100px;
 }

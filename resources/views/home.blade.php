@@ -13,7 +13,6 @@
   	{{Form::token()}}
   	{{ Form::text('text', null,['class' => 'form-control shadow', 'id' => 'search_value', 'placeholder' => '検索する']) }}
   	{{Form::select('params', ['usersearch' => '社員', 'sportsearch' => 'スポーツ', 'engineersearch' => 'エンジニア', 'memosearch' => '備忘録'], '', ['class' => 'form-control my-3', 'id' => 'params'])}}
-
     {{ Form::button('検索する', ['class' => 'offset-4 col-4 btn btn-primary mb-3', 'type' => 'button', 'id' => 'search-icon']) }}
     {{Form::close()}}
   </div>

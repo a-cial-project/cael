@@ -52,6 +52,8 @@ Route::group(['middleware' => 'auth'], function() {
   // 質問機能
   Route::resource('question', 'Question\QuestionController')->only(['show', 'create', 'store', 'edit', 'update','index']);
   Route::get('/questioninfo/', 'Question\QuestionController@question_info')->name('question.info');
+  Route::post('/questionImgUpload','Question\QuestionController@img_upload')->name('question.upload');
+  Route::post('/questionImgRemove','Question\QuestionController@img_remove')->name('question.remove');
   // チャット機能
   Route::resource('room', 'Chat\RoomController')->only(['show', 'create']);
   Route::post('/infinitescroll', 'Chat\RoomController@infinitescroll')->name('rooms.infinitescroll');
