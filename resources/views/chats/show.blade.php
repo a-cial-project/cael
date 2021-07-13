@@ -5,15 +5,15 @@
 @extends('layouts.app')
 @section('content')
 	<div class="container">
-
+		<p style="display: none;" id="min">{{$messages->min('id')}}</p>
 		<div id="all_message">
-			@foreach($messages as $message)
+			@foreach($messages->sort() as $message)
 				@if($message->user_id == Auth::user()->id)
 					<div class="row my_message mb-3">
 						<h6>あなた</h6>
 						@if(isset($message->message))
 							<div class="message ml-auto">
-								<p>{{ $message->message }}</p>
+								{{ $message->id }}<p>{{ $message->message }}</p>
 							</div>
 						@elseif(isset($message->content))
 							<div class="image_parent"><img src="{{ $message->content }}" class="content"></div>
@@ -23,21 +23,21 @@
 						<span>{{ App\Enums\ChatStatus::getDescription($message->status) }}</span>
 					</div>
 				@else
-			<div class="row other_message mb-3">
-				<h6>{{ $message->user->name }}</h6>
-				@if(isset($message->message))
-					<div class="message">
-					<p>{{ $message->message }}</p>
+					<div class="row other_message mb-3">
+						<h6>{{ $message->user->name }}</h6>
+						@if(isset($message->message))
+							<div class="message">
+							<p>{{ $message->message }}</p>
+							</div>
+						@elseif(isset($message->content))
+							<div class="image_parent"><img src="{{ $message->content }}" class="content"></div>
+						@elseif(isset($message->movie))
+							<div class="image_parent"><video src="{{ $message->movie }}"  controls></video></div>
+						@endif
+						<span>{{ App\Enums\ChatStatus::getDescription($message->status) }}</span>
 					</div>
-				@elseif(isset($message->content))
-					<div class="image_parent"><img src="{{ $message->content }}" class="content"></div>
-				@elseif(isset($message->movie))
-					<div class="image_parent"><video src="{{ $message->movie }}"  controls></video></div>
 				@endif
-				<span>{{ App\Enums\ChatStatus::getDescription($message->status) }}</span>
-			</div>
-			@endif
-		@endforeach
+			@endforeach
 		</div>
 		<!-- 送信フォーム -->
 		<form enctype="multipart/form-data" action="" method="POST" class="form-horizontal">
@@ -51,7 +51,6 @@
 				<i class="fas fa-paper-plane offset-11" id="submit"></i>
 			</div>
 			<!-- 登録ボタン -->
-
 		</form>
 	</div>
 <script type="module" src="{{ mix('js/pusher.js') }}"></script>

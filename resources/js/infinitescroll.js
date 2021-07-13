@@ -25,9 +25,10 @@
 	const scrollFlag = 55;
 
 	// 間引きしたい処理
-	let count = 1;
 	function 	myCallback(){
 		if(window.scrollY < scrollFlag){
+
+			const min = document.getElementById('min').textContent;
 
 	    xhr.open('post', '/infinitescroll');
 	    xhr.setRequestHeader('X-CSRF-Token', token); // 追加
@@ -35,7 +36,7 @@
 
 
 	    fd.append('room_id', document.getElementById('room_id').value);
-	    fd.append('count', count++);
+	    fd.append('min', min);
 	    xhr.send(fd);
 
 		}
@@ -52,7 +53,7 @@
       const res = JSON.parse(xhr.response);
 
       const all_message = document.getElementById('all_message');
-      for(let i = res.length - 1; i >= 0; i--){
+      for(let i = 0; i <= res.length - 1; i++){
       	// 自分のメッセージ
 	      if(res[i].user_id == document.getElementById('user_id').value){
 	      	const loadMessage = document.createElement('div');
@@ -65,7 +66,7 @@
 		      	const yourMessage = document.createElement('div');
 		      	yourMessage.className = 'message ml-auto';
 		      	const message = document.createElement('p');
-		      	message.innerHTML = res[i].message;
+		      	message.innerHTML = res[i].id + res[i].message;
 
 		      	yourMessage.appendChild(message);
 		      	loadMessage.appendChild(yourName);
@@ -130,5 +131,7 @@
 	      	}
 	      }
     	}
+			const last = res.slice(-1)[0];
+      document.getElementById('min').textContent = last.id;
     }
 	});
