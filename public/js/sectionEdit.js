@@ -225,7 +225,7 @@ function validation() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/vagrant/code/cael/resources/js/Memos/sectionEdit.js */"./resources/js/Memos/sectionEdit.js");
+module.exports = __webpack_require__(/*! /var/www/html/a-cial-project/cael/resources/js/Memos/sectionEdit.js */"./resources/js/Memos/sectionEdit.js");
 
 
 /***/ })
