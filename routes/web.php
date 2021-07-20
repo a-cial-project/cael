@@ -47,5 +47,12 @@ Route::group(['middleware' => 'auth'], function() {
   Route::post('/memostock', 'Memo\MemoStockController@memostock')->name('memos.memostock');
   // 質問機能
   Route::resource('question', 'Question\QuestionController')->only(['show', 'create', 'store', 'edit', 'update']);
+  // インタビュー機能
+  Route::resource('interview', 'Interview\InterviewController')->only(['index', 'show', 'create', 'store', 'edit', 'update']);
+  Route::get('show', 'Interview\InterviewController@show');
+//   Route::get('interview', 'Interview\InterviewController@index');
+//   Route::get('/interview', function () {
+//     return view('interviews.interview');
+// });
 });
 
