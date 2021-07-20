@@ -61,5 +61,8 @@
     カリキュラム生は分からない事があれば、実際に現場で働いている社員の空いている時間を予約する事が出来ます。
     eeasyというアプリのAPIを使用して実装予定です。
     
+##  google driveのリンク
+    https://drive.google.com/drive/folders/1BNYEu86mvZ8GXL1ahGCRq5v5zM234cde
+    
     
 
