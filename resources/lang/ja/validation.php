@@ -152,7 +152,8 @@ return [
       'name' => 'タイトル',
       'content' => '内容',
       'date' => '開始日',
-      'limit' => '締め切り日',
+      'memo_name' => 'タイトル',
+      'editor' => '内容',
     ],
 
 ];

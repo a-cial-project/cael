@@ -30,7 +30,7 @@
       <option value="UnderRecruitment">募集中</option>
       <option value="end">終了</option>
     </select>
-    <input type="text" name="new_category" id="category" placeholder="新しいカテゴリーを追加" class="row offset-4 col-4 mb-5">
+    <input type="text" name="new_category" id="new_category" placeholder="新しいカテゴリーを追加" class="row offset-4 col-4 mb-5">
     <textarea name="content" rows="10" cols="80" class="row offset-2 col-8 mb-5">{{ $sport->content }}</textarea>
     <input type="date" name="date" class="today row offset-4 col-4 mb-5" value="{{ $sport->date }}">
     <input type="date" name="limit" class="today row offset-4 col-4 mb-5" value="{{ $sport->limit }}">

@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "/js/app.js": "/js/app.js?id=8ed626dde470cdfc9d8f",
     "/js/category.js": "/js/category.js?id=216298263f44d76020e0",
     "/js/favorite.js": "/js/favorite.js?id=a12f624bb423fe393c35",
@@ -11,4 +12,39 @@
     "/js/sectionEdit.js": "/js/sectionEdit.js?id=d372d98729421e61f8cb",
     "/js/slidePhoto.js": "/js/slidePhoto.js?id=03f4c954d461d873e4e0",
     "/css/app.css": "/css/app.css?id=a86101e4175555bfc46c"
+=======
+    "/js/app.js": "/js/app.js?id=8c0776bd3da58f64f1c9",
+    "/css/app.css": "/css/app.css?id=91d5ac8a933585869aef",
+<<<<<<< HEAD
+    "/js/category.js": "/js/category.js?id=28ff1549ede9f81f5c1c",
+    "/js/comment.js": "/js/comment.js?id=5a4c32a311aa6a08a55a",
+    "/js/favorite.js": "/js/favorite.js?id=99fb303d0084aed2a00b",
+    "/js/flagChange.js": "/js/flagChange.js?id=85348a42e55a57b11794",
+    "/js/infinitescroll.js": "/js/infinitescroll.js?id=eec8d931ac74113cdcfd",
+    "/js/pagination.js": "/js/pagination.js?id=85cc645d511bc680e12a",
+    "/js/prettify.js": "/js/prettify.js?id=3b97ad2621e2b7e9f5bf",
+    "/js/pusher.js": "/js/pusher.js?id=98e9680a43a911fe241d",
+    "/js/question_editor.js": "/js/question_editor.js?id=644b7fba53822a696c9b",
+    "/js/s3_upload.js": "/js/s3_upload.js?id=88459d309398f4ea6795",
+    "/js/search.js": "/js/search.js?id=c228cb3a91697e72574d",
+    "/js/sectionAdd.js": "/js/sectionAdd.js?id=672a998c3e53821284bc",
+    "/js/sectionEdit.js": "/js/sectionEdit.js?id=3ec3d92dc0bc1774cf7c",
+    "/js/showFavorite.js": "/js/showFavorite.js?id=30af27b4c5518e42f1dd"
+=======
+    "/js/category.js": "/js/category.js?id=804cc830eb8638f597df",
+    "/js/comment.js": "/js/comment.js?id=d57f09b75e31229e9b7f",
+    "/js/favorite.js": "/js/favorite.js?id=ede35f98bb19afeb577d",
+    "/js/flagChange.js": "/js/flagChange.js?id=6d48db81bf113a717f13",
+    "/js/infinitescroll.js": "/js/infinitescroll.js?id=0c3a07b7de3ac04d6bd0",
+    "/js/pagination.js": "/js/pagination.js?id=7d141a877fdd8fa47ee0",
+    "/js/prettify.js": "/js/prettify.js?id=21b3ece5a994a19c394c",
+    "/js/pusher.js": "/js/pusher.js?id=1d592a2f3779ec91f47e",
+    "/js/question_editor.js": "/js/question_editor.js?id=4132eb84c45f5ec179e8",
+    "/js/s3_upload.js": "/js/s3_upload.js?id=d1fbd702ed377d0da1d4",
+    "/js/search.js": "/js/search.js?id=ef248c73f6750d96ef22",
+    "/js/sectionAdd.js": "/js/sectionAdd.js?id=1fdce8e1f669594985fb",
+    "/js/sectionEdit.js": "/js/sectionEdit.js?id=c52e2d998271175fe5ea",
+    "/js/showFavorite.js": "/js/showFavorite.js?id=1bee5d4da2076fab7e98"
+>>>>>>> 47bd30d15da17f6e64fdb5d521f4403684cd7bd2
+>>>>>>> develop
 }

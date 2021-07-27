@@ -24,6 +24,8 @@ Route::group(['middleware' => 'auth'], function() {
   Route::get('/', 'HomeController@index')->name('home');
   // 社員閲覧機能
   Route::resource('user','UserController')->only(['show', 'edit', 'update']);
+  // ユーザーお気に入り一覧
+  Route::get('/user/{user}/{genre}', 'UserController@usergenre')->name('users.genre');
   // 社員検索機能
   Route::post('/usersearch', 'UserController@usersearch')->name('users.usersearch');
   // パスワード変更画面
@@ -43,10 +45,21 @@ Route::group(['middleware' => 'auth'], function() {
   // Qiita機能
   Route::resource('memo', 'Memo\MemoController')->only(['show', 'create', 'store', 'edit', 'update']);
   Route::post('memosearch', 'Memo\MemoController@search')->name('memos.search');
+  Route::post('/imageupload', 'Memo\MemoController@imageupload')->name('memos.imageupload');
+  Route::post('/imagedelete', 'Memo\MemoController@imagedelete')->name('memos.imagedelete');
   Route::post('/deletecontent', 'Memo\MemoController@deletecontent')->name('memos.deletecontent');
   Route::post('/memostock', 'Memo\MemoStockController@memostock')->name('memos.memostock');
   // 質問機能
   Route::resource('question', 'Question\QuestionController')->only(['show', 'create', 'store', 'edit', 'update']);
+  Route::resource('question', 'Question\QuestionController')->only(['show', 'create', 'store', 'edit', 'update','index']);
+  Route::get('/questioninfo/', 'Question\QuestionController@question_info')->name('question.info');
+  Route::post('/questionImgUpload','Question\QuestionController@img_upload')->name('question.upload');
+  Route::post('/questionImgRemove','Question\QuestionController@img_remove')->name('question.remove');
+  // チャット機能
+  Route::resource('room', 'Chat\RoomController')->only(['show', 'create']);
+  Route::post('/infinitescroll', 'Chat\RoomController@infinitescroll')->name('rooms.infinitescroll');
+  Route::post('/flagchange', 'Chat\RoomController@flagchange')->name('rooms.flagchange');
+  Route::resource('message', 'Chat\MessageController')->only(['store']);
   // インタビュー機能
   Route::resource('interview', 'Interview\InterviewController')->only(['index', 'show', 'create', 'store', 'edit', 'update', 'post']);
   Route::get('show', 'Interview\InterviewController@show');
@@ -67,5 +80,6 @@ Route::group(['middleware' => 'auth'], function() {
 //   Route::delete('/{post}', [PostController::class, 'destroy']);
 
 // });
+
 });
 

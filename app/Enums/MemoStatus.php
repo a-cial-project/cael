@@ -11,20 +11,20 @@ use BenSampo\Enum\Enum;
  */
 final class MemoStatus extends Enum
 {
-  const privacy = 0;
-  const relase = 1;
+	const privacy = 0;
+	const relase = 1;
 
-  public static function getStatus($value): string
-  {
-    switch ($value){
-      case 'relase':
-        return '公開';
-        brake;
-      case 'privacy':
-        return '非公開';
-        brake;
-      default:
-        return self::getKey($value);
-    }
-  }
+	public static function getStatus($value): string
+	{
+		switch ($value){
+			case 'relase':
+				return '公開';
+				brake;
+			case 'privacy':
+				return '非公開';
+				brake;
+			default:
+				return self::getKey($value);
+		}
+	}
 }

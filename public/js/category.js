@@ -12,7 +12,7 @@ if (document.getElementById('hide') != undefined) {
   for (var i = 0; i < categoryChange.length; i++) {
     if (categoryChange[i].value == value) {
       categoryChange[i].selected = true;
-      document.getElementById("category").style.display = "none";
+      document.getElementById("new_category").style.display = "none";
     }
   }
 
@@ -21,10 +21,29 @@ if (document.getElementById('hide') != undefined) {
 
 category_id.onchange = function () {
   if (category_id.value == 0) {
-    document.getElementById("category").style.display = "block";
+    document.getElementById("new_category").style.display = "block";
   } else if (category_id.value != 0) {
-    document.getElementById("category").style.display = "none";
+    document.getElementById("new_category").style.display = "none";
   }
 };
+<<<<<<< HEAD
 /******/ })()
 ;
+=======
+
+/***/ }),
+
+/***/ 1:
+/*!****************************************!*\
+  !*** multi ./resources/js/category.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! /var/www/html/a-cial-project/cael/resources/js/category.js */"./resources/js/category.js");
+
+
+/***/ })
+
+/******/ });
+>>>>>>> develop

@@ -1,0 +1,85 @@
+.message{
+	position: relative;
+}
+.my_message h6{
+	text-align: right;
+	width: 100%;
+}
+.other_message h6{
+	text-align: left;
+	width: 100%;
+}
+.my_message .message{
+	margin-right: 40px;
+}
+.other_message .message{
+	margin-left: 40px;
+}
+.my_message p{
+	text-align: right;
+	width: 100%;
+	padding: 17px;
+    border-radius: 10px;
+    background-color: #9cd6e7;
+    max-width: 430px;
+}
+/* 右の三角形を作る */
+.my_message p:after {
+	position: absolute;
+    content: "";
+    width: 24px;
+    height: 36px;
+    border-radius: 0 18px 18px 6px/0 18px 18px 1px;
+    box-shadow: inset 3px -15px 0 -5px #9cd6e7;
+    top: -16px;
+    right: -17px;
+}
+.other_message p{
+	text-align: left;
+	width: 100%;
+	padding: 17px;
+    border-radius: 10px;
+    background-color: #9cd6e7;
+    max-width: 430px;
+}
+/* 左の三角形を作る */
+.other_message p:after {
+	position: absolute;
+    content: "";
+    width: 24px;
+    height: 36px;
+    border-radius: 18px 0 6px 18px/18px 0 1px 18px;
+    box-shadow: -3px -15px 0 -5px #9cd6e7 inset;
+    top: -16px;
+    left: -17px;
+}
+
+input[type="file"] {
+   display: none;
+}
+.my_message .image_parent {
+	text-align: right;
+  width: 100%;
+}
+.other_message .image_parent {
+	text-align: left;
+  width: 100%;
+}
+.content{
+	width: 40%;
+}
+
+/*ローディング*/
+#loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: deepskyblue;
+    transition: all 1s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}

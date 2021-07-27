@@ -37,5 +37,24 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 }, false);
+<<<<<<< HEAD
 /******/ })()
 ;
+=======
+
+/***/ }),
+
+/***/ 6:
+/*!********************************************!*\
+  !*** multi ./resources/js/showFavorite.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! /var/www/html/a-cial-project/cael/resources/js/showFavorite.js */"./resources/js/showFavorite.js");
+
+
+/***/ })
+
+/******/ });
+>>>>>>> develop

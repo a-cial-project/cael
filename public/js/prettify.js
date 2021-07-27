@@ -606,6 +606,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!function () {
   })();
 }();
 
+<<<<<<< HEAD
+=======
+/***/ }),
+
+/***/ 4:
+/*!****************************************!*\
+  !*** multi ./resources/js/prettify.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! /var/www/html/a-cial-project/cael/resources/js/prettify.js */"./resources/js/prettify.js");
+
+
+>>>>>>> develop
 /***/ })
 
 /******/ 	});

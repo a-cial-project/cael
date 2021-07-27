@@ -16,7 +16,7 @@ class SportController extends Controller
 	use Favorite;
 	public function search(Request $request)
 	{
-		$sports = [];
+	$sports = [];
     $sports[] = Sport::where('name', 'like', '%' . $request->value . '%')->orderBy('created_at', 'desc')->get();
     $sports[] = 'sport';
     foreach($sports[0] as $key => $sport){
@@ -65,25 +65,15 @@ class SportController extends Controller
 					$sport_category = new SportCategory;
 					$sport_category->name = $request->new_category;
 					$sport_category->save();
+					$request->sport_category_id = $sport_category->id;
 			  }
 			}
 			$sport = new Sport;
 			$sport->user_id = Auth::user()->id;
-			$sport->name = $request->name;
-			if(isset($category)){
-				$sport->sport_category_id = $category->id;
-			}elseif(isset($sport_category)){
-				$sport->sport_category_id = $sport_category->id;
-			}elseif(is_null($request->new_category)){
-				$sport->sport_category_id = $request->category_id;
-			}
-			$sport->content = $request->content;
-			$sport->date = $request->date;
-			$sport->limit = $request->limit;
-			$sport->save();
+			$sport->fill($request->all())->save();
 
 			$sports = Sport::orderBy('created_at', 'desc')->paginate(10);
-		  return view('sports.index',['sports' => $sports]);
+		  return redirect('/');
 		} catch (Throwable $e) {
 			report($e);
 			return false;
@@ -119,19 +109,7 @@ class SportController extends Controller
 			  }
 			}
 			$sport = Sport::find($request->id);
-			$sport->name = $request->name;
-			if(isset($category)){
-				$sport->sport_category_id = $category->id;
-			}elseif(isset($sport_category)){
-				$sport->sport_category_id = $sport_category->id;
-			}elseif(is_null($request->new_category)){
-				$sport->sport_category_id = $request->category_id;
-			}
-			$sport->content = $request->content;
-			$sport->date = $request->date;
-			$sport->limit = $request->limit;
-			$sport->status = $request->status;
-			$sport->save();
+			$sport->fill($request->all())->save();
 
 			$result = $this->favoritecheck('App\Model\Sports\SportFavorite', 'sport_id', $request->id);
 			$count = $this->favoritecount('App\Model\Sports\SportFavorite', 'sport_id', $request->id);
