@@ -22,14 +22,11 @@ mix.js('resources/js/app.js', 'public/js')
    .js('resources/js/infinitescroll.js', 'public/js')
    .js('resources/js/Memos/sectionAdd.js', 'public/js')
    .js('resources/js/Memos/sectionEdit.js', 'public/js')
-<<<<<<< HEAD
-   .js('resources/js/Interviews/slidePhoto.js', 'public/js')
-=======
    .js('resources/js/Memos/s3_upload.js', 'public/js')
    .js('resources/js/Chats/pusher.js', 'public/js')
    .js('resources/js/Chats/flagChange.js', 'public/js')
    .js('resources/js/Questions/question_editor.js', 'public/js')
->>>>>>> develop
+   .js('resources/js/Interviews/slidePhoto.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
    .version();
 
