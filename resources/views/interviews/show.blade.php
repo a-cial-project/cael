@@ -139,7 +139,49 @@
 
 </section>
 <!-- Team members -->
+
+<form method="POST" action="">
+    @csrf
+    <div >
+        <label for="title_post">氏名</label>
+        <div>
+            <input type="text-input" name="title">
+        </div>
+    </div>
+    <div >
+        <label for="title_post">ニックネーム</label>
+        <div>
+            <input type="text-input" name="title">
+        </div>
+    </div>
+    <div >
+        <label for="title_post">スポーツ種目</label>
+        <div>
+            <input type="text-input" name="title">
+        </div>
+    </div>
+
+    <div style="width:100%">
+        <label for="text-input">プロフィール</label>
+        <div>
+            <textarea class="ckeditor" name="text"></textarea>
+        </div>
+    </div>
+    <div style="width:100%">
+        <label for="text-input">内容</label>
+        <div>
+            <textarea class="ckeditor" name="text"></textarea>
+        </div>
+    </div>
+
+    <div>
+        <button type="submit">Post</button>
+    </div>
+</form>
+
+{{-- ckeditorの読み込み --}}
+<script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 </div>
-  \
+{{-- 写真スライドjs読み込み --}}
 <script type="module" src="{{ mix('js/slidePhoto.js') }}"></script>
 @endsection

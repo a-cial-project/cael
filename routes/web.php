@@ -48,11 +48,24 @@ Route::group(['middleware' => 'auth'], function() {
   // 質問機能
   Route::resource('question', 'Question\QuestionController')->only(['show', 'create', 'store', 'edit', 'update']);
   // インタビュー機能
-  Route::resource('interview', 'Interview\InterviewController')->only(['index', 'show', 'create', 'store', 'edit', 'update']);
+  Route::resource('interview', 'Interview\InterviewController')->only(['index', 'show', 'create', 'store', 'edit', 'update', 'post']);
   Route::get('show', 'Interview\InterviewController@show');
-//   Route::get('interview', 'Interview\InterviewController@index');
-//   Route::get('/interview', function () {
-//     return view('interviews.interview');
+
+  Route::get('post', 'Interview\InterviewController@post');
+  Route::get('show_posts', 'Interview\InterviewController@show_posts');
+  Route::get('check_posts', 'Interview\InterviewController@check_post');
+  Route::get('store_post', 'Interview\InterviewController@store_post');
+  Route::get('update_post', 'Interview\InterviewController@update_post');
+  Route::get('destroy_post', 'Interview\InterviewController@destroy_post');
+
+//   Route::prefix('post')->group(function(){
+//   Route::get('/', [PostController::class, 'index']);
+//   Route::get('/list', [PostController::class, 'list']);
+//   Route::get('/{post}', [PostController::class, 'show']);
+//   Route::post('/', [PostController::class, 'store']);
+//   Route::put('/{post}', [PostController::class, 'update']);
+//   Route::delete('/{post}', [PostController::class, 'destroy']);
+
 // });
 });
 

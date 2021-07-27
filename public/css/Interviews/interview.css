@@ -221,7 +221,7 @@ section .section-title {
 .interview_img img {
     width: 100%;
     border-radius: 5px;
-  
+
 }
 
 /* interview content 3  slide show*/
@@ -266,4 +266,14 @@ section .section-title {
  .play_video {
      width: 500px;
 
+ }
+
+
+ /* Post pages */
+ .input-field {
+     margin-bottom: 10px;
+     width: 100%;
+ }
+ .input-area {
+     width: 100%;
  }
