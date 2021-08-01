@@ -20,25 +20,49 @@
 </head> --}}
 <body>
 <div id="app" class="container p-3">
-    <h1 class="mb-4">記事の管理</h1>
-
+    <h1 class="mb-3">記事の管理</h1>
     <!-- 一覧表示部分 -->
-    <div>
+    @if (session('err_msg'))
+    <div class="alert alert-success" role="alert">
+        {{ session('err_msg') }}
+    </div>
+    @endif
+    <div class="row">
+    <div class="col-12">
         <div class="text-right pb-4">
-            <a href="/post" class="btn btn-success">追加</a>
+            <a href="{{ route('interview.create_post') }}" class="btn btn-success">記事の追加</a>
         </div>
-        <table class="table">
-            <tr v-for="post in posts">
-                <td v-text="post.title"></td>
-                <td class="text-right">
-                    <a :href="'/post/'+ post.id" class="btn btn-light mr-2" target="_blank">確認</a>
-                    <a href="" class="btn btn-warning mr-2" >変更</a>
+        <div class="search">
+            <span class="text">仲間のインタビューを検索</span>
+            <input name="text" type="text" placeholder="氏名を入力してください">
+            <button name="search" type="submit"><i class="fas fa-search"></i></button>
+        </div>
+        <table class="table" class="col-12">
+            <tr">
+                <th class="table_header">NO</th>
+                <th class="table_header">日付</th>
+                <th class="table_header">タイトル</th>
+                <th class="table_header">氏名</th>
+                <th class="table_header">プロフィール</th>
+                <th class="table_header"></th>
+            </tr>
+            @foreach ($interviews as $interview)
+            <tr>
+                <td>{{ $interview->id }}</td>
+                <td>{{ $interview->updated_at->format('Y/m/d') }}</td>
+                <td>{{ $interview->name }}</td>
+                <td>{{ $interview->nickname }}</td>
+                <td>{{ $interview->profile }}</td>
+                <td class="text-right col-5">
+                    <a href="{{ route('interview.check_post', [$interview->id]) }}" class="btn btn-info" target="_blank">確認</a>
+                    <a href="{{ route('interview.update_post') }}" class="btn btn-warning" >変更</a>
                     <button type="button" class="btn btn-danger" >削除</button>
                 </td>
             </tr>
+            @endforeach
         </table>
     </div>
-
+  </div>
 </div>
 <script src="https://unpkg.com/vue@3.0.2/dist/vue.global.prod.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>

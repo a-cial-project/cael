@@ -150,6 +150,9 @@ return [
 
     'attributes' => [
       'name' => 'タイトル',
+      'nickname' => 'ニックネーム',
+      'sport' => 'スポーツ',
+      'profile' => 'プロフィール',
       'content' => '内容',
       'date' => '開始日',
       'memo_name' => 'タイトル',

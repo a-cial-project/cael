@@ -129,24 +129,5 @@ var display = function display(value, itemArray) {
     }
   });
 };
-<<<<<<< HEAD
 /******/ })()
 ;
-=======
-
-/***/ }),
-
-/***/ 5:
-/*!******************************************!*\
-  !*** multi ./resources/js/pagination.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! /var/www/html/a-cial-project/cael/resources/js/pagination.js */"./resources/js/pagination.js");
-
-
-/***/ })
-
-/******/ });
->>>>>>> develop

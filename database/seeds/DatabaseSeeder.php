@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
       $this->call(RoomTableSeeder::class);
       $this->call(EntryTableSeeder::class);
       $this->call(MessageTableSeeder::class);
+      $this->call(InterviewTableSeeder::class);
     }
 }

@@ -45,24 +45,5 @@ window.clickFavorite = function (favoriteUrl) {
     }
   });
 };
-<<<<<<< HEAD
 /******/ })()
 ;
-=======
-
-/***/ }),
-
-/***/ 2:
-/*!****************************************!*\
-  !*** multi ./resources/js/favorite.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! /var/www/html/a-cial-project/cael/resources/js/favorite.js */"./resources/js/favorite.js");
-
-
-/***/ })
-
-/******/ });
->>>>>>> develop

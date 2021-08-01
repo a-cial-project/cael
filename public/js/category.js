@@ -26,24 +26,5 @@ category_id.onchange = function () {
     document.getElementById("new_category").style.display = "none";
   }
 };
-<<<<<<< HEAD
 /******/ })()
 ;
-=======
-
-/***/ }),
-
-/***/ 1:
-/*!****************************************!*\
-  !*** multi ./resources/js/category.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! /var/www/html/a-cial-project/cael/resources/js/category.js */"./resources/js/category.js");
-
-
-/***/ })
-
-/******/ });
->>>>>>> develop

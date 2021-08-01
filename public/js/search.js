@@ -79,24 +79,5 @@ window.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
-<<<<<<< HEAD
 /******/ })()
 ;
-=======
-
-/***/ }),
-
-/***/ 3:
-/*!**************************************!*\
-  !*** multi ./resources/js/search.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! /var/www/html/a-cial-project/cael/resources/js/search.js */"./resources/js/search.js");
-
-
-/***/ })
-
-/******/ });
->>>>>>> develop
