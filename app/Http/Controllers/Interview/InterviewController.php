@@ -40,6 +40,7 @@ class InterviewController extends Controller
      public function store_post(InterviewRequest $request) {
         //  記事のデータを受け取る
          $inputs = $request->all();
+         \DB::beginTransaction();
         //  記事登録
         try {
             Interview::create([
@@ -49,9 +50,9 @@ class InterviewController extends Controller
                 'profile' => $inputs['profile'],
                 'content' => $inputs['content'],
             ]);
-            // \DB::commit();
+            \DB::commit();
         } catch (\Throwable $e) {
-            // \DB::rollback();
+            \DB::rollback();
             abort(500);
         }
          session()->flash('err_msg', '記事を追加しました');
@@ -84,12 +85,49 @@ class InterviewController extends Controller
     }
 
      /**
-     * 登録された記事データを更新する画面
+     * 記事編集フォームを表示
      * @return view
      */
-    public function update_post() {
-        return view('interviews.update_post');
+    public function update_post($id) {
+        $interview = Interview::find($id);
+        // dd($interview);
+        if (is_null($interview)) {
+            session()->flash('err_msg', 'データがありません');
+            return redirect(route('interview.show_posts'));
+        }
+        return view('interviews.update_post', ['interview' => $interview]);
     }
+    /**
+     * 記事データを受け取りinterviewテーブルへ登録処理を実行
+     * @param  App\Http\Requests\InterviewRequest
+     * $request
+     */
+
+    public function update(InterviewRequest $request) {
+        //  記事のデータを受け取る
+         $inputs = $request->all();
+        //  dd($inputs);
+        \DB::beginTransaction();
+        //  記事登録
+        try {
+            $interview = Interview::find($inputs['id']);
+            $interview->fill([
+                'name' => $inputs['name'],
+                'nickname' => $inputs['nickname'],
+                'sport' => $inputs['sport'],
+                'profile' => $inputs['profile'],
+                'content' => $inputs['content'],
+            ]);
+            $interview->save();
+            \DB::commit();
+        } catch (\Throwable $e) {
+            \DB::rollback();
+            abort(500);
+        }
+         session()->flash('err_msg', '記事を編集しました');
+         return redirect()->route('interview.show_posts');
+ }
+
 
     /**
      * 登録された記事データ削除を実行

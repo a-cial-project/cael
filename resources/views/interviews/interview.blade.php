@@ -37,7 +37,7 @@
         <h5 class="section-title h1 border-bottom" style="padding:10px;">AAT事業部</h5>
         <div id="article" class="row">
             <!-- member -->
-            {{-- <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="image-flip" >
                     <div class="mainflip flip-0">
                         <div class="frontside">
@@ -84,10 +84,10 @@
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
             <!-- member -->
             <!-- member -->
-            {{-- <div class="col-xs-12 col-sm-6 col-md-4" id="article">
+            <div class="col-xs-12 col-sm-6 col-md-4" id="article">
                 <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
                     <div class="mainflip">
                         <div class="frontside">
@@ -329,7 +329,7 @@
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
             <!--member -->
         </div>
         <div class="col text-center">
@@ -339,7 +339,7 @@
 
 </section>
 <!-- Team members -->
-<script>
+{{-- <script>
     const article = document.getElementById("article");
     // console.log(article);
     // const content = document.getElementsByClassName("row");
@@ -349,7 +349,7 @@
             postElement.setAttribute('id', 'posted_article');
             // for (let num=0; num<6; num++) {
             // const post = document.getElementById('posted_article');
-            
+
            postElement.innerHTML = `
                 <div class="col-xs-12 col-sm-6 col-md-4">
                     <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
@@ -415,6 +415,6 @@
     //     }
     // });
 
-</script>
+</script> --}}
 </div>
 @endsection

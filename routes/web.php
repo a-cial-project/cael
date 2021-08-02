@@ -68,7 +68,8 @@ Route::group(['middleware' => 'auth'], function() {
   Route::post('store_post', 'Interview\InterviewController@store_post')->name('interview.store_post');
   Route::get('show_posts', 'Interview\InterviewController@show_posts')->name('interview.show_posts');
   Route::get('check_post/{id}', 'Interview\InterviewController@check_post')->name('interview.check_post');;
-  Route::get('update_post', 'Interview\InterviewController@update_post')->name('interview.update_post');;
+  Route::get('update_post/{id}', 'Interview\InterviewController@update_post')->name('interview.update_post');;
+  Route::post('update', 'Interview\InterviewController@update')->name('interview.update');
   Route::get('destroy_post', 'Interview\InterviewController@destroy_post')->name('interview.destroy_post');;
 });
 

@@ -55,7 +55,7 @@
                 <td>{{ $interview->profile }}</td>
                 <td class="text-right col-5">
                     <a href="{{ route('interview.check_post', [$interview->id]) }}" class="btn btn-info" target="_blank">確認</a>
-                    <a href="{{ route('interview.update_post') }}" class="btn btn-warning" >変更</a>
+                    <a href="{{ route('interview.update_post', [$interview->id]) }}" class="btn btn-warning" target="_blank">変更</a>
                     <button type="button" class="btn btn-danger" >削除</button>
                 </td>
             </tr>
