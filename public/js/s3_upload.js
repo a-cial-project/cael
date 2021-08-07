@@ -119,6 +119,7 @@ function fileReader(addImage) {
       image.src = xhr.response;
       var input_file = document.createElement('input');
       input_file.type = 'text';
+      input_file.className = 'new_file';
       input_file.display = 'none';
       input_file.setAttribute("name", "path[]");
       input_file.value = xhr.response;
@@ -182,9 +183,11 @@ window.addEventListener('beforeunload', function (event) {
 });
 window.addEventListener('unload', function (event) {
   if (is_note_msg) {
-    // ロードした時はS3に保存された画像を削除する処理をする
-    for (var _i = 0; _i < alreadyImg.length; _i++) {
-      deleteImg(alreadyImg[_i]);
+    // ロードした時はS3に保存された画像を削除する処理をする（submitを押した時は無視）
+    var new_file = document.getElementsByClassName('new_file');
+
+    for (var _i = 0; _i < new_file.length; _i++) {
+      deleteImg(new_file[_i].parentNode.previousElementSibling);
     }
   }
 });

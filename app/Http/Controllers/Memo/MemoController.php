@@ -120,7 +120,7 @@ class MemoController extends Controller
 						$new_memo->name = $request->new_category;
 						$new_memo->save();
 						$memo->memo_category_id = $new_memo->id;
-					}
+				}
 			}else{
 				$memo->memo_category_id = $request->category_id;
 			}
