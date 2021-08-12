@@ -39,7 +39,9 @@ class QuestionController extends Controller
     }
 
     public function store(Request $request){
-        return view("questions/question_info",["editor" => $request]);
+        dd($request->all());
+        // 下書き保存　statusで振り分け
+        // 投稿保存
     }
 
     public function img_upload(Request $request){

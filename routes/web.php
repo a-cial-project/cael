@@ -51,7 +51,7 @@ Route::group(['middleware' => 'auth'], function() {
   Route::post('/memostock', 'Memo\MemoStockController@memostock')->name('memos.memostock');
   // 質問機能
   Route::resource('question', 'Question\QuestionController')->only(['show', 'create', 'store', 'edit', 'update','index']);
-  Route::get('/questioninfo/', 'Question\QuestionController@question_info')->name('question.info');
+  Route::get('/questionInfo', 'Question\QuestionController@question_info')->name('question.info');
   Route::post('/questionImgUpload','Question\QuestionController@img_upload')->name('question.upload');
   Route::post('/questionImgRemove','Question\QuestionController@img_remove')->name('question.remove');
   // チャット機能

@@ -23,23 +23,30 @@
     </form>
   </div>
     <!-- 画像表示用要素　ここに保存した画像をimg要素で出力 -->
-  <div class="img_view" id="img_views">
-  </div>
+  <div class="img_view" id="img_views"></div>
 
   <!-- 質問投稿 -->
+  <form action="{{ route('question.store') }}" method="post" enctype="multipart/form-data" id="question_post" name="question">
+  @csrf
   <div class="row mx-2">
     <div class="col-6">
-      <form action="{{ route('question.store') }}" method="post" enctype="multipart/form-data" id="question_post" name="question">
-        @csrf
        <textarea id="editor" name="ckeditor" ></textarea>
     </div>
     <div class="col-6 border" style="overflow: scroll;">
       <p class="font-weight-bold text-center my-3 border-bottom">プレビュー</p>
-      <p class="preview" id="preview">
-      </p>
+      <p class="preview" id="preview">/p>
     </div>
   </div>
-  <input class="btn btn-primary offset-3 col-6 mt-3" type="submit" name="question_submit" value="質問確認画面へ">
+
+  <div class="input-group my-3 w-25 float-right mr-3">
+    <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon" name="status">
+      <option value="">投稿</option>
+      <option value="3">下書き保存</option>
+    </select>
+    <div class="input-group-append">
+      <input type="submit" class="btn btn-outline-primary" value="保存する">
+    </div>
+  </div>
   </form>
     <!-- module->ページの最後に読み込む -->
 <script type="module" src="{{ mix('js/question_editor.js') }}"></script>
