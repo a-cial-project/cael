@@ -27,7 +27,7 @@ class InterviewRequest extends FormRequest
             'name' => 'required',
             'nickname' => 'required',
             'sport' => 'required',
-            'profile' => 'required | max:20',
+            'profile' => 'required | max:100',
             'content' => 'required',
         ];
     }

@@ -62,14 +62,16 @@ Route::group(['middleware' => 'auth'], function() {
   Route::resource('message', 'Chat\MessageController')->only(['store']);
   // インタビュー機能
   Route::resource('interview', 'Interview\InterviewController')->only(['index', 'show', 'create', 'store', 'edit', 'update']);
-  Route::get('show', 'Interview\InterviewController@show');
+  Route::get('show/{id}', 'Interview\InterviewController@show')->name('interview.show');
+  Route::get('search_by_user', 'Interview\InterviewController@search_by_user')->name('interview.search_by_user');
 
   Route::get('create_post', 'Interview\InterviewController@create_post')->name('interview.create_post');
   Route::post('store_post', 'Interview\InterviewController@store_post')->name('interview.store_post');
-  Route::get('show_posts', 'Interview\InterviewController@show_posts')->name('interview.show_posts');
-  Route::get('check_post/{id}', 'Interview\InterviewController@check_post')->name('interview.check_post');;
-  Route::get('update_post/{id}', 'Interview\InterviewController@update_post')->name('interview.update_post');;
-  Route::post('update', 'Interview\InterviewController@update')->name('interview.update');
-  Route::get('destroy_post', 'Interview\InterviewController@destroy_post')->name('interview.destroy_post');;
-});
 
+  Route::get('manage_posts', 'Interview\InterviewController@manage_posts')->name('interview.manage_posts');
+  Route::get('check_post/{id}', 'Interview\InterviewController@check_post')->name('interview.check_post');
+  Route::get('update_post/{id}', 'Interview\InterviewController@update_post')->name('interview.update_post');
+  Route::post('update', 'Interview\InterviewController@update')->name('interview.update');
+  Route::post('destroy_post', 'Interview\InterviewController@destroy_post')->name('interview.destroy_post');
+  Route::get('search_by_admin', 'Interview\InterviewController@search_by_admin')->name('interview.search_by_admin');
+});

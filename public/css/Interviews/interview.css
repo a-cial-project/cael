@@ -1,6 +1,6 @@
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 /* members page */
-/* interview head area */
+/* Interview page for user from here .......................*/
 .title_bg
 {
     height: 160px;
@@ -16,13 +16,13 @@
     padding-top: 10px;
 }
 
-/* Search area CSS*/
 .title {
     width: 500px;
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
 }
+/* Search area for common*/
 #search-all {
     margin: 0 auto;
   }
@@ -60,8 +60,7 @@
     border-radius: 0 5px 5px 0;
   }
 
-/* Users List CSS */
-
+/* main area */
 #team {
     background: #eee !important;
 }
@@ -122,6 +121,7 @@ section .section-title {
 }
 
 .backside {
+    width: 100%;
     position: absolute;
     top: 0;
     left: 0;
@@ -181,9 +181,7 @@ section .section-title {
 #interview-btn {
     color: #fff;
 }
-
-/* show interview page */
-/* header */
+/* show interview page from here.....................*/
 .header_bg
 {
     display: flex;
@@ -210,19 +208,6 @@ section .section-title {
     margin-right: auto;
     color: #959595;
 }
-/* interview content 1 */
-.interview_wrap {
-    display: flex;
-}
-
-.interview_text1 {
-    padding: 20px;
-}
-.interview_img img {
-    width: 100%;
-    border-radius: 5px;
-
-}
 
 /* interview content 3  slide show*/
 .slide {
@@ -237,25 +222,7 @@ section .section-title {
 	object-fit:contain;
     border-radius: 50%;
 }
-/* Responsive design（interveiw & text） */
-@media screen and (max-width: 770px) {
-    .interview_wrap {
-        display: block;
-    }
-    .interview_img {
-        margin: 0 auto;
-    }
-    .interview_img img {
-        width: 100%;
-        /* margin: 0 auto; */
-    }
 
-    .interview_text1 {
-        margin: 0 auto;
-        text-align: center;
-    }
-
- }
 
  /* play video */
 .interview_movie {
@@ -269,20 +236,55 @@ section .section-title {
  }
 
 
- /* Post pages */
- .input-field {
-     margin-bottom: 10px;
-     width: 100%;
- }
- .input-area {
-     width: 100%;
- }
-
- /* show_posts page */
+ /* manage_posts page from here ..............................*/
+/* Form submit pages */
+  .input-field {
+    margin-bottom: 10px;
+    width: 100%;
+}
+.input-area {
+    width: 100%;
+}
+/* manage_posts table CSS */
  .table_header {
      font-size: 16px;
      font-weight: bold;
  }
- .table_header:first-child {
-     /* width: 12%; */
- }
+
+
+.article-title {
+    text-align: center;
+    border-bottom: solid 1px rgb(158, 158, 158);
+}
+
+@media screen and (max-width: 990px) {
+    .admin_btn {
+        width: 200px;
+    }
+    .interview_btn {
+        margin: 0;
+        padding: 0;
+    }
+    .table_header,.table_data  {
+        font-size: 8px;
+        font-weight: bold;
+    }
+    .interview_btn a, .interview_btn form button {
+        font-size: 8px;
+    }
+}
+
+@media screen and (max-width: 770px) {
+    .interview_btn {
+        margin: 0;
+        padding: 0;
+    }
+    .table_header,.table_data  {
+        font-size: 8px;
+        font-weight: bold;
+    }
+    .interview_btn a, .interview_btn form button {
+        font-size: 4px;
+        font-weight: bold;
+    }
+}

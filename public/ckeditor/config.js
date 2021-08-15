@@ -29,8 +29,15 @@ CKEDITOR.editorConfig = function( config ) {
 		 { name: 'about' }
 	];
 	// ckeditor 画像アップロード
-	config.filebrowserImageBrowseUrl = '/kcfinder/browse.php?type=images';
-	config.filebrowserImageUploadUrl = '/kcfinder/upload.php?type=images';
+	// config.filebrowserImageBrowseUrl = '/kcfinder/browse.php?type=images';
+	// config.filebrowserImageUploadUrl = '/kcfinder/upload.php?type=images';
+    // config.filebrowserUploadMethod = 'form';
+
+    config.filebrowserImageBrowseUrl = location.protocol + '//' + location.hostname + '/ckeditor/kcfinder/browse.php?type=images';
+    config.filebrowserImageUploadUrl = location.protocol + '//' + location.hostname + '/ckeditor/kcfinder/upload.php?type=images';
+    config.filebrowserBrowseUrl = location.protocol + '//' + location.hostname + '/ckeditor/kcfinder/browse.php?type=files';
+    config.filebrowserUploadUrl = location.protocol + '//' + location.hostname + '/ckeditor/kcfinder/upload.php?type=files';
+
 
 	// Remove some buttons provided by the standard plugins, which are
 	// not needed in the Standard(s) toolbar.
